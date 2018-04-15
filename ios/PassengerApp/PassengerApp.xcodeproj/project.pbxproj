@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B053681BF6CC86276BAAB1FE /* libPods-PassengerApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F057D8BB4898EB72FC044AD /* libPods-PassengerApp.a */; };
+		B96C02FE2083D1C5007100F2 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = B96C02FD2083D1C5007100F2 /* Podfile */; };
 		DE1D5CB72083B374003C3084 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CB62083B374003C3084 /* CustomButton.swift */; };
 		DE1D5CB92083C00F003C3084 /* AddTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CB82083C00F003C3084 /* AddTripViewController.swift */; };
 		DE1D5CBB2083C58F003C3084 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CBA2083C58F003C3084 /* TripsViewController.swift */; };
@@ -39,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F057D8BB4898EB72FC044AD /* libPods-PassengerApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PassengerApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B275F5B76A0A53FF1237423 /* Pods-PassengerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassengerApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassengerApp/Pods-PassengerApp.release.xcconfig"; sourceTree = "<group>"; };
+		744A1B6D1E84E84410C72B14 /* Pods-PassengerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassengerApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassengerApp/Pods-PassengerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		B96C02FD2083D1C5007100F2 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		DE1D5CB62083B374003C3084 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		DE1D5CB82083C00F003C3084 /* AddTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripViewController.swift; sourceTree = "<group>"; };
 		DE1D5CBA2083C58F003C3084 /* TripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B053681BF6CC86276BAAB1FE /* libPods-PassengerApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,13 +91,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		067D3C2CC2ACC6473737EEFF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3F057D8BB4898EB72FC044AD /* libPods-PassengerApp.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9750DBBB3D075777A935D7C7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				744A1B6D1E84E84410C72B14 /* Pods-PassengerApp.debug.xcconfig */,
+				5B275F5B76A0A53FF1237423 /* Pods-PassengerApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		DED4BA5B206B395200834B8D = {
 			isa = PBXGroup;
 			children = (
+				B96C02FD2083D1C5007100F2 /* Podfile */,
 				DED4BA66206B395200834B8D /* PassengerApp */,
 				DED4BA7B206B395200834B8D /* PassengerAppTests */,
 				DED4BA86206B395200834B8D /* PassengerAppUITests */,
 				DED4BA65206B395200834B8D /* Products */,
+				9750DBBB3D075777A935D7C7 /* Pods */,
+				067D3C2CC2ACC6473737EEFF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,9 +174,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DED4BA8C206B395200834B8D /* Build configuration list for PBXNativeTarget "PassengerApp" */;
 			buildPhases = (
+				8E97E1FC701CF42298AD89EB /* [CP] Check Pods Manifest.lock */,
 				DED4BA60206B395200834B8D /* Sources */,
 				DED4BA61206B395200834B8D /* Frameworks */,
 				DED4BA62206B395200834B8D /* Resources */,
+				9FEC826CDD09AF88FA1AADA6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -249,6 +278,7 @@
 			files = (
 				DED4BA72206B395200834B8D /* LaunchScreen.storyboard in Resources */,
 				DED4BA6F206B395200834B8D /* Assets.xcassets in Resources */,
+				B96C02FE2083D1C5007100F2 /* Podfile in Resources */,
 				DED4BA6D206B395200834B8D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +298,47 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8E97E1FC701CF42298AD89EB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PassengerApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9FEC826CDD09AF88FA1AADA6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PassengerApp/Pods-PassengerApp-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PassengerApp/Pods-PassengerApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DED4BA60206B395200834B8D /* Sources */ = {
@@ -444,6 +515,7 @@
 		};
 		DED4BA8D206B395200834B8D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 744A1B6D1E84E84410C72B14 /* Pods-PassengerApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -458,6 +530,7 @@
 		};
 		DED4BA8E206B395200834B8D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B275F5B76A0A53FF1237423 /* Pods-PassengerApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

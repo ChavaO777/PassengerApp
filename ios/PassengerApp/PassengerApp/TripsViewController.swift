@@ -22,8 +22,9 @@ class TripsViewController: UIViewController {
     }
     
     @IBAction func addNewTrip(_ sender: Any) {
-        //same story board, different view/scene
-        let addTripVC = UIStoryboard (name: "Main", bundle: nil).instantiateViewController(withIdentifier: "addTripView") as! AddTripViewController
+        
+        //Create popup for new trip data
+        let addTripVC = UIStoryboard (name: "Main" /*same story board, different view/scene */, bundle: nil).instantiateViewController(withIdentifier: "addTripView") as! AddTripViewController
         
         self.addChildViewController(addTripVC)
         addTripVC.view.frame = self.view.frame

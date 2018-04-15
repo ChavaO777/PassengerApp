@@ -20,6 +20,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func login(_ sender: Any) {
+        self.performSegue(withIdentifier: "showTripsSegue", sender: self)
+    }
+    
 }
 

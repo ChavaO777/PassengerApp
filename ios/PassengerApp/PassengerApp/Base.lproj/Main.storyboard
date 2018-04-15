@@ -83,13 +83,23 @@
                     <view key="view" contentMode="scaleToFill" id="wOQ-a2-k52">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f9B-hA-eO8" customClass="GMSMapView">
+                                <rect key="frame" x="16" y="102" width="288" height="403"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="WyD-ZJ-Vfl"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="f9B-hA-eO8" id="hqf-eM-Sg4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hn7-La-ynI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-9403" y="-4"/>
+            <point key="canvasLocation" x="-9403.125" y="-4.225352112676056"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="3Qh-EG-L1x">

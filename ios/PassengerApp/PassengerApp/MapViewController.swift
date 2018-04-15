@@ -11,31 +11,45 @@ import GoogleMaps
 
 class MapViewController: UIViewController {
 
+    @IBOutlet weak var mapView: GMSMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //This call to bringSubview() was key!
+        self.view.bringSubview(toFront: self.mapView)
 
+        //VWM Fin coords
+        let lat = 19.1190942
+        let lng = -98.2535574
+        let zoomLevel = 16.0
+        
+        let myCamera = GMSCameraPosition.camera(withLatitude: lat,
+                                              longitude: lng,
+                                              zoom: Float(zoomLevel))
+        
+        let mapViewHeight = mapView.frame.height
+        let mapViewWidth = mapView.frame.width
+        
+        let mapViewGoogleMaps = GMSMapView.map(withFrame: CGRect.init(x: 0, y: 0, width: mapViewWidth, height: mapViewHeight), camera: myCamera)
+        
+        mapViewGoogleMaps.mapType = GMSMapViewType.satellite
+        
+        mapView.camera = myCamera
+        
+        // Creates a marker in the center of the map.
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        marker.title = "M"
+        marker.snippet = "Mexico"
+        marker.map = mapViewGoogleMaps
+        
+        self.mapView = mapViewGoogleMaps
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func loadView() {
-        
-        // Create a GMSCameraPosition that tells the map to display the
-        // coordinate -33.86,151.20 at zoom level 6.
-        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-        let mapViewGoogleMaps = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        view = mapViewGoogleMaps
-
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapViewGoogleMaps
     }
 
     /*

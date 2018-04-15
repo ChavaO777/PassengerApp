@@ -89,10 +89,21 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FoH-nN-hlO">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Item" image="icon_calendar" id="t9K-S7-Qrm"/>
+                                    <barButtonItem title="Item" image="icon_map" id="ryH-v8-PVh"/>
+                                    <barButtonItem title="Item" image="icon_userProfile" id="JDF-eh-EXf"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="WyD-ZJ-Vfl"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="f9B-hA-eO8" id="hqf-eM-Sg4"/>
                     </connections>
@@ -277,5 +288,8 @@
     </scenes>
     <resources>
         <image name="AppLogo" width="227" height="80"/>
+        <image name="icon_calendar" width="100" height="100"/>
+        <image name="icon_map" width="100" height="100"/>
+        <image name="icon_userProfile" width="100" height="100"/>
     </resources>
 </document>

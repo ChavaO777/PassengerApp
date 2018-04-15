@@ -22,28 +22,26 @@ class MapViewController: UIViewController {
         //VWM Fin coords
         let lat = 19.1190942
         let lng = -98.2535574
-        let zoomLevel = 16.0
+        let zoomLevel = 18.0
         
         let myCamera = GMSCameraPosition.camera(withLatitude: lat,
                                               longitude: lng,
                                               zoom: Float(zoomLevel))
         
+        //Get the dimensions of the map's view
         let mapViewHeight = mapView.frame.height
         let mapViewWidth = mapView.frame.width
         
+        //Create an instance of a map
         let mapViewGoogleMaps = GMSMapView.map(withFrame: CGRect.init(x: 0, y: 0, width: mapViewWidth, height: mapViewHeight), camera: myCamera)
         
+        //Set the map type
         mapViewGoogleMaps.mapType = GMSMapViewType.satellite
         
+        //Set the camera
         mapView.camera = myCamera
         
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-        marker.title = "M"
-        marker.snippet = "Mexico"
-        marker.map = mapViewGoogleMaps
-        
+        //Set the map to its corresponding view
         self.mapView = mapViewGoogleMaps
     }
 

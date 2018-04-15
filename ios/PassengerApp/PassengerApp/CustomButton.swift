@@ -6,7 +6,6 @@
 //  Copyright © 2018 Comonfort. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 @IBDesignable class CustomButton: UIButton {
@@ -46,7 +45,7 @@ import UIKit
     
     func sharedInit() {
         refreshCorners(value: cornerRadius)
-        refreshColors(color: backgroundImageColor)
+        refreshColor(color: backgroundImageColor)
     }
     
     func refreshCorners(value: CGFloat) {

@@ -33,13 +33,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contraseña" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1i-57-tFA">
-                                <rect key="frame" x="69" y="310" width="88.5" height="20.5"/>
+                                <rect key="frame" x="64" y="310" width="88.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HPd-bj-26q">
-                                <rect key="frame" x="62.5" y="364.5" width="250" height="30"/>
+                                <rect key="frame" x="62.5" y="351" width="250" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
@@ -75,7 +75,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFm-3e-jvK">
-                                <rect key="frame" x="152" y="449" width="71" height="36"/>
+                                <rect key="frame" x="152" y="431" width="71" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Ingresar"/>
                                 <connections>
@@ -89,15 +89,15 @@
                             <constraint firstItem="iJH-Bj-Fac" firstAttribute="top" secondItem="BfT-fV-Ylh" secondAttribute="bottom" constant="40" id="4yV-Fn-8Y9"/>
                             <constraint firstItem="vRf-vu-AHm" firstAttribute="top" secondItem="iJH-Bj-Fac" secondAttribute="bottom" constant="20.5" id="5Xg-yM-2W4"/>
                             <constraint firstItem="iJH-Bj-Fac" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="64.5" id="BM1-dg-9jV"/>
-                            <constraint firstItem="FFm-3e-jvK" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.4" id="EGO-v5-XTm"/>
                             <constraint firstItem="nEh-Az-qxj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fbq-uQ-Via"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HPd-bj-26q" secondAttribute="trailing" constant="62.5" id="HeE-Gz-7zR"/>
                             <constraint firstItem="FFm-3e-jvK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MEF-XD-yvs"/>
-                            <constraint firstItem="HPd-bj-26q" firstAttribute="top" secondItem="f1i-57-tFA" secondAttribute="bottom" constant="33.5" id="OgI-DY-8zP"/>
+                            <constraint firstItem="HPd-bj-26q" firstAttribute="top" secondItem="f1i-57-tFA" secondAttribute="bottom" constant="20.5" id="OgI-DY-8zP"/>
                             <constraint firstItem="BfT-fV-Ylh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="158.5" id="R8Y-Jv-vS4"/>
                             <constraint firstItem="f1i-57-tFA" firstAttribute="top" secondItem="vRf-vu-AHm" secondAttribute="bottom" constant="23" id="XnX-yy-jdm"/>
+                            <constraint firstItem="FFm-3e-jvK" firstAttribute="top" secondItem="HPd-bj-26q" secondAttribute="bottom" constant="50" id="Ygw-fJ-OEm"/>
                             <constraint firstItem="vRf-vu-AHm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="62.5" id="h2M-ti-ggn"/>
-                            <constraint firstItem="f1i-57-tFA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="69" id="jcS-fv-MWk"/>
+                            <constraint firstItem="f1i-57-tFA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="64.5" id="jcS-fv-MWk"/>
                             <constraint firstItem="wIx-fc-DC1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pxE-u7-bpK"/>
                             <constraint firstItem="HPd-bj-26q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="62.5" id="vo1-Bv-Gr9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vRf-vu-AHm" secondAttribute="trailing" constant="62.5" id="wHg-TT-DPg"/>
@@ -405,8 +405,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9D2-6c-gPF">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9D2-6c-gPF">
                                 <rect key="frame" x="216" y="476" width="10" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -445,7 +446,6 @@ alertas (min. antes)</string>
                             <constraint firstItem="ZCa-wP-G8v" firstAttribute="trailing" secondItem="gvr-Gm-MqJ" secondAttribute="trailing" constant="16" id="LZF-j0-qqm"/>
                             <constraint firstItem="9Lr-BP-p5u" firstAttribute="centerY" secondItem="9n0-sb-I31" secondAttribute="centerY" id="RII-gg-yfc"/>
                             <constraint firstItem="MSH-Uw-hMx" firstAttribute="leading" secondItem="ZCa-wP-G8v" secondAttribute="leading" constant="40" id="RLq-Dx-jgb"/>
-                            <constraint firstItem="X4k-24-m32" firstAttribute="leading" secondItem="9D2-6c-gPF" secondAttribute="trailing" constant="39" id="Rmz-1Y-8GR"/>
                             <constraint firstItem="jXh-ht-YY7" firstAttribute="centerX" secondItem="1Ma-Yj-igS" secondAttribute="centerX" id="S19-xP-74g"/>
                             <constraint firstItem="tRx-xV-Wsa" firstAttribute="top" secondItem="jXh-ht-YY7" secondAttribute="bottom" constant="38" id="SCI-Wu-XfM"/>
                             <constraint firstItem="MSH-Uw-hMx" firstAttribute="top" secondItem="ehL-bI-aOs" secondAttribute="bottom" constant="19" id="VDh-Y3-JeM"/>
@@ -496,9 +496,8 @@ alertas (min. antes)</string>
         <image name="icon_userProfile" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5qk-hF-E6X"/>
-        <segue reference="iHy-Rd-ztY"/>
-        <segue reference="KEp-lM-yWU"/>
+        <segue reference="zVU-dS-Q9I"/>
+        <segue reference="3gw-XV-dGp"/>
         <segue reference="2bd-6S-F5e"/>
     </inferredMetricsTieBreakers>
 </document>

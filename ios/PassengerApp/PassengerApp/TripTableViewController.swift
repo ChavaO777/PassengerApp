@@ -10,9 +10,15 @@ import UIKit
 
 class TripTableViewController: UITableViewController {
 
+    //MARK: Properties
+    
+    var trips = [Trip]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        loadTrips()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -92,4 +98,28 @@ class TripTableViewController: UITableViewController {
     }
     */
 
+    //MARK: Private Methods
+    
+    private func loadTrips() {
+        
+        //2 sample trips, reeplace by reading data from the plist
+        var boolArr1 = [Bool]()
+        boolArr1 += [true, true, false, false, false, false, true]
+        
+        guard let trip1 = Trip(alarmName: "Test Alarm1", repetitionDays: boolArr1, departureTime: "16:09", alarmDate: Date(), active: true)
+        else { fatalError("Can't create trip1")}
+    
+        var boolArr2 = [Bool]()
+        boolArr2 += [false, false, false, false, false, false, false]
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
+        let t_date = formatter.date(from: "2017/05/08 22:31")
+        
+        guard let trip2 = Trip(alarmName: "Test Alarm2", repetitionDays: boolArr2, departureTime: "21:45", alarmDate: t_date!, active: true)
+        else { fatalError("Can't create trip2")}
+        
+        trips += [trip1, trip2]
+    }
+    
 }

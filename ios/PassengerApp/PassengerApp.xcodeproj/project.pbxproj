@@ -14,6 +14,7 @@
 		DE1D5CBF2083CEE6003C3084 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CBE2083CEE6003C3084 /* ProfileViewController.swift */; };
 		DE1D5CC12084FFE7003C3084 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CC02084FFE7003C3084 /* TripTableViewCell.swift */; };
 		DE1D5CC320852E8D003C3084 /* TripTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CC220852E8D003C3084 /* TripTableViewController.swift */; };
+		DE1D5CC520853E97003C3084 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CC420853E97003C3084 /* Trip.swift */; };
 		DED4BA68206B395200834B8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA67206B395200834B8D /* AppDelegate.swift */; };
 		DED4BA6A206B395200834B8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA69206B395200834B8D /* ViewController.swift */; };
 		DED4BA6D206B395200834B8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DED4BA6B206B395200834B8D /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 		DE1D5CBE2083CEE6003C3084 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DE1D5CC02084FFE7003C3084 /* TripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; usesTabs = 1; };
 		DE1D5CC220852E8D003C3084 /* TripTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTableViewController.swift; sourceTree = "<group>"; };
+		DE1D5CC420853E97003C3084 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; usesTabs = 1; };
 		DED4BA64206B395200834B8D /* PassengerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassengerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED4BA67206B395200834B8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DED4BA69206B395200834B8D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				DED4BA69206B395200834B8D /* ViewController.swift */,
 				DED4BA6B206B395200834B8D /* Main.storyboard */,
 				DE1D5CC220852E8D003C3084 /* TripTableViewController.swift */,
+				DE1D5CC420853E97003C3084 /* Trip.swift */,
 				DE1D5CC02084FFE7003C3084 /* TripTableViewCell.swift */,
 				DE1D5CBE2083CEE6003C3084 /* ProfileViewController.swift */,
 				DE1D5CBC2083CE73003C3084 /* MapViewController.swift */,
@@ -280,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE1D5CC520853E97003C3084 /* Trip.swift in Sources */,
 				DE1D5CC12084FFE7003C3084 /* TripTableViewCell.swift in Sources */,
 				DE1D5CB72083B374003C3084 /* CustomButton.swift in Sources */,
 				DE1D5CC320852E8D003C3084 /* TripTableViewController.swift in Sources */,

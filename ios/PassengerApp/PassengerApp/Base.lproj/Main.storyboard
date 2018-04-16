@@ -139,7 +139,7 @@
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f9B-hA-eO8" customClass="GMSMapView">
-                                <rect key="frame" x="16" y="80" width="343" height="507"/>
+                                <rect key="frame" x="0.0" y="62" width="375" height="561"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -498,7 +498,7 @@ alertas (min. antes)</string>
     <inferredMetricsTieBreakers>
         <segue reference="5qk-hF-E6X"/>
         <segue reference="iHy-Rd-ztY"/>
-        <segue reference="3gw-XV-dGp"/>
+        <segue reference="KEp-lM-yWU"/>
         <segue reference="2bd-6S-F5e"/>
     </inferredMetricsTieBreakers>
 </document>

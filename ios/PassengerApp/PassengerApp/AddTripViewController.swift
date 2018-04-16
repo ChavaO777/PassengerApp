@@ -65,29 +65,25 @@ class AddTripViewController: UIViewController {
     
     func showAnimate()
     {
-        /*
         self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
         self.view.alpha = 0.0
         UIView.animate(withDuration: 0.3, animations: {
             self.view.alpha = 1.0
             self.view.transform = self.view.transform.scaledBy(x: 1.0, y: 1.0)
         })
-        */
     }
     
     func removeAnimate()
     {
-        /*
         UIView.animate(withDuration: 0.25, animations: {
             self.view.alpha = 0.0
-            self.view.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
         }, completion: {(finished : Bool) in
             if (finished)
             {
                 self.view.removeFromSuperview()
             }
         })
-        */
     }
     
     func redrawButtons()
@@ -101,5 +97,65 @@ class AddTripViewController: UIViewController {
 			mondayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
 			mondayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
         }
+		
+		if repetitionDays[1]
+		{
+			tuesdayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			tuesdayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		else{
+			tuesdayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+			tuesdayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		
+		if repetitionDays[2]
+		{
+			wednesdayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			wednesdayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		else{
+			wednesdayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+			wednesdayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		
+		if repetitionDays[3]
+		{
+			thursdayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			thursdayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		else{
+			thursdayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+			thursdayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		
+		if repetitionDays[4]
+		{
+			fridayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			fridayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		else{
+			fridayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+			fridayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		
+		if repetitionDays[5]
+		{
+			saturdayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			saturdayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		else{
+			saturdayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+			saturdayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		
+		if repetitionDays[6]
+		{
+			sundayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			sundayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
+		else{
+			sundayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+			sundayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+		}
     }
 }

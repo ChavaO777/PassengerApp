@@ -22,7 +22,7 @@ class MapViewController: UIViewController {
         //VWM Fin coords
         let lat = 19.1190942
         let lng = -98.2535574
-        let zoomLevel = 18.0
+        let zoomLevel = 17.0
         
         let myCamera = GMSCameraPosition.camera(withLatitude: lat,
                                               longitude: lng,

@@ -106,7 +106,7 @@
             </objects>
             <point key="canvasLocation" x="-8588" y="-714"/>
         </scene>
-        <!--Add Trip View Controller-->
+        <!--Nuevo Traslado-->
         <scene sceneID="nLG-cE-4tJ">
             <objects>
                 <viewController storyboardIdentifier="addTripView" id="sK0-f3-wkE" customClass="AddTripViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -226,6 +226,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="K3q-ux-J1R"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Nuevo Traslado" id="Mno-JH-1Ec">
+                        <barButtonItem key="leftBarButtonItem" title="Cancelar" id="Uyz-oe-jgw"/>
+                        <barButtonItem key="rightBarButtonItem" title="Guardar" id="ayM-eO-Xo6"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="alarmNameTextField" destination="USe-Pr-g64" id="ndN-VZ-3RP"/>
                         <outlet property="datePicker" destination="O5Q-sv-Jbh" id="ER5-P8-LId"/>
@@ -240,51 +244,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Irq-mM-AEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-8589.375" y="-4.225352112676056"/>
+            <point key="canvasLocation" x="-7258" y="752"/>
         </scene>
-        <!--Trips View Controller-->
-        <scene sceneID="HZU-ud-qd0">
-            <objects>
-                <viewController storyboardIdentifier="tripsView" id="yaT-N0-bmT" customClass="TripsViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="yiw-eq-8U7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ugg-s6-vWy">
-                                <rect key="frame" x="282" y="20" width="22" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="addNewTrip:" destination="yaT-N0-bmT" eventType="touchUpInside" id="zBk-Uu-ni2"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mis Traslados" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ur4-Tn-H4A">
-                                <rect key="frame" x="94" y="191" width="133" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84D-v5-nzk">
-                                <rect key="frame" x="0.0" y="220" width="320" height="304"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_calendar" translatesAutoresizingMaskIntoConstraints="NO" id="NqH-g1-0BH">
-                                <rect key="frame" x="40" y="64" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="ZCa-wP-G8v"/>
-                    </view>
-                    <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BE7-ZO-zvq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-9393.75" y="-4.225352112676056"/>
-        </scene>
-        <!--Trip Table View Controller-->
+        <!--Mis Traslados-->
         <scene sceneID="P4T-YK-efG">
             <objects>
                 <tableViewController id="VBz-1d-ovV" customClass="TripTableViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -353,7 +315,13 @@
                             <outlet property="delegate" destination="VBz-1d-ovV" id="T9g-WA-GYj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="DIQ-sv-vTo"/>
+                    <navigationItem key="navigationItem" title="Mis Traslados" id="DIQ-sv-vTo">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="q1o-iW-dvJ">
+                            <connections>
+                                <segue destination="L1U-bn-0jM" kind="presentation" identifier="addTripSegue" id="kXq-mF-54p"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WA7-4i-rcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="left" id="MS7-YU-mHS"/>
@@ -402,9 +370,26 @@
             </objects>
             <point key="canvasLocation" x="-10014" y="716"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="uSm-mf-z3i">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L1U-bn-0jM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="U9f-qq-Sq3">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="sK0-f3-wkE" kind="relationship" relationship="rootViewController" id="0gX-CK-5Zg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6N7-A6-7Yq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-8111" y="752"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AppLogo" width="227" height="80"/>
-        <image name="icon_calendar" width="100" height="100"/>
     </resources>
 </document>

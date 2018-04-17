@@ -72,7 +72,22 @@ class AddTripViewController: UIViewController {
     func closePopup()
     {
         //self.removeAnimate()
-        self.view.removeFromSuperview()
+		
+		//To CLOSE as POP-UP View
+        //self.view.removeFromSuperview()
+		
+		//CODE to create a popup from a view
+		/*
+		//Create popup for new trip data
+		let addTripVC = UIStoryboard (name: "Main" /*same story board, different view/scene */, bundle: nil).instantiateViewController(withIdentifier: "addTripView") as! AddTripViewController
+		
+		self.addChildViewController(addTripVC)
+		addTripVC.view.frame = self.view.frame
+		self.view.addSubview(addTripVC.view)
+		addTripVC.didMove(toParentViewController: self)
+		
+		
+		*/
     }
     
     func showAnimate()

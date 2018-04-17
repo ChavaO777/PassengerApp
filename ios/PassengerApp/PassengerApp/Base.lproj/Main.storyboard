@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yVi-qj-k5L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mrn-b9-1TZ">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -71,13 +71,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="M7g-If-eTm"/>
-                    <connections>
-                        <segue destination="yaT-N0-bmT" kind="show" id="Ze2-lC-Nog"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10168" y="-4"/>
+            <point key="canvasLocation" x="-10202" y="-4"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="e2X-hy-oJj">
@@ -260,10 +257,6 @@
                                     <action selector="addNewTrip:" destination="yaT-N0-bmT" eventType="touchUpInside" id="zBk-Uu-ni2"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_calendar" translatesAutoresizingMaskIntoConstraints="NO" id="NqH-g1-0BH">
-                                <rect key="frame" x="40" y="55" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mis Traslados" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ur4-Tn-H4A">
                                 <rect key="frame" x="94" y="191" width="133" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -276,6 +269,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_calendar" translatesAutoresizingMaskIntoConstraints="NO" id="NqH-g1-0BH">
+                                <rect key="frame" x="40" y="64" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="ZCa-wP-G8v"/>
@@ -356,13 +353,14 @@
                             <outlet property="delegate" destination="VBz-1d-ovV" id="T9g-WA-GYj"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="DIQ-sv-vTo"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WA7-4i-rcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="left" id="MS7-YU-mHS"/>
                 <swipeGestureRecognizer direction="left" id="YBI-0q-JeL"/>
                 <swipeGestureRecognizer direction="left" id="CvW-nI-q2O"/>
             </objects>
-            <point key="canvasLocation" x="-9395.625" y="716.19718309859161"/>
+            <point key="canvasLocation" x="-8998.125" y="716.19718309859161"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oyj-2S-6Cw">
@@ -385,6 +383,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mH2-yo-Zna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-11117" y="-4"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="bbt-Wp-ahy">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Mrn-b9-1TZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XzQ-SJ-93n">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="VBz-1d-ovV" kind="relationship" relationship="rootViewController" id="vIl-ah-zAC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lTs-mI-hjg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-10014" y="716"/>
         </scene>
     </scenes>
     <resources>

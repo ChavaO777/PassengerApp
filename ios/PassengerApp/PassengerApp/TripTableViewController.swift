@@ -41,9 +41,8 @@ class TripTableViewController: UITableViewController {
         return trips.count
     }
 
-    
+    //Prepares and returns the data for the current cell to be drawn
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         
         //Retrieve current table view cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripTableViewCell", for: indexPath) as? TripTableViewCell  else {
@@ -93,6 +92,7 @@ class TripTableViewController: UITableViewController {
         return false
     }
     
+    //Formats from the array of bools, a string reprsenting which days are to be repeated by the alarm
     private func getRepetitionDaysAsString(repetitionDays: [Bool]) -> String
     {
         var str = String("")
@@ -165,6 +165,21 @@ class TripTableViewController: UITableViewController {
     }
     */
 
+    //MARK: Actions
+    @IBAction func unwindToTripList(sender: UIStoryboardSegue) {
+        
+        //If the caller for this VC is the TripViewController with a valid Trip instance, save the trip
+        if let sourceViewController = sender.source as? TripViewController, let trip = sourceViewController.trip {
+            
+            //Add new trip
+            let newIndexPath = IndexPath(row: trips.count, section: 0)
+            trips.append(trip)
+            
+            //Draw new cell 
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+    }
+    
     //MARK: Private Methods
     
     private func loadTrips() {

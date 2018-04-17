@@ -1,5 +1,5 @@
 //
-//  AddTripViewController.swift
+//  TripViewController.swift
 //  PassengerApp
 //
 //  Created by Comonfort on 4/15/18.
@@ -7,9 +7,18 @@
 //
 
 import UIKit
-import Foundation
+import os.log
 
-class AddTripViewController: UIViewController {
+class TripViewController: UIViewController {
+	
+	/*
+	This value is either passed by `TripTableViewController` in `prepare(for:sender:)`
+	or constructed as part of adding a new trip.
+	*/
+	var trip: Trip?
+	
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
     
     var repetitionDays: [Bool] = []
     
@@ -23,6 +32,31 @@ class AddTripViewController: UIViewController {
     @IBOutlet weak var saturdayButton: UIButton!
     @IBOutlet weak var sundayButton: UIButton!
     @IBOutlet weak var fridayButton: UIButton!
+    
+    //MARK: Navigation
+    // This method lets you configure a view controller before it's presented.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        super.prepare(for: segue, sender: sender)
+        
+        // Configure the destination view controller only when the save button is pressed.
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            return
+        }
+        
+        //Retrieve inputted data
+        let alarmName = alarmNameTextField.text ?? "Nueva alarma"
+        
+         let formatter = DateFormatter()
+         formatter.locale = Locale(identifier: "es_mx")
+         formatter.dateFormat = "HH:mm"
+         let departureTime = formatter.string(from: datePicker.date)
+    
+        // Set the trip to be passed to TripTableViewController after the unwind segue.
+        trip = Trip(alarmName: alarmName, repetitionDays: repetitionDays, departureTime: departureTime, alarmDate: datePicker.date, active: true)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,24 +76,7 @@ class AddTripViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    @IBAction func save(_ sender: Any) {
-		
-		/*
-		let formatter = DateFormatter()
-		formatter.dateStyle = .medium
-		formatter.locale = Locale(identifier: "es_mx")
-		formatter.dateFormat = "HH:mm"
-		let formattedTime = formatter.string(from: Date(trip.departureTime))
-		*/
-		
-        closePopup()
-    }
-    
-    @IBAction func cancel(_ sender: Any) {
-        closePopup()
-    }
-    
+
     
     @IBAction func toggleRepetition(_ sender: Any) {
         let button = sender as! UIButton
@@ -69,27 +86,26 @@ class AddTripViewController: UIViewController {
         redrawButtons()
     }
     
+    
+    /*
+     //To CLOSE OP-UP View
     func closePopup()
     {
-        //self.removeAnimate()
-		
-		//To CLOSE as POP-UP View
-        //self.view.removeFromSuperview()
-		
-		//CODE to create a popup from a view
-		/*
-		//Create popup for new trip data
-		let addTripVC = UIStoryboard (name: "Main" /*same story board, different view/scene */, bundle: nil).instantiateViewController(withIdentifier: "addTripView") as! AddTripViewController
-		
-		self.addChildViewController(addTripVC)
-		addTripVC.view.frame = self.view.frame
-		self.view.addSubview(addTripVC.view)
-		addTripVC.didMove(toParentViewController: self)
-		
-		
-		*/
+        self.removeAnimate()
     }
     
+    
+    //CODE to create a popup from a view
+     //Create popup for new trip data
+     let addTripVC = UIStoryboard (name: "Main" /*same story board, different view/scene */, bundle: nil).instantiateViewController(withIdentifier: "addTripView") as! TripViewController
+     
+     self.addChildViewController(addTripVC)
+     addTripVC.view.frame = self.view.frame
+     self.view.addSubview(addTripVC.view)
+     addTripVC.didMove(toParentViewController: self)
+ 
+     
+    //Pop up aimation
     func showAnimate()
     {
         self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
@@ -100,6 +116,7 @@ class AddTripViewController: UIViewController {
         })
     }
     
+     
     func removeAnimate()
     {
         UIView.animate(withDuration: 0.25, animations: {
@@ -112,6 +129,7 @@ class AddTripViewController: UIViewController {
             }
         })
     }
+ */
     
     func redrawButtons()
     {

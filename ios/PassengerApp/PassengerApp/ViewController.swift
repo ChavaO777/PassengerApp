@@ -21,7 +21,8 @@ class ViewController: UIViewController {
     }
 
     @IBAction func login(_ sender: Any) {
-        self.performSegue(withIdentifier: "showTripsSegue", sender: self)
+        //On success
+        self.performSegue(withIdentifier: "goToMainScreen", sender: self)
     }
     
 }

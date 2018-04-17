@@ -34,24 +34,91 @@ class TripTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return trips.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        
+        
+        //Retrieve current table view cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripTableViewCell", for: indexPath) as? TripTableViewCell  else {
+            fatalError("The dequeued cell is not an instance of TripTableViewCell.")
+        }
+        
+        //Retrieve the corresponding trip on that index
+        let trip = trips[indexPath.row]
+        
+        //Fill in data for the cell
+        
+        cell.alarmName.text = trip.alarmName
+        
+        if hasRepetionDay(repetitionDays: trip.repetitionDays)
+        {
+            //If the trip has at least 1 repetition day, present the information of all the days
+            cell.repetitionDaysLabel.text = getRepetitionDaysAsString(repetitionDays: trip.repetitionDays)
+        }
+        else{
+            //If not, present the date of the trip alarm
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.locale = Locale(identifier: "es_MX")
+            //formatter.dateFormat = "EEEEE d, MMM yyyy"
+            let someDateTime = formatter.string(from: trip.alarmDate)
+            
+            cell.repetitionDaysLabel.text = someDateTime
+        }
+        
+        cell.departureTime.text = trip.departureTime
+        
+        cell.active.setOn(trip.active, animated: false)
+        
         return cell
     }
-    */
+    
+    //Checks that the array of repetition days, has at least one of them as true
+    private func hasRepetionDay(repetitionDays: [Bool]) -> Bool
+    {
+        for i in 0...repetitionDays.count - 1
+        {
+            if (repetitionDays[i])
+            {
+                return true
+            }
+        }
+        return false
+    }
+    
+    private func getRepetitionDaysAsString(repetitionDays: [Bool]) -> String
+    {
+        var str = String("")
+        
+        let daysLetters = ["L", "M", "M", "J", "V", "S", "D"]
+        
+        for i in 0...repetitionDays.count - 1
+        {
+            if (repetitionDays[i])
+            {
+                str.append(daysLetters[i])
+                
+            }
+            else
+            {
+                str.append("-")
+            }
+            
+            if (i != repetitionDays.count - 1)
+            {
+                str.append(" ")
+            }
+        }
+        
+        return str
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -114,9 +181,9 @@ class TripTableViewController: UITableViewController {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        let t_date = formatter.date(from: "2017/05/08 22:31")
+        let t_date = formatter.date(from: "2018/05/08 22:31")
         
-        guard let trip2 = Trip(alarmName: "Test Alarm2", repetitionDays: boolArr2, departureTime: "21:45", alarmDate: t_date!, active: true)
+        guard let trip2 = Trip(alarmName: "Test Alarm2", repetitionDays: boolArr2, departureTime: "22:31", alarmDate: t_date!, active: false)
         else { fatalError("Can't create trip2")}
         
         trips += [trip1, trip2]

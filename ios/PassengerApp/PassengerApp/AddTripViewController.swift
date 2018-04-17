@@ -13,7 +13,10 @@ class AddTripViewController: UIViewController {
     
     var repetitionDays: [Bool] = []
     
-    @IBOutlet weak var mondayButton: UIButton!
+	@IBOutlet weak var datePicker: UIDatePicker!
+	@IBOutlet weak var alarmNameTextField: UITextField!
+	
+	@IBOutlet weak var mondayButton: UIButton!
     @IBOutlet weak var tuesdayButton: UIButton!
     @IBOutlet weak var wednesdayButton: UIButton!
     @IBOutlet weak var thursdayButton: UIButton!
@@ -40,7 +43,16 @@ class AddTripViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func ok(_ sender: Any) {
+    @IBAction func save(_ sender: Any) {
+		
+		/*
+		let formatter = DateFormatter()
+		formatter.dateStyle = .medium
+		formatter.locale = Locale(identifier: "es_mx")
+		formatter.dateFormat = "HH:mm"
+		let formattedTime = formatter.string(from: Date(trip.departureTime))
+		*/
+		
         closePopup()
     }
     

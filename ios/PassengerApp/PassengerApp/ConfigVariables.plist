@@ -2,11 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>alertBeforeMinutes</key>
+	<integer>3</integer>
 	<key>notifications</key>
-	<true/>
+	<false/>
 	<key>vibration</key>
 	<false/>
 	<key>sound</key>
-	<true/>
+	<false/>
 </dict>
 </plist>

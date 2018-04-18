@@ -316,19 +316,19 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9pb-SJ-47F">
                                 <rect key="frame" x="310" y="298" width="51" height="31"/>
                                 <connections>
-                                    <action selector="toggleNotifications:" destination="DH6-KW-USb" eventType="valueChanged" id="YOf-Nb-1eO"/>
+                                    <action selector="toggleNotifications:" destination="yaT-N0-bmT" eventType="valueChanged" id="bDg-JR-8tI"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvr-Gm-MqJ">
                                 <rect key="frame" x="310" y="345" width="51" height="31"/>
                                 <connections>
-                                    <action selector="toggleVibrations:" destination="DH6-KW-USb" eventType="valueChanged" id="i4g-SO-oBn"/>
+                                    <action selector="toggleVibration:" destination="yaT-N0-bmT" eventType="valueChanged" id="aSK-FQ-Q1N"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9n0-sb-I31">
                                 <rect key="frame" x="310" y="392" width="51" height="31"/>
                                 <connections>
-                                    <action selector="toggleSound:" destination="DH6-KW-USb" eventType="valueChanged" id="R2I-EI-G5h"/>
+                                    <action selector="toggleSound:" destination="yaT-N0-bmT" eventType="valueChanged" id="uKZ-0w-Pcl"/>
                                 </connections>
                             </switch>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xBH-FY-fIJ">
@@ -457,9 +457,13 @@ alertas (min. antes)</string>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="notificationsSwitch" destination="9pb-SJ-47F" id="QXU-uE-go0"/>
+                        <outlet property="soundSwitch" destination="9n0-sb-I31" id="fSh-GA-gDc"/>
+                        <outlet property="vibrationSwitch" destination="gvr-Gm-MqJ" id="87F-GU-dam"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BE7-ZO-zvq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="DH6-KW-USb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-7853.6000000000004" y="-4.9475262368815596"/>
         </scene>

@@ -162,31 +162,49 @@
                                         <rect key="frame" x="42" y="276" width="35" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="M"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="bGM-in-aEh"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1S-jM-ms9">
                                         <rect key="frame" x="79" y="276" width="35" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="M"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="saM-H5-JSQ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIT-0g-Uhr">
                                         <rect key="frame" x="115" y="276" width="35" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="J"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="c17-pd-IEL"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTJ-es-4b2">
                                         <rect key="frame" x="154.5" y="276" width="35" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="V"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="Y5K-sh-wm1"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRQ-FI-rLh">
                                         <rect key="frame" x="192" y="276" width="35" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="S"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="eLl-ye-qVC"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Lg-ow-HVg">
                                         <rect key="frame" x="231.5" y="276" width="35" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="D"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="C2f-na-NsT"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre de traslado" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USe-Pr-g64">
                                         <rect key="frame" x="56" y="215" width="171" height="30"/>
@@ -211,8 +229,16 @@
                         <viewLayoutGuide key="safeArea" id="K3q-ux-J1R"/>
                     </view>
                     <navigationItem key="navigationItem" title="Nuevo Traslado" id="Mno-JH-1Ec">
-                        <barButtonItem key="leftBarButtonItem" title="Cancelar" id="Uyz-oe-jgw"/>
-                        <barButtonItem key="rightBarButtonItem" title="Guardar" id="ayM-eO-Xo6"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancelar" id="Uyz-oe-jgw">
+                            <connections>
+                                <action selector="cancel:" destination="sK0-f3-wkE" id="Kq1-jI-jmH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Guardar" id="ayM-eO-Xo6">
+                            <connections>
+                                <segue destination="LMS-Ob-Fsl" kind="unwind" unwindAction="unwindToTripListWithSender:" id="MKa-eo-w4a"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="alarmNameTextField" destination="USe-Pr-g64" id="ndN-VZ-3RP"/>
@@ -228,6 +254,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Irq-mM-AEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="LMS-Ob-Fsl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-7258" y="752"/>
         </scene>
@@ -292,6 +319,7 @@
                                     <outlet property="alarmName" destination="JX3-qT-ARa" id="yLN-4d-Zas"/>
                                     <outlet property="departureTime" destination="u9Z-jV-GgK" id="cbg-U3-gfz"/>
                                     <outlet property="repetitionDaysLabel" destination="mig-Yp-lim" id="Hju-OZ-vlA"/>
+                                    <segue destination="sK0-f3-wkE" kind="show" identifier="ShowDetail" id="DeT-8n-I5a"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -371,10 +399,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6N7-A6-7Yq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-8111" y="752"/>
+            <point key="canvasLocation" x="-8113" y="1162"/>
         </scene>
     </scenes>
     <resources>
         <image name="AppLogo" width="227" height="80"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="DeT-8n-I5a"/>
+    </inferredMetricsTieBreakers>
 </document>

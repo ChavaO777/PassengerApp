@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class TripTableViewController: UITableViewController {
 
@@ -17,8 +18,14 @@ class TripTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Use the edit button item provided by the table view controller.
+        navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem?.title = "Editar"
+        
+        navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey : Any]?, for: <#T##UIControlState#>)
         
         loadTrips()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -120,26 +127,24 @@ class TripTableViewController: UITableViewController {
         return str
     }
 
-    /*
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
-    // Override to support editing the table view.
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+                
         if editingStyle == .delete {
             // Delete the row from the data source
+            trips.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
-
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -155,15 +160,44 @@ class TripTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        super.prepare(for: segue, sender: sender)
+        
+        switch(segue.identifier ?? "") {
+            //If the segue preparing is that of addition, just log
+            case "addTripSegue":
+                os_log("Adding a new trip.", log: OSLog.default, type: .debug)
+            
+            //If it is to edit/see detail
+            case "ShowDetail":
+                
+                guard let tripDetailViewController = segue.destination as? TripViewController else {
+                    fatalError("Unexpected destination: \(segue.destination)")
+                }
+                
+                //Get the cell that triggered the segue
+                guard let selectedTripCell = sender as? TripTableViewCell else {
+                    fatalError("Unexpected sender: \(sender)")
+                }
+                
+                //Get its index
+                guard let indexPath = tableView.indexPath(for: selectedTripCell) else {
+                    fatalError("The selected cell is not being displayed by the table")
+                }
+                
+                //Retrieve trip object
+                let selectedTrip = trips[indexPath.row]
+                //Pass trip to the trip detail controller
+                tripDetailViewController.trip = selectedTrip
+            
+            default:
+                fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+        }
     }
-    */
+ 
 
     //MARK: Actions
     @IBAction func unwindToTripList(sender: UIStoryboardSegue) {
@@ -171,12 +205,23 @@ class TripTableViewController: UITableViewController {
         //If the caller for this VC is the TripViewController with a valid Trip instance, save the trip
         if let sourceViewController = sender.source as? TripViewController, let trip = sourceViewController.trip {
             
-            //Add new trip
-            let newIndexPath = IndexPath(row: trips.count, section: 0)
-            trips.append(trip)
+            //checks whether a row in the table view is selected.
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                // Update an existing trip.
+                trips[selectedIndexPath.row]
+                    = trip
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            }
+            else
+            {
+                //Add new trip
+                let newIndexPath = IndexPath(row: trips.count, section: 0)
+                trips.append(trip)
+                
+                //Draw new cell
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
             
-            //Draw new cell 
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
     }
     

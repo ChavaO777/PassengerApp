@@ -9,7 +9,8 @@
 import UIKit
 import os.log
 
-class TripViewController: UIViewController {
+//View Controller that handles the add/edit screen for a single trip
+class TripViewController: UIViewController, UITextFieldDelegate {
 	
 	/*
 	This value is either passed by `TripTableViewController` in `prepare(for:sender:)`
@@ -34,6 +35,27 @@ class TripViewController: UIViewController {
     @IBOutlet weak var fridayButton: UIButton!
     
     //MARK: Navigation
+    
+    
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+		
+		// Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
+		let isPresentingInAddTripMode = presentingViewController is UINavigationController
+		
+		if isPresentingInAddTripMode {
+			//dismisses the modal scene and animates the transition back to the previous scene
+			dismiss(animated: true, completion: nil)
+			// neither the prepare(for:sender:) method nor the unwind action method are called.
+
+		}
+		else if let owningNavigationController = navigationController{
+			owningNavigationController.popViewController(animated: true)
+		}
+		else {
+			fatalError("The TripViewController is not inside a navigation controller.")
+		}
+    }
+    
     // This method lets you configure a view controller before it's presented.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -46,7 +68,7 @@ class TripViewController: UIViewController {
         }
         
         //Retrieve inputted data
-        let alarmName = alarmNameTextField.text ?? "Nueva alarma"
+        let alarmName = alarmNameTextField.text ?? ""
         
          let formatter = DateFormatter()
          formatter.locale = Locale(identifier: "es_mx")
@@ -62,13 +84,33 @@ class TripViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        
-        //self.showAnimate()
-        
-        //Initializes array of bools to each day
-        for _ in 0...6 {
-            repetitionDays.append(false)
-        }
+		
+		// Handle the text field’s user input through delegate callbacks.
+		alarmNameTextField.delegate = self
+		
+		
+		//The trip property will only be non-nil when an existing trip is being edited.
+		if let trip = trip {
+			
+			//Alarm name
+			navigationItem.title = trip.alarmName
+			alarmNameTextField.text = trip.alarmName
+			
+			//Alarm Date
+			datePicker.date = trip.alarmDate
+			
+			//Repetition days
+			repetitionDays = trip.repetitionDays
+			
+		}
+		else{
+			//Initialize repetition days if creating a trip
+			for _ in 0...6 {
+				repetitionDays.append(false)
+			}
+		}
+		
+		updateSaveButtonState()
         
         redrawButtons()
     }
@@ -86,7 +128,25 @@ class TripViewController: UIViewController {
         redrawButtons()
     }
     
-    
+    //MARK: UITextFieldDelegate
+	
+	//Disable saving while in mid-edit
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		// Disable the Save button while editing.
+		saveButton.isEnabled = false
+	}
+	
+	//Check if should be reenabled when something has being introduced
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		updateSaveButtonState()
+		navigationItem.title = textField.text
+	}
+	
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		alarmNameTextField.resignFirstResponder()
+		return true
+	}
+	
     /*
      //To CLOSE OP-UP View
     func closePopup()
@@ -130,8 +190,16 @@ class TripViewController: UIViewController {
         })
     }
  */
-    
-    func redrawButtons()
+	
+	//MARK: Private Methods
+	private func updateSaveButtonState() {
+		// Disable the Save button if the text field is empty.
+		let text = alarmNameTextField.text ?? ""
+		saveButton.isEnabled = !text.isEmpty
+	}
+	
+	
+    private func redrawButtons()
     {
         if repetitionDays[0]
         {

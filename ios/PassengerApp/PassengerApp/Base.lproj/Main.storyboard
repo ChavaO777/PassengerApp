@@ -157,21 +157,6 @@
             </objects>
             <point key="canvasLocation" x="-9404" y="-4.9475262368815596"/>
         </scene>
-        <!--Profile View Controller-->
-        <scene sceneID="3Qh-EG-L1x">
-            <objects>
-                <viewController storyboardIdentifier="profileView" id="21c-sd-A9R" customClass="ProfileViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KQi-Jk-tC1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="olE-Nb-VP5"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="28m-RG-2B5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-7052" y="-4"/>
-        </scene>
         <!--Add Trip View Controller-->
         <scene sceneID="nLG-cE-4tJ">
             <objects>
@@ -286,10 +271,10 @@
             </objects>
             <point key="canvasLocation" x="-8640" y="-4"/>
         </scene>
-        <!--Trips View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="HZU-ud-qd0">
             <objects>
-                <viewController storyboardIdentifier="tripsView" id="yaT-N0-bmT" customClass="TripsViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tripsView" id="yaT-N0-bmT" customClass="ProfileViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yiw-eq-8U7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -330,12 +315,21 @@
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9pb-SJ-47F">
                                 <rect key="frame" x="310" y="298" width="51" height="31"/>
+                                <connections>
+                                    <action selector="toggleNotifications:" destination="DH6-KW-USb" eventType="valueChanged" id="YOf-Nb-1eO"/>
+                                </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvr-Gm-MqJ">
                                 <rect key="frame" x="310" y="345" width="51" height="31"/>
+                                <connections>
+                                    <action selector="toggleVibrations:" destination="DH6-KW-USb" eventType="valueChanged" id="i4g-SO-oBn"/>
+                                </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9n0-sb-I31">
                                 <rect key="frame" x="310" y="392" width="51" height="31"/>
+                                <connections>
+                                    <action selector="toggleSound:" destination="DH6-KW-USb" eventType="valueChanged" id="R2I-EI-G5h"/>
+                                </connections>
                             </switch>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xBH-FY-fIJ">
                                 <rect key="frame" x="-1" y="623" width="375" height="44"/>
@@ -465,6 +459,7 @@ alertas (min. antes)</string>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BE7-ZO-zvq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="DH6-KW-USb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-7853.6000000000004" y="-4.9475262368815596"/>
         </scene>

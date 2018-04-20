@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mrn-b9-1TZ">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +16,7 @@
             <objects>
                 <viewController storyboardIdentifier="loginView" id="BYZ-38-t0r" customClass="ViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nómina" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJH-Bj-Fac">
@@ -81,7 +82,7 @@
             <objects>
                 <viewController storyboardIdentifier="mapView" id="Ym6-aB-DiW" customClass="MapViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MDq-54-NAR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="N4P-7a-08x"/>
@@ -96,7 +97,7 @@
             <objects>
                 <viewController storyboardIdentifier="profileView" id="21c-sd-A9R" customClass="ProfileViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KQi-Jk-tC1">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="olE-Nb-VP5"/>
@@ -111,99 +112,138 @@
             <objects>
                 <viewController storyboardIdentifier="addTripView" id="sK0-f3-wkE" customClass="TripViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="33d-ge-NKj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="O5Q-sv-Jbh">
-                                <rect key="frame" x="0.0" y="137" width="314" height="175"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <date key="date" timeIntervalSinceReferenceDate="545499389.353423">
-                                    <!--2018-04-15 15:36:29 +0000-->
-                                </date>
-                            </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Elige la hora y fecha de partida" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEu-l6-qmX">
-                                <rect key="frame" x="19" y="98" width="219" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repetición" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osc-HW-Q2k">
-                                <rect key="frame" x="16" y="401" width="88" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jpw-yh-eaG">
-                                <rect key="frame" x="16" y="433" width="35" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="L"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="dgA-fP-JUH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmn-Ox-mya">
-                                <rect key="frame" x="59" y="433" width="35" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="M"/>
-                                <connections>
-                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="bGM-in-aEh"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1S-jM-ms9">
-                                <rect key="frame" x="102" y="433" width="35" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="M"/>
-                                <connections>
-                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="saM-H5-JSQ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIT-0g-Uhr">
-                                <rect key="frame" x="143" y="433" width="35" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="J"/>
-                                <connections>
-                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="c17-pd-IEL"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTJ-es-4b2">
-                                <rect key="frame" x="186" y="433" width="35" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="V"/>
-                                <connections>
-                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="Y5K-sh-wm1"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRQ-FI-rLh">
-                                <rect key="frame" x="229" y="433" width="35" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="S"/>
-                                <connections>
-                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="eLl-ye-qVC"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Lg-ow-HVg">
-                                <rect key="frame" x="269" y="433" width="35" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="D"/>
-                                <connections>
-                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="C2f-na-NsT"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre de traslado" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USe-Pr-g64">
-                                <rect key="frame" x="75" y="340" width="171" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h1p-XA-ebI">
+                                <rect key="frame" x="0.0" y="65.5" width="375" height="600"/>
+                                <subviews>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="O5Q-sv-Jbh">
+                                        <rect key="frame" x="0.0" y="110.5" width="375" height="240"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="545499389.353423">
+                                            <!--2018-04-15 15:36:29 +0000-->
+                                        </date>
+                                    </datePicker>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elige la hora y fecha de partida" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEu-l6-qmX">
+                                        <rect key="frame" x="12" y="80.5" width="235.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre de traslado" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USe-Pr-g64">
+                                        <rect key="frame" x="94" y="380.5" width="187" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repetición" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osc-HW-Q2k">
+                                        <rect key="frame" x="12" y="440.5" width="235.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hbv-2P-VTR">
+                                        <rect key="frame" x="0.5" y="474" width="375" height="48"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jpw-yh-eaG">
+                                                <rect key="frame" x="0.0" y="0.0" width="52.5" height="48"/>
+                                                <state key="normal" title="L"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="dgA-fP-JUH"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmn-Ox-mya">
+                                                <rect key="frame" x="52.5" y="0.0" width="52.5" height="48"/>
+                                                <state key="normal" title="M"/>
+                                                <connections>
+                                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="bGM-in-aEh"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1S-jM-ms9">
+                                                <rect key="frame" x="105" y="0.0" width="52.5" height="48"/>
+                                                <state key="normal" title="M"/>
+                                                <connections>
+                                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="saM-H5-JSQ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIT-0g-Uhr">
+                                                <rect key="frame" x="157.5" y="0.0" width="52.5" height="48"/>
+                                                <state key="normal" title="J"/>
+                                                <connections>
+                                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="c17-pd-IEL"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTJ-es-4b2">
+                                                <rect key="frame" x="210" y="0.0" width="52.5" height="48"/>
+                                                <state key="normal" title="V"/>
+                                                <connections>
+                                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="Y5K-sh-wm1"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRQ-FI-rLh">
+                                                <rect key="frame" x="262.5" y="0.0" width="52.5" height="48"/>
+                                                <state key="normal" title="S"/>
+                                                <connections>
+                                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="eLl-ye-qVC"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Lg-ow-HVg">
+                                                <rect key="frame" x="315" y="0.0" width="60" height="48"/>
+                                                <state key="normal" title="D"/>
+                                                <connections>
+                                                    <action selector="toggleRepetition:" destination="sK0-f3-wkE" eventType="touchUpInside" id="C2f-na-NsT"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="PRQ-FI-rLh" firstAttribute="width" secondItem="eTJ-es-4b2" secondAttribute="width" id="Bnt-nh-XOn"/>
+                                            <constraint firstItem="eTJ-es-4b2" firstAttribute="height" secondItem="sIT-0g-Uhr" secondAttribute="height" id="FPd-bQ-cIi"/>
+                                            <constraint firstItem="P1S-jM-ms9" firstAttribute="width" secondItem="wmn-Ox-mya" secondAttribute="width" id="IKb-vp-Wdn"/>
+                                            <constraint firstItem="P1S-jM-ms9" firstAttribute="height" secondItem="wmn-Ox-mya" secondAttribute="height" id="QQ6-yl-9Ys"/>
+                                            <constraint firstItem="Jpw-yh-eaG" firstAttribute="height" secondItem="Hbv-2P-VTR" secondAttribute="height" id="RE8-O6-7Tq"/>
+                                            <constraint firstItem="sIT-0g-Uhr" firstAttribute="height" secondItem="P1S-jM-ms9" secondAttribute="height" id="SWL-ZX-7hI"/>
+                                            <constraint firstItem="wmn-Ox-mya" firstAttribute="height" secondItem="Jpw-yh-eaG" secondAttribute="height" id="Xfl-Fe-KLS"/>
+                                            <constraint firstItem="wmn-Ox-mya" firstAttribute="width" secondItem="Jpw-yh-eaG" secondAttribute="width" id="YDk-Ok-C0F"/>
+                                            <constraint firstItem="sIT-0g-Uhr" firstAttribute="width" secondItem="P1S-jM-ms9" secondAttribute="width" id="iOC-OO-smf"/>
+                                            <constraint firstItem="Jpw-yh-eaG" firstAttribute="width" secondItem="Hbv-2P-VTR" secondAttribute="width" multiplier="0.14" id="q4f-sI-JlX"/>
+                                            <constraint firstItem="eTJ-es-4b2" firstAttribute="width" secondItem="sIT-0g-Uhr" secondAttribute="width" id="rJ1-3l-Aqv"/>
+                                            <constraint firstItem="PRQ-FI-rLh" firstAttribute="height" secondItem="eTJ-es-4b2" secondAttribute="height" id="x0K-G7-XUr"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="osc-HW-Q2k" firstAttribute="top" secondItem="USe-Pr-g64" secondAttribute="bottom" constant="30" id="0Jv-cI-pv3"/>
+                                    <constraint firstItem="USe-Pr-g64" firstAttribute="top" secondItem="O5Q-sv-Jbh" secondAttribute="bottom" constant="30" id="8tz-YL-Ecf"/>
+                                    <constraint firstItem="osc-HW-Q2k" firstAttribute="centerX" secondItem="aEu-l6-qmX" secondAttribute="centerX" id="F8z-vs-voh"/>
+                                    <constraint firstItem="aEu-l6-qmX" firstAttribute="centerX" secondItem="h1p-XA-ebI" secondAttribute="centerX" multiplier="0.69" id="PMo-nW-GQW"/>
+                                    <constraint firstItem="O5Q-sv-Jbh" firstAttribute="height" secondItem="h1p-XA-ebI" secondAttribute="height" multiplier="0.4" id="RpV-na-GGY"/>
+                                    <constraint firstItem="osc-HW-Q2k" firstAttribute="width" secondItem="aEu-l6-qmX" secondAttribute="width" id="Sql-Zd-yPw"/>
+                                    <constraint firstItem="Hbv-2P-VTR" firstAttribute="top" secondItem="osc-HW-Q2k" secondAttribute="bottom" constant="13" id="YM2-r5-yFF"/>
+                                    <constraint firstItem="USe-Pr-g64" firstAttribute="width" secondItem="O5Q-sv-Jbh" secondAttribute="width" multiplier="0.5" id="fA3-q1-P1O"/>
+                                    <constraint firstItem="Hbv-2P-VTR" firstAttribute="height" secondItem="h1p-XA-ebI" secondAttribute="height" multiplier="0.08" id="fOc-XZ-Rzs"/>
+                                    <constraint firstItem="aEu-l6-qmX" firstAttribute="centerY" secondItem="h1p-XA-ebI" secondAttribute="centerY" multiplier="0.3" id="h4c-pi-hIx"/>
+                                    <constraint firstItem="O5Q-sv-Jbh" firstAttribute="width" secondItem="h1p-XA-ebI" secondAttribute="width" id="uFC-qh-jMt"/>
+                                    <constraint firstItem="O5Q-sv-Jbh" firstAttribute="top" secondItem="aEu-l6-qmX" secondAttribute="bottom" constant="10" id="w0X-1e-Zhd"/>
+                                    <constraint firstItem="USe-Pr-g64" firstAttribute="centerX" secondItem="h1p-XA-ebI" secondAttribute="centerX" id="x29-lX-88Y"/>
+                                    <constraint firstItem="Hbv-2P-VTR" firstAttribute="centerX" secondItem="h1p-XA-ebI" secondAttribute="centerX" id="ydX-N4-Ch4"/>
+                                    <constraint firstItem="O5Q-sv-Jbh" firstAttribute="centerX" secondItem="h1p-XA-ebI" secondAttribute="centerX" id="zqR-wb-Y0D"/>
+                                </constraints>
+                            </view>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="h1p-XA-ebI" firstAttribute="centerX" secondItem="K3q-ux-J1R" secondAttribute="centerX" id="0h0-KV-whG"/>
+                            <constraint firstItem="h1p-XA-ebI" firstAttribute="width" secondItem="33d-ge-NKj" secondAttribute="width" id="Qbo-IH-bsx"/>
+                            <constraint firstItem="h1p-XA-ebI" firstAttribute="height" secondItem="33d-ge-NKj" secondAttribute="height" multiplier="0.9" id="RH3-h8-ZBl"/>
+                            <constraint firstItem="Hbv-2P-VTR" firstAttribute="width" secondItem="33d-ge-NKj" secondAttribute="width" id="XVW-C8-zc8"/>
+                            <constraint firstItem="h1p-XA-ebI" firstAttribute="centerY" secondItem="K3q-ux-J1R" secondAttribute="centerY" id="mQ0-7B-jQS"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="K3q-ux-J1R"/>
                     </view>
                     <navigationItem key="navigationItem" title="Nuevo Traslado" id="Mno-JH-1Ec">
@@ -241,15 +281,15 @@
             <objects>
                 <tableViewController id="VBz-1d-ovV" customClass="TripTableViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ViW-ge-3WD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripTableViewCell" rowHeight="90" id="rjH-Le-whJ" customClass="TripTableViewCell" customModule="PassengerApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="90"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rjH-Le-whJ" id="GiW-QZ-nfp">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sT-3b-egu">
@@ -264,6 +304,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="MS7-YU-mHS" appends="YES" id="8dX-2o-8VY"/>
+                                            </connections>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="L M M J V S D" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mig-Yp-lim">
                                             <rect key="frame" x="147" y="35" width="96" height="18"/>
@@ -272,6 +315,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="CvW-nI-q2O" appends="YES" id="uUr-PK-9vt"/>
+                                            </connections>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prueba alarma" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JX3-qT-ARa">
                                             <rect key="frame" x="-1" y="52" width="114" height="17"/>
@@ -280,6 +326,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="YBI-0q-JeL" appends="YES" id="zgF-KY-iFv"/>
+                                            </connections>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
@@ -306,6 +355,9 @@
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WA7-4i-rcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="CvW-nI-q2O"/>
+                <swipeGestureRecognizer direction="left" id="YBI-0q-JeL"/>
+                <swipeGestureRecognizer direction="left" id="MS7-YU-mHS"/>
             </objects>
             <point key="canvasLocation" x="-8998.125" y="716.19718309859161"/>
         </scene>
@@ -315,12 +367,12 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="yVi-qj-k5L" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ssl-01-Hyu">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UCe-Vt-yOh">
-                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -337,7 +389,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Mrn-b9-1TZ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XzQ-SJ-93n">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -355,7 +407,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L1U-bn-0jM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="U9f-qq-Sq3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -372,6 +424,6 @@
         <image name="AppLogo" width="227" height="80"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0gX-CK-5Zg"/>
+        <segue reference="DeT-8n-I5a"/>
     </inferredMetricsTieBreakers>
 </document>

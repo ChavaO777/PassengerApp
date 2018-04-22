@@ -24,6 +24,11 @@ class TripTableViewController: UITableViewController {
         // Load any saved trips
         if let savedTrips = loadTrips() {
             trips += savedTrips
+            os_log("Trips successfully loaded.", log: OSLog.default, type: .debug)
+
+        }
+        else {
+            loadTestTrips()
         }
         
         // Uncomment the following line to preserve selection between presentations

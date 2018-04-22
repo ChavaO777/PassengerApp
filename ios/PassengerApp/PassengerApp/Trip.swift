@@ -9,7 +9,7 @@
 import UIKit
 import os.log
 
-class Trip: NSObject, NSCoding{
+class Trip: NSObject, NSCoding, Codable{
 	
     //MARK: Properties
     
@@ -83,7 +83,7 @@ class Trip: NSObject, NSCoding{
 				os_log("Unable to decode the departure time for a Trip object.", log: OSLog.default, type: .debug)
 				return nil
 		}
-		guard let repetitionDays = aDecoder.decodeObject(forKey: PropertyKey.departureTime) as? [Bool], repetitionDays.count < 7
+		guard let repetitionDays = aDecoder.decodeObject(forKey: PropertyKey.repetitionDays) as? [Bool], repetitionDays.count == 7
 			else {
 				os_log("Unable to decode the repetition days for a Trip object.", log: OSLog.default, type: .debug)
 				return nil

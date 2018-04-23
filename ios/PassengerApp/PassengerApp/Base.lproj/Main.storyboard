@@ -276,6 +276,81 @@
             </objects>
             <point key="canvasLocation" x="-7258.125" y="751.05633802816897"/>
         </scene>
+        <!--Review View Controller-->
+        <scene sceneID="8QM-HP-b2S">
+            <objects>
+                <viewController id="Vhd-Mm-LgN" customClass="ReviewViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Z1E-G4-D57">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PiH-VE-Fc2">
+                                <rect key="frame" x="47" y="83.5" width="281" height="500"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retroalimentación de viaje" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAZ-Vb-EcN">
+                                        <rect key="frame" x="0.0" y="25" width="281" height="50.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elige a tu conductor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NV3-Vz-Kqt">
+                                        <rect key="frame" x="0.0" y="75.5" width="281" height="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsH-GV-fpN">
+                                        <rect key="frame" x="0.0" y="209" width="281" height="75"/>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKL-V6-WeV">
+                                        <rect key="frame" x="0.0" y="100" width="281" height="75"/>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elige la crafter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLL-8N-6Tp">
+                                        <rect key="frame" x="0.0" y="183.5" width="281" height="25.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="gLL-8N-6Tp" firstAttribute="height" secondItem="NV3-Vz-Kqt" secondAttribute="height" id="3RJ-AD-kIJ"/>
+                                    <constraint firstItem="NV3-Vz-Kqt" firstAttribute="height" secondItem="QAZ-Vb-EcN" secondAttribute="height" multiplier="0.5" id="52H-ag-Yqf"/>
+                                    <constraint firstItem="NV3-Vz-Kqt" firstAttribute="width" secondItem="QAZ-Vb-EcN" secondAttribute="width" id="6ti-Fr-Jsa"/>
+                                    <constraint firstItem="QAZ-Vb-EcN" firstAttribute="height" secondItem="PiH-VE-Fc2" secondAttribute="height" multiplier="0.1" id="9Lr-SR-oXc"/>
+                                    <constraint firstItem="QAZ-Vb-EcN" firstAttribute="centerX" secondItem="PiH-VE-Fc2" secondAttribute="centerX" id="Br2-3v-PBH"/>
+                                    <constraint firstItem="DKL-V6-WeV" firstAttribute="width" secondItem="PiH-VE-Fc2" secondAttribute="width" id="Cqj-9c-AoN"/>
+                                    <constraint firstItem="gLL-8N-6Tp" firstAttribute="centerX" secondItem="NV3-Vz-Kqt" secondAttribute="centerX" id="IfH-bn-uZG"/>
+                                    <constraint firstItem="QAZ-Vb-EcN" firstAttribute="width" secondItem="PiH-VE-Fc2" secondAttribute="width" id="KvZ-cQ-817"/>
+                                    <constraint firstItem="NV3-Vz-Kqt" firstAttribute="top" secondItem="QAZ-Vb-EcN" secondAttribute="bottom" id="NIS-CM-U0t"/>
+                                    <constraint firstItem="wsH-GV-fpN" firstAttribute="top" secondItem="gLL-8N-6Tp" secondAttribute="bottom" id="UU7-ga-dij"/>
+                                    <constraint firstItem="DKL-V6-WeV" firstAttribute="height" secondItem="PiH-VE-Fc2" secondAttribute="height" multiplier="0.15" id="Y5P-WR-2Fo"/>
+                                    <constraint firstItem="DKL-V6-WeV" firstAttribute="centerX" secondItem="PiH-VE-Fc2" secondAttribute="centerX" id="aUI-Sy-En0"/>
+                                    <constraint firstItem="wsH-GV-fpN" firstAttribute="width" secondItem="DKL-V6-WeV" secondAttribute="width" id="cwx-Xn-Qgl"/>
+                                    <constraint firstItem="wsH-GV-fpN" firstAttribute="centerX" secondItem="PiH-VE-Fc2" secondAttribute="centerX" id="gGe-JJ-ad4"/>
+                                    <constraint firstItem="gLL-8N-6Tp" firstAttribute="width" secondItem="NV3-Vz-Kqt" secondAttribute="width" id="mLc-dL-U6v"/>
+                                    <constraint firstItem="NV3-Vz-Kqt" firstAttribute="centerX" secondItem="PiH-VE-Fc2" secondAttribute="centerX" id="o2a-FG-M4L"/>
+                                    <constraint firstItem="DKL-V6-WeV" firstAttribute="top" secondItem="NV3-Vz-Kqt" secondAttribute="bottom" id="qJC-92-M3G"/>
+                                    <constraint firstItem="wsH-GV-fpN" firstAttribute="height" secondItem="DKL-V6-WeV" secondAttribute="height" id="scO-x0-vG4"/>
+                                    <constraint firstItem="QAZ-Vb-EcN" firstAttribute="centerY" secondItem="PiH-VE-Fc2" secondAttribute="centerY" multiplier="0.2" id="vYU-Zb-e8S"/>
+                                    <constraint firstItem="gLL-8N-6Tp" firstAttribute="top" secondItem="DKL-V6-WeV" secondAttribute="bottom" constant="8" id="vbB-Kx-wIZ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.25307684075342468" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PiH-VE-Fc2" firstAttribute="height" secondItem="Z1E-G4-D57" secondAttribute="height" multiplier="0.75" id="4ym-tW-oK1"/>
+                            <constraint firstItem="PiH-VE-Fc2" firstAttribute="centerY" secondItem="Z1E-G4-D57" secondAttribute="centerY" id="5xi-kt-8Uy"/>
+                            <constraint firstItem="PiH-VE-Fc2" firstAttribute="centerX" secondItem="Z1E-G4-D57" secondAttribute="centerX" id="SaP-Yx-4Cj"/>
+                            <constraint firstItem="PiH-VE-Fc2" firstAttribute="width" secondItem="Z1E-G4-D57" secondAttribute="width" multiplier="0.75" id="bTR-kX-hoh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nib-73-LEG"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SGk-HS-ej5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6042.3999999999996" y="1045.7271364317842"/>
+        </scene>
         <!--Mis Traslados-->
         <scene sceneID="P4T-YK-efG">
             <objects>

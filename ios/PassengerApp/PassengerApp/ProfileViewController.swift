@@ -22,6 +22,24 @@ class ProfileViewController: UIViewController {
         
         notifications = sender.isOn
         print("notifications = " + String(notifications))
+        
+//        //Path to the ConfigVariables plist file
+//        let path = Bundle.main.path(forResource: "ConfigVariables", ofType: "plist")
+//        //Dictionary with the key-value structures in that file
+//        let dict = NSDictionary(contentsOfFile: path!)
+//
+//        dict?.setValue(notifications, forKey: "notifications")
+//        
+//        if let path = Bundle.main.path(forResource:"ConfigVariables", ofType: "plist"),
+//            FileManager.default.fileExists(atPath: path),
+//            
+//            let dict = NSArray(contentsOfFile: path) as? [NSMutableDictionary] {
+//            
+//                let notificationsValue = dic["notifications"]
+////                let selectedAnimal = dic[selectedIndex]
+////                selectedAnimal["fav"] = isFavorite // this replaces `setValue`
+//                (dict as NSArray).write(toFile: path, atomically: true)
+//            }
     }
     
     @IBAction func toggleVibration(_ sender: UISwitch) {

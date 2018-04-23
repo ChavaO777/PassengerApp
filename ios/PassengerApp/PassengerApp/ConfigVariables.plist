@@ -5,10 +5,10 @@
 	<key>alertBeforeMinutes</key>
 	<integer>3</integer>
 	<key>notifications</key>
-	<false/>
+	<true/>
 	<key>vibration</key>
-	<false/>
+	<true/>
 	<key>sound</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

@@ -495,8 +495,9 @@ alertas (min. antes)</string>
         <image name="icon_userProfile" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zVU-dS-Q9I"/>
-        <segue reference="3gw-XV-dGp"/>
+        <segue reference="5qk-hF-E6X"/>
+        <segue reference="iHy-Rd-ztY"/>
+        <segue reference="KEp-lM-yWU"/>
         <segue reference="2bd-6S-F5e"/>
     </inferredMetricsTieBreakers>
 </document>

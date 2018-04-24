@@ -20,11 +20,6 @@ class RatingControl: UIStackView {
             updateButtonSelectionStates()
         }
     }
-    @IBInspectable var starSize: CGSize = CGSize(width: 44.0, height: 44.0) {
-        didSet {
-            setupButtons()
-        }
-    }
     
     @IBInspectable var starCount: Int = 5 {
         didSet {
@@ -99,8 +94,12 @@ class RatingControl: UIStackView {
             
             // Add constraints
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.heightAnchor.constraint(equalToConstant: starSize.height).isActive = true
-            button.widthAnchor.constraint(equalToConstant: starSize.width).isActive = true
+            
+            let height = self.frame.size.height - 2.0
+            let width = self.frame.size.width/CGFloat(starCount)
+            
+            button.heightAnchor.constraint(equalToConstant: height).isActive = true
+            button.widthAnchor.constraint(equalToConstant: width).isActive = true
             
             // Setup the button action
             button.addTarget(self, action: #selector(RatingControl.ratingButtonTapped(button:)), for: .touchUpInside)

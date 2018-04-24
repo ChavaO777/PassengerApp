@@ -285,40 +285,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PiH-VE-Fc2">
-                                <rect key="frame" x="24" y="61" width="272" height="466"/>
+                                <rect key="frame" x="0.0" y="204" width="320" height="180"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retroalimentación de viaje" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAZ-Vb-EcN">
-                                        <rect key="frame" x="0.0" y="11.5" width="272" height="47"/>
+                                        <rect key="frame" x="0.0" y="4.5" width="320" height="18.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elige a tu conductor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NV3-Vz-Kqt">
-                                        <rect key="frame" x="0.0" y="58.5" width="272" height="23.5"/>
+                                        <rect key="frame" x="0.0" y="23" width="320" height="9"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsH-GV-fpN">
-                                        <rect key="frame" x="0.0" y="183.5" width="272" height="70.5"/>
+                                        <rect key="frame" x="0.0" y="75.5" width="320" height="27.5"/>
                                     </pickerView>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKL-V6-WeV">
-                                        <rect key="frame" x="0.0" y="81.5" width="272" height="70"/>
+                                        <rect key="frame" x="0.0" y="31.5" width="320" height="27"/>
                                     </pickerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elige la crafter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLL-8N-6Tp">
-                                        <rect key="frame" x="0.0" y="159.5" width="272" height="24"/>
+                                        <rect key="frame" x="0.0" y="66.5" width="320" height="9"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Califica al conductor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SD4-UK-Qp9">
-                                        <rect key="frame" x="0.0" y="269" width="272" height="24"/>
+                                        <rect key="frame" x="0.0" y="118" width="320" height="8.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N0P-Zb-nAZ" customClass="RatingControl" customModule="PassengerApp" customModuleProvider="target">
-                                        <rect key="frame" x="13.5" y="293" width="245" height="46"/>
+                                        <rect key="frame" x="-186.5" y="126.5" width="693" height="18"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="size" keyPath="starSize">
                                                 <size key="value" width="44" height="44"/>
@@ -329,17 +329,20 @@
                                         </userDefinedRuntimeAttributes>
                                     </stackView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Deja un comentario (opcional)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GgX-Y5-N6o">
-                                        <rect key="frame" x="7" y="344" width="258" height="71"/>
+                                        <rect key="frame" x="8" y="149.5" width="304" height="0.0"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oiW-Sq-kSW">
-                                        <rect key="frame" x="152" y="428" width="75" height="30"/>
+                                        <rect key="frame" x="152" y="162.5" width="75" height="9.5"/>
                                         <state key="normal" title="Enviar"/>
+                                        <connections>
+                                            <action selector="sendReview:" destination="Vhd-Mm-LgN" eventType="touchUpInside" id="Efk-qY-YWy"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Leb-A3-GTP">
-                                        <rect key="frame" x="62" y="428.5" width="75" height="30.5"/>
+                                        <rect key="frame" x="62" y="163" width="75" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="dlt-1y-Neg"/>
                                         </constraints>
@@ -392,12 +395,16 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="PiH-VE-Fc2" firstAttribute="centerX" secondItem="nib-73-LEG" secondAttribute="centerX" id="4UV-cc-RHQ"/>
-                            <constraint firstItem="PiH-VE-Fc2" firstAttribute="height" secondItem="nib-73-LEG" secondAttribute="height" multiplier="0.85" id="8uj-WT-mct"/>
-                            <constraint firstItem="PiH-VE-Fc2" firstAttribute="width" secondItem="nib-73-LEG" secondAttribute="width" multiplier="0.85" id="nWb-4c-Vv0"/>
+                            <constraint firstItem="PiH-VE-Fc2" firstAttribute="width" secondItem="Z1E-G4-D57" secondAttribute="width" id="qah-LS-Usc"/>
                             <constraint firstItem="PiH-VE-Fc2" firstAttribute="centerY" secondItem="nib-73-LEG" secondAttribute="centerY" id="yoT-gg-lMI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nib-73-LEG"/>
                     </view>
+                    <connections>
+                        <outlet property="crafterPicker" destination="wsH-GV-fpN" id="rmq-C0-dcJ"/>
+                        <outlet property="driverPicker" destination="DKL-V6-WeV" id="7On-Zj-u5M"/>
+                        <outlet property="rating" destination="N0P-Zb-nAZ" id="QLf-3E-ON9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SGk-HS-ej5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

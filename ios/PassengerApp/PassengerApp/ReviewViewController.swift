@@ -13,7 +13,7 @@ class ReviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.white.withAlphaComponent(0.0001)
     }
 
     override func didReceiveMemoryWarning() {

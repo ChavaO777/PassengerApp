@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mrn-b9-1TZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vhd-Mm-LgN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -280,7 +280,7 @@
         <scene sceneID="8QM-HP-b2S">
             <objects>
                 <viewController id="Vhd-Mm-LgN" customClass="ReviewViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Z1E-G4-D57">
+                    <view key="view" alpha="0.59999999999999998" contentMode="scaleToFill" id="Z1E-G4-D57">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -311,6 +311,23 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Califica al conductor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SD4-UK-Qp9">
+                                        <rect key="frame" x="0.0" y="299" width="281" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N0P-Zb-nAZ" customClass="RatingControl" customModule="PassengerApp" customModuleProvider="target">
+                                        <rect key="frame" x="13.5" y="317" width="253" height="50"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="starSize">
+                                                <size key="value" width="44" height="44"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="starCount">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -318,26 +335,33 @@
                                     <constraint firstItem="NV3-Vz-Kqt" firstAttribute="height" secondItem="QAZ-Vb-EcN" secondAttribute="height" multiplier="0.5" id="52H-ag-Yqf"/>
                                     <constraint firstItem="NV3-Vz-Kqt" firstAttribute="width" secondItem="QAZ-Vb-EcN" secondAttribute="width" id="6ti-Fr-Jsa"/>
                                     <constraint firstItem="QAZ-Vb-EcN" firstAttribute="height" secondItem="PiH-VE-Fc2" secondAttribute="height" multiplier="0.1" id="9Lr-SR-oXc"/>
+                                    <constraint firstItem="SD4-UK-Qp9" firstAttribute="top" secondItem="wsH-GV-fpN" secondAttribute="bottom" constant="15" id="BUh-Jc-iDu"/>
+                                    <constraint firstItem="N0P-Zb-nAZ" firstAttribute="top" secondItem="SD4-UK-Qp9" secondAttribute="bottom" id="Bgd-oT-VbL"/>
                                     <constraint firstItem="QAZ-Vb-EcN" firstAttribute="centerX" secondItem="PiH-VE-Fc2" secondAttribute="centerX" id="Br2-3v-PBH"/>
                                     <constraint firstItem="DKL-V6-WeV" firstAttribute="width" secondItem="PiH-VE-Fc2" secondAttribute="width" id="Cqj-9c-AoN"/>
                                     <constraint firstItem="gLL-8N-6Tp" firstAttribute="centerX" secondItem="NV3-Vz-Kqt" secondAttribute="centerX" id="IfH-bn-uZG"/>
                                     <constraint firstItem="QAZ-Vb-EcN" firstAttribute="width" secondItem="PiH-VE-Fc2" secondAttribute="width" id="KvZ-cQ-817"/>
+                                    <constraint firstItem="SD4-UK-Qp9" firstAttribute="width" secondItem="gLL-8N-6Tp" secondAttribute="width" id="M8q-3O-XY6"/>
                                     <constraint firstItem="NV3-Vz-Kqt" firstAttribute="top" secondItem="QAZ-Vb-EcN" secondAttribute="bottom" id="NIS-CM-U0t"/>
                                     <constraint firstItem="wsH-GV-fpN" firstAttribute="top" secondItem="gLL-8N-6Tp" secondAttribute="bottom" id="UU7-ga-dij"/>
+                                    <constraint firstItem="SD4-UK-Qp9" firstAttribute="centerX" secondItem="PiH-VE-Fc2" secondAttribute="centerX" id="XAA-wf-f48"/>
                                     <constraint firstItem="DKL-V6-WeV" firstAttribute="height" secondItem="PiH-VE-Fc2" secondAttribute="height" multiplier="0.15" id="Y5P-WR-2Fo"/>
                                     <constraint firstItem="DKL-V6-WeV" firstAttribute="centerX" secondItem="PiH-VE-Fc2" secondAttribute="centerX" id="aUI-Sy-En0"/>
                                     <constraint firstItem="wsH-GV-fpN" firstAttribute="width" secondItem="DKL-V6-WeV" secondAttribute="width" id="cwx-Xn-Qgl"/>
+                                    <constraint firstItem="N0P-Zb-nAZ" firstAttribute="centerX" secondItem="PiH-VE-Fc2" secondAttribute="centerX" id="evo-qk-4vL"/>
                                     <constraint firstItem="wsH-GV-fpN" firstAttribute="centerX" secondItem="PiH-VE-Fc2" secondAttribute="centerX" id="gGe-JJ-ad4"/>
+                                    <constraint firstItem="N0P-Zb-nAZ" firstAttribute="width" secondItem="PiH-VE-Fc2" secondAttribute="width" multiplier="0.9" id="igS-qq-z5U"/>
                                     <constraint firstItem="gLL-8N-6Tp" firstAttribute="width" secondItem="NV3-Vz-Kqt" secondAttribute="width" id="mLc-dL-U6v"/>
                                     <constraint firstItem="NV3-Vz-Kqt" firstAttribute="centerX" secondItem="PiH-VE-Fc2" secondAttribute="centerX" id="o2a-FG-M4L"/>
                                     <constraint firstItem="DKL-V6-WeV" firstAttribute="top" secondItem="NV3-Vz-Kqt" secondAttribute="bottom" id="qJC-92-M3G"/>
+                                    <constraint firstItem="N0P-Zb-nAZ" firstAttribute="height" secondItem="PiH-VE-Fc2" secondAttribute="height" multiplier="0.1" id="s8M-Id-xIw"/>
                                     <constraint firstItem="wsH-GV-fpN" firstAttribute="height" secondItem="DKL-V6-WeV" secondAttribute="height" id="scO-x0-vG4"/>
                                     <constraint firstItem="QAZ-Vb-EcN" firstAttribute="centerY" secondItem="PiH-VE-Fc2" secondAttribute="centerY" multiplier="0.2" id="vYU-Zb-e8S"/>
                                     <constraint firstItem="gLL-8N-6Tp" firstAttribute="top" secondItem="DKL-V6-WeV" secondAttribute="bottom" constant="8" id="vbB-Kx-wIZ"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.25307684075342468" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="PiH-VE-Fc2" firstAttribute="height" secondItem="Z1E-G4-D57" secondAttribute="height" multiplier="0.75" id="4ym-tW-oK1"/>
                             <constraint firstItem="PiH-VE-Fc2" firstAttribute="centerY" secondItem="Z1E-G4-D57" secondAttribute="centerY" id="5xi-kt-8Uy"/>

@@ -13,7 +13,12 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var rating: RatingControl!
     @IBOutlet weak var driverPicker: UIPickerView!
     @IBOutlet weak var crafterPicker: UIPickerView!
-	
+	@IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var drivingPrizeButton: UIButton!
+    @IBOutlet weak var cleanlinessPrizeButton: UIButton!
+    @IBOutlet weak var kindnessPrizeButton: UIButton!
+    
+    
     static let BACKEND_URL = "http:"
     static let CRAFTERS_API_URL = "crafters/"
     static let DRIVERS_API_URL = "drivers/"
@@ -21,19 +26,28 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     private var drivers = [Driver]()
     private var crafters = [Crafter]()
-    
-    private var review: Review?
-    
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = UIColor.white.withAlphaComponent(0.8)
+		
+		getAvailableDrivers()
+		getAvailableCrafters()
 		
 		driverPicker.dataSource = self
 		driverPicker.delegate = self
 		
 		crafterPicker.dataSource = self
 		crafterPicker.delegate = self
+		
+		drivingPrizeButton.setImage (UIImage.init(named: "driving_Selected"), for: .selected)
+		drivingPrizeButton.setImage (UIImage.init(named: "driving"), for: .normal)
+		cleanlinessPrizeButton.setImage (UIImage.init(named: "cleanliness_Selected"), for: .selected)
+		cleanlinessPrizeButton.setImage (UIImage.init(named: "cleanliness"), for: .normal)
+		kindnessPrizeButton.setImage (UIImage.init(named: "kindess_Selected"), for: .selected)
+		kindnessPrizeButton.setImage (UIImage.init(named: "kindness"), for: .normal)
+	
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,14 +64,112 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         // Pass the selected object to the new view controller.
     }
     */
-    
+    @IBAction func onPrizeButtonTouch(_ sender: UIButton) {
+		
+		sender.isSelected = !sender.isSelected
+    }
+	
     
     @IBAction func sendReview(_ sender: Any) {
 		
 		//Save indices for the currently selected driver and crafter
 		let selectedDriverIndex = driverPicker.selectedRow(inComponent: 0)
 		let selectedCrafterIndex = crafterPicker.selectedRow(inComponent: 0)
-    }
+	
+		//Prepare new review object
+		let driver_id = drivers[selectedDriverIndex].id
+		let passenger_id = "passenger1"
+		let crafter_id = crafters[selectedCrafterIndex].id
+		let comment = commentTextField.text
+		let score = rating.rating
+		let kindness_prize = kindnessPrizeButton.isSelected
+		let cleanliness_prize = cleanlinessPrizeButton.isSelected
+		let driving_skills_prize = drivingPrizeButton.isSelected
+
+		
+		var review = Review.init(driver_id: driver_id, passenger_id: passenger_id, crafter_id: crafter_id, comment: comment!, score: score, kindness_prize: kindness_prize, cleanliness_prize: cleanliness_prize, driving_skills_prize: driving_skills_prize)
+		
+		//Send object to database
+		let defaultSession = URLSession (configuration: .default)
+		var dataTask: URLSessionDataTask?
+		
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		
+		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.REVIEWS_API_URL)
+		
+		var request = URLRequest(url: url! as URL)
+		request.httpMethod = "POST"
+		
+		do {
+			request.httpBody = try JSONEncoder().encode(review)
+		} catch let jsonError{
+			fatalError(String(describing: jsonError))
+		}
+		
+		
+		dataTask = defaultSession.dataTask(with: request) {
+			data, response, error in
+			
+			if error != nil {
+				print (error!.localizedDescription)
+			}
+			else if let httpResponse = response as? HTTPURLResponse {
+				if httpResponse.statusCode == 200 {
+					DispatchQueue.main.async {
+						UIApplication.shared.isNetworkActivityIndicatorVisible = false
+					}
+				}
+			}
+		}
+		dataTask?.resume()
+		
+		
+		//Update driver in database
+		
+		let id = drivers[selectedDriverIndex].id
+		let first_name = drivers[selectedDriverIndex].first_name
+		let last_name = drivers[selectedDriverIndex].last_name
+		let review_count = drivers[selectedDriverIndex].review_count + 1
+		let review_average = ((drivers[selectedDriverIndex].review_avg * Double(review_count - 1)) + rating.rating) / Double(review_count)
+		let kindness_prize_count = drivers[selectedDriverIndex].kindness_prize_count + (kindnessPrizeButton.isSelected ? 1 : 0)
+		let cleaniless_prize_count = drivers[selectedDriverIndex].cleanliness_prize_count + (cleanlinessPrizeButton.isSelected ? 1 : 0)
+		let driving_skills_prize_count = drivers[selectedDriverIndex].driving_skills_prize_count + (drivingPrizeButton.isSelected ? 1 : 0)
+		
+		
+		let driver = Driver.init(id: id, first_name: first_name, last_name: last_name, review_count: review_count, review_avg: review_avg, kindness_prize_count: kindness_prize_count, cleanliness_prize_count: cleanliness_prize_count, driving_skills_prize_count: driving_skills_prize_count)
+		
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		
+		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.DRIVERS_API_URL + String(id))
+		
+		var request = URLRequest(url: url! as URL)
+		request.httpMethod = "PUT"
+		
+		do {
+			request.httpBody = try JSONEncoder().encode(driver)
+		} catch let jsonError{
+			fatalError(String(describing: jsonError))
+		}
+		
+		dataTask = defaultSession.dataTask(with: request) {
+			data, response, error in
+			
+			if error != nil {
+				print (error!.localizedDescription)
+			}
+			else if let httpResponse = response as? HTTPURLResponse {
+				if httpResponse.statusCode == 200 {
+					DispatchQueue.main.async {
+						UIApplication.shared.isNetworkActivityIndicatorVisible = false
+					}
+				}
+			}
+		}
+		dataTask?.resume()
+		
+		//TODO: CLose VIEW
+	}
+	
     
     // MARK: - Private Methods
     
@@ -70,7 +182,8 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		
 		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.CRAFTERS_API_URL)
 		
-		let request = URLRequest(url: url! as URL)
+		var request = URLRequest(url: url! as URL)
+		request.httpMethod = "GET"
 		
 		dataTask = defaultSession.dataTask(with: request) {
 			data, response, error in
@@ -97,6 +210,45 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		}
 		dataTask?.resume()
     }
+	
+	private func getAvailableDrivers()
+	{
+		let defaultSession = URLSession (configuration: .default)
+		var dataTask: URLSessionDataTask?
+		
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		
+		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.DRIVERS_API_URL)
+		
+		var request = URLRequest(url: url! as URL)
+		request.httpMethod = "GET"
+		
+		dataTask = defaultSession.dataTask(with: request) {
+			data, response, error in
+			
+			if error != nil {
+				print (error!.localizedDescription)
+			}
+			else if let httpResponse = response as? HTTPURLResponse {
+				if httpResponse.statusCode == 200 {
+					DispatchQueue.main.async {
+						UIApplication.shared.isNetworkActivityIndicatorVisible = false
+						
+						do {
+							let decodedData = try JSONDecoder().decode([Driver].self, from: data!)
+							
+							self.drivers = decodedData
+						} catch let jsonError{
+							print (jsonError)
+						}
+					}
+				}
+			}
+			
+		}
+		dataTask?.resume()
+	}
+	
 	
 	// MARK: - UIPickerView Methods
 
@@ -147,7 +299,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let first_name: String
         let last_name: String
         let review_count: Int
-        let review_avg: Int
+        let review_avg: Double
         let kindness_prize_count: Int
         let cleanliness_prize_count: Int
         let driving_skills_prize_count: Int

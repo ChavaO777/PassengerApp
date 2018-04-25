@@ -264,11 +264,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_userProfile" translatesAutoresizingMaskIntoConstraints="NO" id="1Ma-Yj-igS">
-                                <rect key="frame" x="137.5" y="101.5" width="100" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_userProfile_large" translatesAutoresizingMaskIntoConstraints="NO" id="1Ma-Yj-igS">
+                                <rect key="frame" x="137.5" y="101.5" width="100" height="100"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Doe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXh-ht-YY7">
-                                <rect key="frame" x="134" y="139" width="107.5" height="31"/>
+                                <rect key="frame" x="134" y="174" width="107.5" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -280,13 +280,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vibración" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1G-nZ-NKJ">
-                                <rect key="frame" x="40" y="316" width="65" height="18"/>
+                                <rect key="frame" x="40" y="350.5" width="65" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sonido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Lr-BP-p5u">
-                                <rect key="frame" x="40" y="363.5" width="48" height="18"/>
+                                <rect key="frame" x="40" y="398" width="48" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -299,19 +299,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9pb-SJ-47F">
-                                <rect key="frame" x="310" y="263" width="51" height="31"/>
+                                <rect key="frame" x="310" y="297.5" width="51" height="31"/>
                                 <connections>
                                     <action selector="toggleNotifications:" destination="yaT-N0-bmT" eventType="valueChanged" id="bDg-JR-8tI"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvr-Gm-MqJ">
-                                <rect key="frame" x="310" y="310" width="51" height="31"/>
+                                <rect key="frame" x="310" y="344.5" width="51" height="31"/>
                                 <connections>
                                     <action selector="toggleVibration:" destination="yaT-N0-bmT" eventType="valueChanged" id="aSK-FQ-Q1N"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9n0-sb-I31">
-                                <rect key="frame" x="310" y="357" width="51" height="31"/>
+                                <rect key="frame" x="310" y="391.5" width="51" height="31"/>
                                 <connections>
                                     <action selector="toggleSound:" destination="yaT-N0-bmT" eventType="valueChanged" id="uKZ-0w-Pcl"/>
                                 </connections>
@@ -359,16 +359,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="X4k-24-m32">
-                                <rect key="frame" x="265" y="436" width="94" height="29"/>
+                                <rect key="frame" x="265" y="470.5" width="94" height="29"/>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total de viajes: X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRx-xV-Wsa">
-                                <rect key="frame" x="129.5" y="208" width="116" height="18"/>
+                                <rect key="frame" x="129.5" y="243" width="116" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiempo promedio de espera: Y" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehL-bI-aOs">
-                                <rect key="frame" x="82" y="232" width="211" height="18"/>
+                                <rect key="frame" x="82" y="267" width="211" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -429,7 +429,7 @@ alertas (min. antes)</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZCa-wP-G8v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="UserProfile" image="icon_userProfile" id="is0-zV-BU0"/>
+                    <tabBarItem key="tabBarItem" title="UserProfile" image="icon_userProfile_small" id="is0-zV-BU0"/>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -486,6 +486,8 @@ alertas (min. antes)</string>
         <image name="icon_home" width="30" height="30"/>
         <image name="icon_map" width="30" height="30"/>
         <image name="icon_star" width="30" height="30"/>
-        <image name="icon_userProfile" width="30" height="30"/>
+        <image name="icon_userProfile" width="100" height="100"/>
+        <image name="icon_userProfile_large" width="100" height="100"/>
+        <image name="icon_userProfile_small" width="30" height="30"/>
     </resources>
 </document>

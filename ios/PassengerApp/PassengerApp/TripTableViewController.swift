@@ -204,7 +204,6 @@ class TripTableViewController: UITableViewController {
     }
     
     
-    
     private func saveTrips() {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(trips, toFile: Trip.ArchiveURL.path)
         

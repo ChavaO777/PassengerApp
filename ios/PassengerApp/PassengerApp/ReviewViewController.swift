@@ -87,7 +87,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		let driving_skills_prize = drivingPrizeButton.isSelected
 
 		
-		var review = Review.init(driver_id: driver_id, passenger_id: passenger_id, crafter_id: crafter_id, comment: comment!, score: score, kindness_prize: kindness_prize, cleanliness_prize: cleanliness_prize, driving_skills_prize: driving_skills_prize)
+		let review = Review.init(driver_id: driver_id, passenger_id: passenger_id, crafter_id: crafter_id, comment: comment!, score: score, kindness_prize: kindness_prize, cleanliness_prize: cleanliness_prize, driving_skills_prize: driving_skills_prize)
 		
 		//Send object to database
 		let defaultSession = URLSession (configuration: .default)
@@ -123,56 +123,21 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		}
 		dataTask?.resume()
 		
+		updateDriver(selectedDriverIndex)
 		
-		//Update driver in database
-		
-		let id = drivers[selectedDriverIndex].id
-		let first_name = drivers[selectedDriverIndex].first_name
-		let last_name = drivers[selectedDriverIndex].last_name
-		let review_count = drivers[selectedDriverIndex].review_count + 1
-		let review_average = ((drivers[selectedDriverIndex].review_avg * Double(review_count - 1)) + rating.rating) / Double(review_count)
-		let kindness_prize_count = drivers[selectedDriverIndex].kindness_prize_count + (kindnessPrizeButton.isSelected ? 1 : 0)
-		let cleaniless_prize_count = drivers[selectedDriverIndex].cleanliness_prize_count + (cleanlinessPrizeButton.isSelected ? 1 : 0)
-		let driving_skills_prize_count = drivers[selectedDriverIndex].driving_skills_prize_count + (drivingPrizeButton.isSelected ? 1 : 0)
-		
-		
-		let driver = Driver.init(id: id, first_name: first_name, last_name: last_name, review_count: review_count, review_avg: review_avg, kindness_prize_count: kindness_prize_count, cleanliness_prize_count: cleanliness_prize_count, driving_skills_prize_count: driving_skills_prize_count)
-		
-		UIApplication.shared.isNetworkActivityIndicatorVisible = true
-		
-		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.DRIVERS_API_URL + String(id))
-		
-		var request = URLRequest(url: url! as URL)
-		request.httpMethod = "PUT"
-		
-		do {
-			request.httpBody = try JSONEncoder().encode(driver)
-		} catch let jsonError{
-			fatalError(String(describing: jsonError))
-		}
-		
-		dataTask = defaultSession.dataTask(with: request) {
-			data, response, error in
-			
-			if error != nil {
-				print (error!.localizedDescription)
-			}
-			else if let httpResponse = response as? HTTPURLResponse {
-				if httpResponse.statusCode == 200 {
-					DispatchQueue.main.async {
-						UIApplication.shared.isNetworkActivityIndicatorVisible = false
-					}
-				}
-			}
-		}
-		dataTask?.resume()
-		
-		//TODO: CLose VIEW
+		closePopup()
 	}
+		
 	
     
     // MARK: - Private Methods
-    
+	
+	//CLOSE OP-UP View
+	private func closePopup()
+	{
+		removeAnimate()
+	}
+	
     private func getAvailableCrafters()
     {
 		let defaultSession = URLSession (configuration: .default)
@@ -244,14 +209,86 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 					}
 				}
 			}
-			
 		}
 		dataTask?.resume()
 	}
 	
+	func updateDriver(_ selectedDriverIndex: Int)
+	{
+		let defaultSession = URLSession (configuration: .default)
+		var dataTask: URLSessionDataTask?
+		
+		//Update driver in database
+		
+		let id = drivers[selectedDriverIndex].id
+		let first_name = drivers[selectedDriverIndex].first_name
+		let last_name = drivers[selectedDriverIndex].last_name
+		let review_count = drivers[selectedDriverIndex].review_count + 1
+		let review_average = ((drivers[selectedDriverIndex].review_avg * Double(review_count - 1)) + rating.rating) / Double(review_count)
+		let kindness_prize_count = drivers[selectedDriverIndex].kindness_prize_count + (kindnessPrizeButton.isSelected ? 1 : 0)
+		let cleanliess_prize_count = drivers[selectedDriverIndex].cleanliness_prize_count + (cleanlinessPrizeButton.isSelected ? 1 : 0)
+		let driving_skills_prize_count = drivers[selectedDriverIndex].driving_skills_prize_count + (drivingPrizeButton.isSelected ? 1 : 0)
+		
+		
+		let driver = Driver.init(id: id, first_name: first_name, last_name: last_name, review_count: review_count, review_avg: review_average, kindness_prize_count: kindness_prize_count, cleanliness_prize_count: cleanliess_prize_count, driving_skills_prize_count: driving_skills_prize_count)
+		
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		
+		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.DRIVERS_API_URL + String(id))
+		
+		var request = URLRequest(url: url! as URL)
+		request.httpMethod = "PUT"
+		
+		do {
+			request.httpBody = try JSONEncoder().encode(driver)
+		} catch let jsonError{
+			fatalError(String(describing: jsonError))
+		}
+		
+		dataTask = defaultSession.dataTask(with: request) {
+			data, response, error in
+			
+			if error != nil {
+				print (error!.localizedDescription)
+			}
+			else if let httpResponse = response as? HTTPURLResponse {
+				if httpResponse.statusCode == 200 {
+					DispatchQueue.main.async {
+						UIApplication.shared.isNetworkActivityIndicatorVisible = false
+					}
+				}
+			}
+		}
+		dataTask?.resume()
+		
+	}
+	
+	//Pop up aimation
+	func showAnimate()
+	{
+		self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
+		self.view.alpha = 0.0
+		UIView.animate(withDuration: 0.3, animations: {
+			self.view.alpha = 1.0
+			self.view.transform = self.view.transform.scaledBy(x: 1.0, y: 1.0)
+		})
+	}
+	
+	//Animate out and close popup
+	func removeAnimate()
+	{
+		UIView.animate(withDuration: 0.25, animations: {
+			self.view.alpha = 0.0
+			self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
+		}, completion: {(finished : Bool) in
+			if (finished)
+			{
+				self.view.removeFromSuperview()
+			}
+		})
+	}
 	
 	// MARK: - UIPickerView Methods
-
 	
 	func numberOfComponents(in pickerView: UIPickerView) -> Int {
 		return 1
@@ -287,6 +324,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 	}
     
     // MARK: - Internal Structs for data
+	
     private struct Crafter : Decodable
     {
         let id: String

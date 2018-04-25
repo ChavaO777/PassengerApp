@@ -146,15 +146,9 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		alarmNameTextField.resignFirstResponder()
 		return true
 	}
-	
+
+    
     /*
-     //To CLOSE OP-UP View
-    func closePopup()
-    {
-        self.removeAnimate()
-    }
-    
-    
     //CODE to create a popup from a view
      //Create popup for new trip data
      let addTripVC = UIStoryboard (name: "Main" /*same story board, different view/scene */, bundle: nil).instantiateViewController(withIdentifier: "addTripView") as! TripViewController
@@ -163,33 +157,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
      addTripVC.view.frame = self.view.frame
      self.view.addSubview(addTripVC.view)
      addTripVC.didMove(toParentViewController: self)
- 
-     
-    //Pop up aimation
-    func showAnimate()
-    {
-        self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
-        self.view.alpha = 0.0
-        UIView.animate(withDuration: 0.3, animations: {
-            self.view.alpha = 1.0
-            self.view.transform = self.view.transform.scaledBy(x: 1.0, y: 1.0)
-        })
-    }
-    
-     
-    func removeAnimate()
-    {
-        UIView.animate(withDuration: 0.25, animations: {
-            self.view.alpha = 0.0
-            self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
-        }, completion: {(finished : Bool) in
-            if (finished)
-            {
-                self.view.removeFromSuperview()
-            }
-        })
-    }
- */
+	*/
 	
 	//MARK: Private Methods
 	private func updateSaveButtonState() {

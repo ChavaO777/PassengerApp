@@ -82,8 +82,6 @@ class TripViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
 		
 		// Handle the text field’s user input through delegate callbacks.
 		alarmNameTextField.delegate = self

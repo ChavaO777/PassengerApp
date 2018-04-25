@@ -23,23 +23,13 @@ class ProfileViewController: UIViewController {
         notifications = sender.isOn
         print("notifications = " + String(notifications))
         
-//        //Path to the ConfigVariables plist file
-//        let path = Bundle.main.path(forResource: "ConfigVariables", ofType: "plist")
-//        //Dictionary with the key-value structures in that file
-//        let dict = NSDictionary(contentsOfFile: path!)
+//        UserDefaults.standard.set(true, forKey: "Key") //Bool
+//        UserDefaults.standard.set(1, forKey: "Key")  //Integer
+//        UserDefaults.standard.set("TEST", forKey: "Key") //setObject
 //
-//        dict?.setValue(notifications, forKey: "notifications")
-//        
-//        if let path = Bundle.main.path(forResource:"ConfigVariables", ofType: "plist"),
-//            FileManager.default.fileExists(atPath: path),
-//            
-//            let dict = NSArray(contentsOfFile: path) as? [NSMutableDictionary] {
-//            
-//                let notificationsValue = dic["notifications"]
-////                let selectedAnimal = dic[selectedIndex]
-////                selectedAnimal["fav"] = isFavorite // this replaces `setValue`
-//                (dict as NSArray).write(toFile: path, atomically: true)
-//            }
+//        UserDefaults.standard.bool(forKey: "Key")
+//        UserDefaults.standard.integer(forKey: "Key")
+//        UserDefaults.standard.string(forKey: "Key")
     }
     
     @IBAction func toggleVibration(_ sender: UISwitch) {
@@ -60,9 +50,11 @@ class ProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         //Get the values from the ConfigVariables plist file
-        getValueFromPlist(keyName: "notifications")
-        getValueFromPlist(keyName: "vibration")
-        getValueFromPlist(keyName: "sound")
+//        getValueFromPlist(keyName: "notifications")
+//        getValueFromPlist(keyName: "vibration")
+//        getValueFromPlist(keyName: "sound")
+        
+        
         
         notificationsSwitch.setOn(notifications, animated: false)
         vibrationSwitch.setOn(vibration, animated: false)
@@ -73,35 +65,35 @@ class ProfileViewController: UIViewController {
         print(sound)
     }
     
-    func getValueFromPlist(keyName: String){
-        
-        //Path to the ConfigVariables plist file
-        let path = Bundle.main.path(forResource: "ConfigVariables", ofType: "plist")
-        //Dictionary with the key-value structures in that file
-        let dict = NSDictionary(contentsOfFile: path!)
-        
-        //Get the value of the key 'keyName'
-        switch keyName {
-        
-            case "notifications":
-                //If the value in the plist is 1, then set the variable as true. Else, as false.
-                notifications = dict?.value(forKeyPath: keyName) as! Int == 1 ? true : false
-                break
-            
-            case "vibration":
-                //If the value in the plist is 1, then set the variable as true. Else, as false.
-                vibration = dict?.value(forKeyPath: keyName) as! Int == 1 ? true : false
-                break
-            
-            case "sound":
-                //If the value in the plist is 1, then set the variable as true. Else, as false.
-                sound = dict?.value(forKeyPath: keyName) as! Int == 1 ? true : false
-                break
-        default:
-            
-            break
-        }
-    }
+//    func getValueFromPlist(keyName: String){
+//
+//        //Path to the ConfigVariables plist file
+//        let path = Bundle.main.path(forResource: "ConfigVariables", ofType: "plist")
+//        //Dictionary with the key-value structures in that file
+//        let dict = NSDictionary(contentsOfFile: path!)
+//
+//        //Get the value of the key 'keyName'
+//        switch keyName {
+//
+//            case "notifications":
+//                //If the value in the plist is 1, then set the variable as true. Else, as false.
+//                notifications = dict?.value(forKeyPath: keyName) as! Int == 1 ? true : false
+//                break
+//
+//            case "vibration":
+//                //If the value in the plist is 1, then set the variable as true. Else, as false.
+//                vibration = dict?.value(forKeyPath: keyName) as! Int == 1 ? true : false
+//                break
+//
+//            case "sound":
+//                //If the value in the plist is 1, then set the variable as true. Else, as false.
+//                sound = dict?.value(forKeyPath: keyName) as! Int == 1 ? true : false
+//                break
+//        default:
+//
+//            break
+//        }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

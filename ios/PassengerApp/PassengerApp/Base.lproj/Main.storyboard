@@ -157,23 +157,20 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Prueba alarma" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4C-EW-LCR">
-                                            <rect key="frame" x="77" y="63" width="111" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prueba alarma" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="N4C-EW-LCR">
+                                            <rect key="frame" x="8.5" y="58" width="135" height="22.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="L M M J V S D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0du-Ve-Afh">
-                                            <rect key="frame" x="175" y="34" width="107" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L M M J V S D" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="0du-Ve-Afh">
+                                            <rect key="frame" x="155.5" y="33.5" width="135" height="22.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vLC-aF-Pvx">
-                                            <rect key="frame" x="310" y="29" width="49" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vLC-aF-Pvx">
+                                            <rect key="frame" x="305.5" y="29" width="51" height="31"/>
                                             <color key="onTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18:00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="T2Q-9Q-foe">
@@ -184,10 +181,20 @@
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="vLC-aF-Pvx" firstAttribute="centerY" secondItem="Ydw-QA-KxL" secondAttribute="centerY" id="0y4-Jz-kS0"/>
                                         <constraint firstItem="T2Q-9Q-foe" firstAttribute="centerY" secondItem="Ydw-QA-KxL" secondAttribute="centerY" multiplier="0.8" id="3GT-sa-BbU"/>
                                         <constraint firstItem="T2Q-9Q-foe" firstAttribute="height" secondItem="Ydw-QA-KxL" secondAttribute="height" multiplier="0.5" id="9rD-AS-Dyz"/>
+                                        <constraint firstItem="N4C-EW-LCR" firstAttribute="top" secondItem="T2Q-9Q-foe" secondAttribute="bottom" id="BDo-ri-wNM"/>
                                         <constraint firstItem="T2Q-9Q-foe" firstAttribute="centerX" secondItem="Ydw-QA-KxL" secondAttribute="centerX" multiplier="0.4" id="MyO-Bw-3Rp"/>
+                                        <constraint firstItem="0du-Ve-Afh" firstAttribute="centerY" secondItem="vLC-aF-Pvx" secondAttribute="centerY" id="Pag-rT-V8Z"/>
+                                        <constraint firstItem="vLC-aF-Pvx" firstAttribute="centerX" secondItem="Ydw-QA-KxL" secondAttribute="centerX" multiplier="1.76" id="Pw1-Tj-QSD"/>
+                                        <constraint firstItem="N4C-EW-LCR" firstAttribute="centerX" secondItem="T2Q-9Q-foe" secondAttribute="centerX" id="djl-R1-9lE"/>
+                                        <constraint firstItem="vLC-aF-Pvx" firstAttribute="leading" secondItem="0du-Ve-Afh" secondAttribute="trailing" multiplier="1.05" id="dy7-TW-J9d"/>
+                                        <constraint firstItem="0du-Ve-Afh" firstAttribute="width" secondItem="N4C-EW-LCR" secondAttribute="width" id="k0N-gr-K9R"/>
+                                        <constraint firstItem="N4C-EW-LCR" firstAttribute="height" secondItem="T2Q-9Q-foe" secondAttribute="height" multiplier="0.5" id="l8L-eo-swE"/>
+                                        <constraint firstItem="0du-Ve-Afh" firstAttribute="height" secondItem="N4C-EW-LCR" secondAttribute="height" id="mGY-wG-D4C"/>
                                         <constraint firstItem="T2Q-9Q-foe" firstAttribute="width" secondItem="Ydw-QA-KxL" secondAttribute="width" multiplier="0.3" id="tiV-hA-z3H"/>
+                                        <constraint firstItem="N4C-EW-LCR" firstAttribute="width" secondItem="T2Q-9Q-foe" secondAttribute="width" multiplier="1.2" id="vIo-qG-ecw"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

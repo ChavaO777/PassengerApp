@@ -198,6 +198,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="active" destination="vLC-aF-Pvx" id="riv-ih-Ogw"/>
+                                    <outlet property="alarmName" destination="N4C-EW-LCR" id="XXx-6K-4Ng"/>
+                                    <outlet property="departureTime" destination="T2Q-9Q-foe" id="shs-Kx-zTA"/>
+                                    <outlet property="repetitionDaysLabel" destination="0du-Ve-Afh" id="Hsy-nV-4SW"/>
                                     <segue destination="qfn-Ee-qsN" kind="show" identifier="ShowDetail" id="B1Z-l9-RCi"/>
                                 </connections>
                             </tableViewCell>
@@ -234,47 +238,68 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gAN-jg-mpj">
-                                <rect key="frame" x="9.5" y="173.5" width="356" height="233"/>
+                                <rect key="frame" x="10" y="173.5" width="356" height="233"/>
                                 <date key="date" timeIntervalSinceReferenceDate="546394647.80464005">
                                     <!--2018-04-26 00:17:27 +0000-->
                                 </date>
                             </datePicker>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9ge-we-il8">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre de la alarma" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9ge-we-il8">
                                 <rect key="frame" x="79" y="439" width="217" height="33.5"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="S21-tQ-65y">
-                                <rect key="frame" x="0.0" y="548.5" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="549" width="375" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AcH-oQ-3Zt">
                                         <rect key="frame" x="0.0" y="0.0" width="53.5" height="30"/>
                                         <state key="normal" title="L"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="qfn-Ee-qsN" eventType="touchUpInside" id="bGH-ss-bSp"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bN-Mz-5TW">
                                         <rect key="frame" x="53.5" y="0.0" width="53.5" height="30"/>
                                         <state key="normal" title="M"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="qfn-Ee-qsN" eventType="touchUpInside" id="6tI-bj-zUe"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bZd-aG-DYS">
                                         <rect key="frame" x="107" y="0.0" width="53.5" height="30"/>
                                         <state key="normal" title="M"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="qfn-Ee-qsN" eventType="touchUpInside" id="duU-ql-9Uj"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="trm-50-VcH">
                                         <rect key="frame" x="160.5" y="0.0" width="54" height="30"/>
                                         <state key="normal" title="J"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="qfn-Ee-qsN" eventType="touchUpInside" id="Dgd-UM-bCS"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdu-4r-rjd">
                                         <rect key="frame" x="214.5" y="0.0" width="53.5" height="30"/>
                                         <state key="normal" title="V"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="qfn-Ee-qsN" eventType="touchUpInside" id="RwM-fX-3J8"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDQ-LJ-Sap">
                                         <rect key="frame" x="268" y="0.0" width="53.5" height="30"/>
                                         <state key="normal" title="S"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="qfn-Ee-qsN" eventType="touchUpInside" id="2yM-jN-Jnn"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DcF-Q9-2sT">
                                         <rect key="frame" x="321.5" y="0.0" width="53.5" height="30"/>
                                         <state key="normal" title="D"/>
+                                        <connections>
+                                            <action selector="toggleRepetition:" destination="qfn-Ee-qsN" eventType="touchUpInside" id="riP-Dd-7fd"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -311,11 +336,32 @@
                         <viewLayoutGuide key="safeArea" id="Ju8-We-pRb"/>
                     </view>
                     <navigationItem key="navigationItem" title="Nuevo Traslado" id="COa-Hi-sTP">
-                        <barButtonItem key="leftBarButtonItem" title="Cancelar" id="r54-Pb-QRB"/>
-                        <barButtonItem key="rightBarButtonItem" title="Guardar" id="I3R-wt-Xad"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancelar" id="r54-Pb-QRB">
+                            <connections>
+                                <action selector="cancel:" destination="qfn-Ee-qsN" id="unC-es-3S7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Guardar" id="I3R-wt-Xad">
+                            <connections>
+                                <segue destination="a75-wk-YgL" kind="unwind" unwindAction="unwindToTripListWithSender:" id="QEz-bp-hss"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="alarmNameTextField" destination="9ge-we-il8" id="4h1-1n-Vv0"/>
+                        <outlet property="datePicker" destination="gAN-jg-mpj" id="kCO-sp-JXX"/>
+                        <outlet property="fridayButton" destination="Hdu-4r-rjd" id="8xy-pR-G4k"/>
+                        <outlet property="mondayButton" destination="AcH-oQ-3Zt" id="cbt-y9-iaX"/>
+                        <outlet property="saturdayButton" destination="HDQ-LJ-Sap" id="BMc-7m-6Mj"/>
+                        <outlet property="saveButton" destination="I3R-wt-Xad" id="LKm-A2-yzw"/>
+                        <outlet property="sundayButton" destination="DcF-Q9-2sT" id="vi5-Sp-atu"/>
+                        <outlet property="thursdayButton" destination="trm-50-VcH" id="iia-v6-hhu"/>
+                        <outlet property="tuesdayButton" destination="3bN-Mz-5TW" id="sLj-W7-SAK"/>
+                        <outlet property="wednesdayButton" destination="bZd-aG-DYS" id="TKg-Db-N9s"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i8a-0g-mxl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="a75-wk-YgL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-4284" y="-4"/>
         </scene>

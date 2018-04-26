@@ -12,11 +12,11 @@ class TripTableViewCell: UITableViewCell {
 
     //MARK: Properties
     
+    
     @IBOutlet weak var departureTime: UILabel!
     @IBOutlet weak var alarmName: UILabel!
     @IBOutlet weak var repetitionDaysLabel: UILabel!
-	@IBOutlet weak var active: UISwitch!
-	
+    @IBOutlet weak var active: UISwitch!	
     
     override func awakeFromNib() {
         super.awakeFromNib()

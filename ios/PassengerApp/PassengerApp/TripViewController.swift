@@ -19,21 +19,22 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	var trip: Trip?
 	
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
-    
+
     var repetitionDays: [Bool] = []
     
-	@IBOutlet weak var datePicker: UIDatePicker!
-	@IBOutlet weak var alarmNameTextField: UITextField!
-	
-	@IBOutlet weak var mondayButton: UIButton!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var alarmNameTextField: UITextField!
+    
+    
+    
+    @IBOutlet weak var mondayButton: UIButton!
     @IBOutlet weak var tuesdayButton: UIButton!
     @IBOutlet weak var wednesdayButton: UIButton!
     @IBOutlet weak var thursdayButton: UIButton!
+    @IBOutlet weak var fridayButton: UIButton!
     @IBOutlet weak var saturdayButton: UIButton!
     @IBOutlet weak var sundayButton: UIButton!
-    @IBOutlet weak var fridayButton: UIButton!
-    
+
     //MARK: Navigation
     
     

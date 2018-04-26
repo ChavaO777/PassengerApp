@@ -410,6 +410,9 @@
                                         <rect key="frame" x="13" y="369" width="104" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="driving"/>
+                                        <connections>
+                                            <action selector="onPrizeButtonTouch:" destination="jHh-f3-7ea" eventType="touchUpInside" id="HF8-vW-b30"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Deja un comentario (opcional)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Oc-cR-Gng">
                                         <rect key="frame" x="13" y="488" width="348" height="120"/>
@@ -422,16 +425,25 @@
                                         <rect key="frame" x="41" y="610" width="42" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Omitir"/>
+                                        <connections>
+                                            <action selector="closePopup" destination="jHh-f3-7ea" eventType="touchUpInside" id="fpp-gp-MyF"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0QT-d7-b9k">
                                         <rect key="frame" x="262" y="610" width="42" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Enviar"/>
+                                        <connections>
+                                            <action selector="sendReview:" destination="jHh-f3-7ea" eventType="touchUpInside" id="G8h-lG-U3r"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51H-gI-TIx">
                                         <rect key="frame" x="258" y="369" width="103" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="kindness"/>
+                                        <connections>
+                                            <action selector="onPrizeButtonTouch:" destination="jHh-f3-7ea" eventType="touchUpInside" id="aH1-zK-8vp"/>
+                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c9i-8P-dvC" customClass="RatingControl" customModule="PassengerApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="306" width="375" height="55"/>
@@ -445,6 +457,9 @@
                                         <rect key="frame" x="137" y="369" width="101" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="cleanliness"/>
+                                        <connections>
+                                            <action selector="onPrizeButtonTouch:" destination="jHh-f3-7ea" eventType="touchUpInside" id="Q2r-vw-PIn"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -487,6 +502,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kcr-D8-RT0"/>
                     </view>
+                    <connections>
+                        <outlet property="cleanlinessPrizeButton" destination="0la-e9-MC1" id="KY8-x1-3mN"/>
+                        <outlet property="commentTextField" destination="4Oc-cR-Gng" id="cCA-zD-Ewf"/>
+                        <outlet property="crafterPicker" destination="6GQ-wD-awB" id="GA2-7s-4fM"/>
+                        <outlet property="driverPicker" destination="e8K-OS-ko8" id="upa-gD-LXh"/>
+                        <outlet property="drivingPrizeButton" destination="Lip-2r-7mp" id="VNk-9u-94G"/>
+                        <outlet property="kindnessPrizeButton" destination="51H-gI-TIx" id="Rvf-qH-loU"/>
+                        <outlet property="rating" destination="c9i-8P-dvC" id="6Da-td-QC4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZh-IB-kjF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

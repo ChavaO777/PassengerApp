@@ -10,14 +10,14 @@ import UIKit
 
 class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
+    
     @IBOutlet weak var rating: RatingControl!
     @IBOutlet weak var driverPicker: UIPickerView!
     @IBOutlet weak var crafterPicker: UIPickerView!
-	@IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var drivingPrizeButton: UIButton!
     @IBOutlet weak var cleanlinessPrizeButton: UIButton!
     @IBOutlet weak var kindnessPrizeButton: UIButton!
-    
     
     static let BACKEND_URL = "http:"
     static let CRAFTERS_API_URL = "crafters/"
@@ -133,7 +133,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     // MARK: - Private Methods
 	
 	//CLOSE OP-UP View
-	private func closePopup()
+	@IBAction func closePopup()
 	{
 		removeAnimate()
 	}

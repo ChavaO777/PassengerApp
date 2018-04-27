@@ -88,55 +88,59 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 
 		
 		let review = Review.init(driver_id: driver_id, passenger_id: passenger_id, crafter_id: crafter_id, comment: comment!, score: score, kindness_prize: kindness_prize, cleanliness_prize: cleanliness_prize, driving_skills_prize: driving_skills_prize)
-		
-		//Send object to database
-		let defaultSession = URLSession (configuration: .default)
-		var dataTask: URLSessionDataTask?
-		
-		UIApplication.shared.isNetworkActivityIndicatorVisible = true
-		
-		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.REVIEWS_API_URL)
-		
-		var request = URLRequest(url: url! as URL)
-		request.httpMethod = "POST"
-		
-		do {
-			request.httpBody = try JSONEncoder().encode(review)
-		} catch let jsonError{
-			fatalError(String(describing: jsonError))
-		}
-		
-		dataTask = defaultSession.dataTask(with: request) {
-			data, response, error in
-			
-			if error != nil {
-				print (error!.localizedDescription)
-			}
-			else if let httpResponse = response as? HTTPURLResponse {
-				if httpResponse.statusCode == 200 {
-					DispatchQueue.main.async {
-						UIApplication.shared.isNetworkActivityIndicatorVisible = false
-					}
-				}
-			}
-		}
-		dataTask?.resume()
-		
+        
+		addReview(review)
+        
 		updateDriver(selectedDriverIndex)
 		
 		closePopup()
 	}
 		
-	
-    
     // MARK: - Private Methods
 	
-	//CLOSE OP-UP View
+	//CLOSE POP-UP View
 	@IBAction func closePopup()
 	{
 		removeAnimate()
 	}
 	
+    //Does the actual post request to the server where the review is to be saved
+    private func addReview(_ review: Review)
+    {
+        //Send object to database
+        let defaultSession = URLSession (configuration: .default)
+        var dataTask: URLSessionDataTask?
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
+        let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.REVIEWS_API_URL)
+        
+        var request = URLRequest(url: url! as URL)
+        request.httpMethod = "POST"
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(review)
+        } catch let jsonError{
+            fatalError(String(describing: jsonError))
+        }
+        
+        dataTask = defaultSession.dataTask(with: request) {
+            data, response, error in
+            
+            if error != nil {
+                print (error!.localizedDescription)
+            }
+            else if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    }
+                }
+            }
+        }
+        dataTask?.resume()
+    }
+    
     private func getAvailableCrafters()
     {
 		let defaultSession = URLSession (configuration: .default)

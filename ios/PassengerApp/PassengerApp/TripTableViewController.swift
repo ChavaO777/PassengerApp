@@ -148,7 +148,7 @@ class TripTableViewController: UITableViewController {
                 
                 //Get the cell that triggered the segue
                 guard let selectedTripCell = sender as? TripTableViewCell else {
-                    fatalError("Unexpected sender: \(sender)")
+                    fatalError("Unexpected sender: \(String(describing: sender))")
                 }
                 
                 //Get its index
@@ -162,7 +162,7 @@ class TripTableViewController: UITableViewController {
                 tripDetailViewController.trip = selectedTrip
             
             default:
-                fatalError("Unexpected Segue Identifier; \(segue.identifier)")
+                fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
     }
  

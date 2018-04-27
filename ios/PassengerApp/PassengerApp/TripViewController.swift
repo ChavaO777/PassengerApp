@@ -12,6 +12,14 @@ import os.log
 //View Controller that handles the add/edit screen for a single trip
 class TripViewController: UIViewController, UITextFieldDelegate {
 	
+    //Colors used in the buttons selection and unselection
+    
+    private static let BUTTON_SELECTED_BKG_COLOR = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+    private static let BUTTON_SELECTED_TINT_COLOR = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+    private static let BUTTON_UNSELECTED_BKG_COLOR = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+    private static let BUTTON_UNSELECTED_TINT_COLOR = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+    
+    
 	/*
 	This value is either passed by `TripTableViewController` in `prepare(for:sender:)`
 	or constructed as part of adding a new trip.
@@ -24,7 +32,6 @@ class TripViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var alarmNameTextField: UITextField!
-    
     
     
     @IBOutlet weak var mondayButton: UIButton!
@@ -56,28 +63,52 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 			fatalError("The TripViewController is not inside a navigation controller.")
 		}
     }
-    
+	
+	/*
+	When clicking on the save button, this view controller builds its trip object,
+	based on the current information, for it to be visible for the destination view controller
+	*/
+	override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool
+	{
+		// Configure the destination view controller only when the save button is pressed.
+		guard let button = sender as? UIBarButtonItem, button === saveButton else {
+			os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+			return false
+		}
+		
+		//Retrieve inputted data
+		let alarmName = alarmNameTextField.text ?? ""
+		
+		let formatter = DateFormatter()
+		formatter.locale = Locale(identifier: "es_mx")
+		formatter.dateFormat = "HH:mm"
+		let departureTime = formatter.string(from: datePicker.date)
+		
+		// Set the trip to be passed to TripTableViewController after the unwind segue.
+		trip = Trip(alarmName: alarmName, repetitionDays: repetitionDays, departureTime: departureTime, alarmDate: datePicker.date, active: true)
+		
+		
+		//Check if this view was called to add a new trip and not to edit one
+		let isPresentingInAddTripMode = presentingViewController is UINavigationController
+		
+		//if so, check if there is already a trip with the same values
+		if isPresentingInAddTripMode
+		{
+			//If it is, alert the user and return false to prevent the segue from happening
+			if checkForRepeatedTrip ()
+			{
+				return false
+			}
+		}
+		
+		return true
+	}
+	
     // This method lets you configure a view controller before it's presented.
+	
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         super.prepare(for: segue, sender: sender)
-        
-        // Configure the destination view controller only when the save button is pressed.
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
-            return
-        }
-        
-        //Retrieve inputted data
-        let alarmName = alarmNameTextField.text ?? ""
-        
-         let formatter = DateFormatter()
-         formatter.locale = Locale(identifier: "es_mx")
-         formatter.dateFormat = "HH:mm"
-         let departureTime = formatter.string(from: datePicker.date)
-    
-        // Set the trip to be passed to TripTableViewController after the unwind segue.
-        trip = Trip(alarmName: alarmName, repetitionDays: repetitionDays, departureTime: departureTime, alarmDate: datePicker.date, active: true)
     }
     
     
@@ -118,7 +149,8 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
 
-    
+	
+	//When the user touches a day button, change its colors and toggle its state
     @IBAction func toggleRepetition(_ sender: Any) {
         let button = sender as! UIButton
         
@@ -147,6 +179,12 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	//MARK: Private Methods
+	
+	private func checkForRepeatedTrip() -> Bool
+	{
+		
+	}
+	
 	private func updateSaveButtonState() {
 		// Disable the Save button if the text field is empty.
 		let text = alarmNameTextField.text ?? ""
@@ -154,76 +192,69 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	
+    private func changeButtonColors (button: UIButton, bkgColor: UIColor, tintColor: UIColor)
+    {
+        button.backgroundColor = bkgColor
+        button.tintColor = tintColor
+    }
+    
     private func redrawButtons()
     {
         if repetitionDays[0]
         {
-			mondayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
-			mondayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+            changeButtonColors(button: mondayButton, bkgColor: TripViewController.BUTTON_SELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_SELECTED_TINT_COLOR)
         }
         else{
-			mondayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-			mondayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: mondayButton, bkgColor: TripViewController.BUTTON_UNSELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_UNSELECTED_TINT_COLOR)
         }
 		
 		if repetitionDays[1]
 		{
-			tuesdayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
-			tuesdayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
-		}
+			changeButtonColors(button: tuesdayButton, bkgColor: TripViewController.BUTTON_SELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_SELECTED_TINT_COLOR)
+            
+        }
 		else{
-			tuesdayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-			tuesdayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: tuesdayButton, bkgColor: TripViewController.BUTTON_UNSELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_UNSELECTED_TINT_COLOR)
 		}
 		
 		if repetitionDays[2]
 		{
-			wednesdayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
-			wednesdayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: wednesdayButton, bkgColor: TripViewController.BUTTON_SELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_SELECTED_TINT_COLOR)
 		}
 		else{
-			wednesdayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-			wednesdayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: wednesdayButton, bkgColor: TripViewController.BUTTON_UNSELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_UNSELECTED_TINT_COLOR)
 		}
 		
 		if repetitionDays[3]
 		{
-			thursdayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
-			thursdayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: thursdayButton, bkgColor: TripViewController.BUTTON_SELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_SELECTED_TINT_COLOR)
 		}
 		else{
-			thursdayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-			thursdayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: thursdayButton, bkgColor: TripViewController.BUTTON_UNSELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_UNSELECTED_TINT_COLOR)
 		}
 		
 		if repetitionDays[4]
 		{
-			fridayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
-			fridayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: fridayButton, bkgColor: TripViewController.BUTTON_SELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_SELECTED_TINT_COLOR)
 		}
 		else{
-			fridayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-			fridayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: fridayButton, bkgColor: TripViewController.BUTTON_UNSELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_UNSELECTED_TINT_COLOR)
 		}
 		
 		if repetitionDays[5]
 		{
-			saturdayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
-			saturdayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: saturdayButton, bkgColor: TripViewController.BUTTON_SELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_SELECTED_TINT_COLOR)
 		}
 		else{
-			saturdayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-			saturdayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: saturdayButton, bkgColor: TripViewController.BUTTON_UNSELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_UNSELECTED_TINT_COLOR)
 		}
 		
 		if repetitionDays[6]
 		{
-			sundayButton.backgroundColor = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
-			sundayButton.tintColor = UIColor(red: 210/255.0, green: 253.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: sundayButton, bkgColor: TripViewController.BUTTON_SELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_SELECTED_TINT_COLOR)
 		}
 		else{
-			sundayButton.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-			sundayButton.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
+			changeButtonColors(button: sundayButton, bkgColor: TripViewController.BUTTON_UNSELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_UNSELECTED_TINT_COLOR)
 		}
     }
 }

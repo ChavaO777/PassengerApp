@@ -30,7 +30,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.white.withAlphaComponent(0.8)
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
 		
 		getAvailableDrivers()
 		getAvailableCrafters()
@@ -105,7 +105,6 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		} catch let jsonError{
 			fatalError(String(describing: jsonError))
 		}
-		
 		
 		dataTask = defaultSession.dataTask(with: request) {
 			data, response, error in

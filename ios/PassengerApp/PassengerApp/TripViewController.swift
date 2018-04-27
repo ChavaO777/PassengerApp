@@ -145,18 +145,6 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		alarmNameTextField.resignFirstResponder()
 		return true
 	}
-
-    
-    /*
-    //CODE to create a popup from a view
-     //Create popup for new trip data
-     let addTripVC = UIStoryboard (name: "Main" /*same story board, different view/scene */, bundle: nil).instantiateViewController(withIdentifier: "addTripView") as! TripViewController
-     
-     self.addChildViewController(addTripVC)
-     addTripVC.view.frame = self.view.frame
-     self.view.addSubview(addTripVC.view)
-     addTripVC.didMove(toParentViewController: self)
-	*/
 	
 	//MARK: Private Methods
 	private func updateSaveButtonState() {

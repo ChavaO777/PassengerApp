@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CalendarFragment(), "Calendar");
+        adapter.addFragment(new TripListFragment(), "Trip List");
         adapter.addFragment(new MapFragment(), "Map");
         adapter.addFragment(new ProfileFragment(), "Profile");
         adapter.addFragment(new RateFragment(), "Rate");

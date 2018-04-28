@@ -130,6 +130,24 @@ class TripTableViewController: UITableViewController {
         
         super.prepare(for: segue, sender: sender)
         
+        //Check that the target VC is the TripViewController
+        if let targetViewController = segue.destination as? TripViewController
+        {
+            //Indicate it which segue is presenting it
+            targetViewController.triggeredBySegue = segue.identifier!
+        }
+        else { //if failed
+            //See if the target is a NavController
+            guard let navController = segue.destination as? UINavigationController,
+            let targetViewController = navController.viewControllers.first as? TripViewController
+            else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            //If it is and its child is the TripViewController, do the same as above
+            targetViewController.triggeredBySegue = segue.identifier!
+        }
+        
+        
         switch(segue.identifier ?? "") {
             //If the segue preparing is that of addition, just log
             case "addTripSegue":

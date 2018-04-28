@@ -159,4 +159,13 @@ class Trip: NSObject, NSCoding, Codable{
         
         return str
     }
+    
+    //Prints the trip object, to the console for debugging purposes
+    func printToConsole()
+    {
+        print ("Trip - " + alarmName)
+        print ("\t" + getRepetitionDaysAsString())
+        print ("\t" + departureTime)
+        print ("\t" + String(describing: alarmDate))
+    }
 }

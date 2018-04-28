@@ -25,6 +25,8 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	or constructed as part of adding a new trip.
 	*/
 	var trip: Trip?
+    
+    var triggeredBySegue = String()
 	
     @IBOutlet weak var saveButton: UIBarButtonItem!
 
@@ -48,8 +50,10 @@ class TripViewController: UIViewController, UITextFieldDelegate {
     @IBAction func cancel(_ sender: UIBarButtonItem) {
 		
 		// Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways.
-		let isPresentingInAddTripMode = presentingViewController is UINavigationController
-		
+		//let isPresentingInAddTripMode = presentingViewController == navigationController//is UINavigationController
+        
+        let isPresentingInAddTripMode = triggeredBySegue == "addTripSegue"
+        
 		if isPresentingInAddTripMode {
 			//dismisses the modal scene and animates the transition back to the previous scene
 			dismiss(animated: true, completion: nil)
@@ -89,14 +93,15 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		
 		
 		//Check if this view was called to add a new trip and not to edit one
-		let isPresentingInAddTripMode = presentingViewController is UINavigationController
-		
+        let isPresentingInAddTripMode = triggeredBySegue == "addTripSegue"
+    
 		if isPresentingInAddTripMode
 		{
 			//if we are adding a new trip, check if there is already a trip with the same values
+            
 			if checkForRepeatedTrip ()
 			{
-				//If it is, ask the user for an action
+                //If it is, ask the user for an action
 				let alert = UIAlertController(title: "Alerta",
 											  message: "Ya existe un traslado con la hora y fecha establecidos",
 											  preferredStyle: .alert)
@@ -210,13 +215,16 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		let trips = Trip.loadTrips()
 		
 		//If there are no trips, it clearly is not repeating
-		if trips != nil || trips?.count == 0
+		if trips == nil || trips!.count == 0
 		{
 			return false
 		}
-		
+        
 		for t in trips!
 		{
+            t.printToConsole()
+            trip!.printToConsole()
+            
 			//if the departure time is the same
 			if t.departureTime == trip!.departureTime
 			{
@@ -230,12 +238,12 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 					}
 				}
 				//If only one has a repeated day, they cannot be equal, keep checking
-				else if (t.hasRepetionDay() && !trip!.hasRepetionDay()) || (t.hasRepetionDay() && trip!.hasRepetionDay())
+				else if (t.hasRepetionDay() && !(trip!.hasRepetionDay())) || (!t.hasRepetionDay() && trip!.hasRepetionDay())
 				{
 					continue
 				}
 				//Otherwise, check for the same departure date
-				else if t.alarmDate == trip!.alarmDate{
+                else if Calendar.current.isDate(t.alarmDate, equalTo: trip!.alarmDate, toGranularity: .minute){
 					return true
 				}
 			}

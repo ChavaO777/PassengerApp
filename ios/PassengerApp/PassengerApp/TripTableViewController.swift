@@ -22,13 +22,9 @@ class TripTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         
         // Load any saved trips
-        if let savedTrips = loadTrips() {
+        if let savedTrips = Trip.loadTrips() {
             trips += savedTrips
             os_log("Trips successfully loaded.", log: OSLog.default, type: .debug)
-
-        }
-        else {
-            loadTestTrips()
         }
         
         // Uncomment the following line to preserve selection between presentations
@@ -68,10 +64,10 @@ class TripTableViewController: UITableViewController {
         
         cell.alarmName.text = trip.alarmName
         
-        if hasRepetionDay(repetitionDays: trip.repetitionDays)
+        if trip.hasRepetionDay()
         {
             //If the trip has at least 1 repetition day, present the information of all the days
-            cell.repetitionDaysLabel.text = getRepetitionDaysAsString(repetitionDays: trip.repetitionDays)
+            cell.repetitionDaysLabel.text = trip.getRepetitionDaysAsString()
         }
         else{
             //If not, present the date of the trip alarm
@@ -104,7 +100,7 @@ class TripTableViewController: UITableViewController {
             // Delete the row from the data source
             trips.remove(at: indexPath.row)
             
-            saveTrips()
+            Trip.saveTrips(trips)
             
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
@@ -192,68 +188,12 @@ class TripTableViewController: UITableViewController {
             }
             
             //Save changes
-            saveTrips()
+            Trip.saveTrips(trips)
         }
     }
     
     
     //MARK: Private Methods
-    
-    private func loadTrips() -> [Trip]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Trip.ArchiveURL.path) as? [Trip]
-    }
-    
-    
-    private func saveTrips() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(trips, toFile: Trip.ArchiveURL.path)
-        
-        if isSuccessfulSave {
-            os_log("Trips successfully saved.", log: OSLog.default, type: .debug)
-        } else {
-            os_log("Failed to save trips...", log: OSLog.default, type: .error)
-        }
-    }
-    
-    //Checks that the array of repetition days, has at least one of them as true
-    private func hasRepetionDay(repetitionDays: [Bool]) -> Bool
-    {
-        for i in 0...repetitionDays.count - 1
-        {
-            if (repetitionDays[i])
-            {
-                return true
-            }
-        }
-        return false
-    }
-    
-    //Formats from the array of bools, a string reprsenting which days are to be repeated by the alarm
-    private func getRepetitionDaysAsString(repetitionDays: [Bool]) -> String
-    {
-        var str = String("")
-        
-        let daysLetters = ["L", "M", "M", "J", "V", "S", "D"]
-        
-        for i in 0...repetitionDays.count - 1
-        {
-            if (repetitionDays[i])
-            {
-                str.append(daysLetters[i])
-                
-            }
-            else
-            {
-                str.append("-")
-            }
-            
-            if (i != repetitionDays.count - 1)
-            {
-                str.append(" ")
-            }
-        }
-        
-        return str
-    }
     
     private func loadTestTrips() {
         

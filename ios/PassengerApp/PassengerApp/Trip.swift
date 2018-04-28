@@ -54,6 +54,7 @@ class Trip: NSObject, NSCoding, Codable{
         self.active = active
     }
 	
+    
 	//MARK: NSCoding
 	
 	//Encodes this trip's data with NSCoder protocol
@@ -100,4 +101,62 @@ class Trip: NSObject, NSCoding, Codable{
 		self.init(alarmName: alarmName, repetitionDays: repetitionDays, departureTime: departureTime, alarmDate: alarmDate, active: active)
 		
 	}
+    
+    //Provides loading functionality, returning the array of retrieved trips
+    static func loadTrips() -> [Trip]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Trip.ArchiveURL.path) as? [Trip]
+    }
+
+
+    //Provides saving functionality to an array of trips
+    static func saveTrips(_ trips: [Trip]) {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(trips, toFile: Trip.ArchiveURL.path)
+        
+        if isSuccessfulSave {
+            os_log("Trips successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save trips...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    //Checks that the array of repetition days, has at least one of them as true
+    func hasRepetionDay() -> Bool
+    {
+        for i in 0...repetitionDays.count - 1
+        {
+            if (repetitionDays[i])
+            {
+                return true
+            }
+        }
+        return false
+    }
+    
+    //Formats from the array of bools, a string reprsenting which days are to be repeated by the alarm
+    func getRepetitionDaysAsString() -> String
+    {
+        var str = String("")
+        
+        let daysLetters = ["L", "M", "M", "J", "V", "S", "D"]
+        
+        for i in 0...repetitionDays.count - 1
+        {
+            if (repetitionDays[i])
+            {
+                str.append(daysLetters[i])
+                
+            }
+            else
+            {
+                str.append("-")
+            }
+            
+            if (i != repetitionDays.count - 1)
+            {
+                str.append(" ")
+            }
+        }
+        
+        return str
+    }
 }

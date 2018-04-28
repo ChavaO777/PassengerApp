@@ -91,12 +91,32 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		//Check if this view was called to add a new trip and not to edit one
 		let isPresentingInAddTripMode = presentingViewController is UINavigationController
 		
-		//if so, check if there is already a trip with the same values
 		if isPresentingInAddTripMode
 		{
-			//If it is, alert the user and return false to prevent the segue from happening
+			//if we are adding a new trip, check if there is already a trip with the same values
 			if checkForRepeatedTrip ()
 			{
+				//If it is, ask the user for an action
+				let alert = UIAlertController(title: "Alerta",
+											  message: "Ya existe un traslado con la hora y fecha establecidos",
+											  preferredStyle: .alert)
+				
+				// Discard current trip button
+				let discardAction = UIAlertAction(title: "Descartar", style: .default, handler: { (action) -> Void in
+					// Leave the current trip, go back to the trip list screen
+					self.dismiss(animated: true, completion: nil)
+					// neither the prepare(for:sender:) method nor the unwind action method are called, so it won´t save the trip
+				})
+				// Cancel button
+				let cancel = UIAlertAction(title: "Editar", style: .cancel, handler: { (action) -> Void in })
+				
+				
+				// Add action buttons and present the Alert
+				alert.addAction(discardAction)
+				alert.addAction(cancel)
+				present(alert, animated: true, completion: nil)
+				
+				//when the user wants to reedit his trip, prevent the segue from happening
 				return false
 			}
 		}
@@ -180,9 +200,47 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	
 	//MARK: Private Methods
 	
+	/*Checks whether the current trip saved in the instance is already present in the stored trips
+		Returns true if it found a repeated trip, false otherwise.
+		A trip is considered equal to another if the departure time is the same and (the repetition days are the same or they have the same date)
+		It takes in a boolean, to indicate that if a trip is found to be repeated, it should be deleted right there
+	*/
 	private func checkForRepeatedTrip() -> Bool
 	{
+		let trips = Trip.loadTrips()
 		
+		//If there are no trips, it clearly is not repeating
+		if trips != nil || trips?.count == 0
+		{
+			return false
+		}
+		
+		for t in trips!
+		{
+			//if the departure time is the same
+			if t.departureTime == trip!.departureTime
+			{
+				//If they both have at least 1 day of repetition
+				if t.hasRepetionDay() && trip!.hasRepetionDay()
+				{
+					//Check if they are the same
+					if t.getRepetitionDaysAsString() == trip!.getRepetitionDaysAsString()
+					{
+						return true
+					}
+				}
+				//If only one has a repeated day, they cannot be equal, keep checking
+				else if (t.hasRepetionDay() && !trip!.hasRepetionDay()) || (t.hasRepetionDay() && trip!.hasRepetionDay())
+				{
+					continue
+				}
+				//Otherwise, check for the same departure date
+				else if t.alarmDate == trip!.alarmDate{
+					return true
+				}
+			}
+		}
+		return false
 	}
 	
 	private func updateSaveButtonState() {

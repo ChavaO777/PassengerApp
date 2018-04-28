@@ -61,6 +61,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 
 		}
 		else if let owningNavigationController = navigationController{
+            //pops the closest navigation controller and presents the resulting view
 			owningNavigationController.popViewController(animated: true)
 		}
 		else {

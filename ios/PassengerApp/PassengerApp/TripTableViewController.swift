@@ -9,7 +9,7 @@
 import UIKit
 import os.log
 
-class TripTableViewController: UITableViewController {
+class TripTableViewController: UITableViewController, InteractiveTableViewCellDelegate {
 
     //MARK: Properties
     
@@ -56,6 +56,10 @@ class TripTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripTableViewCell", for: indexPath) as? TripTableViewCell  else {
             fatalError("The dequeued cell is not an instance of TripTableViewCell.")
         }
+        
+        //This controller is the delegate for all its table view cells
+        cell.cellDelegate = self
+        cell.currentIndexPath = indexPath.row //The cell must know its current row index
         
         //Retrieve the corresponding trip on that index
         let trip = trips[indexPath.row]
@@ -105,8 +109,10 @@ class TripTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
+    
+    
     
     /*
     // Override to support rearranging the table view.
@@ -123,6 +129,12 @@ class TripTableViewController: UITableViewController {
     }
     */
 
+    //MARK: - InteractiveTableViewCellDelegate implementations
+    func didTapCell(_ cell: UITableViewCell, cellForRowAt rowIndex: Int?) {
+        //toggle its active value, when the switch is flipped on the table view cell
+        trips[rowIndex!].active = !trips[rowIndex!].active
+    }
+    
     
     // MARK: - Navigation
     

@@ -52,22 +52,24 @@ class RatingControl: UIStackView {
         let selectedRating = index + 1
         
         // If the selected star is full, susbtract half a star
-        if selectedRating == Int(floor(rating)) {
+        if selectedRating == Int(ceil(rating)) {
             rating -= 0.5
-            
-            print("rating: " + String(rating) + ", selectedRat: " + String(selectedRating))
-
         }
         else
         {
             //else, the rating is to be set directly to that number of stars
             rating = Double(selectedRating)
-
-            print("rating: " + String(rating) + ", selectedRat: " + String(selectedRating))
         }
+        print("rating: " + String(rating))
     }
     
     //MARK: Private Methods
+    private func resetHighlightedImg(forButton button: UIButton)
+    {
+        button.setImage(#imageLiteral(resourceName: "highlightedStar"), for: .highlighted)
+        button.setImage(#imageLiteral(resourceName: "highlightedStar"), for: [.highlighted, .selected])
+    }
+    
     
     private func setupButtons() {
         
@@ -78,19 +80,13 @@ class RatingControl: UIStackView {
         }
         ratingButtons.removeAll()
         
-        // Load Button Images
-        let bundle = Bundle(for: type(of: self))
-        let emptyStar = UIImage(named:"emptyStar", in: bundle, compatibleWith: self.traitCollection)
-        let highlightedStar = UIImage(named:"highlightedStar", in: bundle, compatibleWith: self.traitCollection)
-
         for _ in 0..<starCount {
             // Create the button
             let button = UIButton()
             
-            // Set the button images
-            button.setImage(emptyStar, for: .normal)
-            button.setImage(highlightedStar, for: .highlighted)
-            button.setImage(highlightedStar, for: [.highlighted, .selected])
+            // Set the button highlighted image
+            resetHighlightedImg(forButton: button)
+
             
             // Add constraints
             button.translatesAutoresizingMaskIntoConstraints = false
@@ -118,11 +114,11 @@ class RatingControl: UIStackView {
         
         //Local rating, in order to assign that amount to all buttons
         var localRating = rating
-        
-        //Load images for half and full star
-        let bundle = Bundle(for: type(of: self))
-        let halfwayFilledStar = UIImage(named:"halfwayFilledStar", in: bundle, compatibleWith: self.traitCollection)
-        let filledStar = UIImage(named: "filledStar", in: bundle, compatibleWith: self.traitCollection)
+
+        //References to images
+        let emptyStar = #imageLiteral(resourceName: "emptyStar")
+        let halfwayFilledStar = #imageLiteral(resourceName: "halfwayFilledStar")
+        let filledStar = #imageLiteral(resourceName: "filledStar")
         
         //iterate buttons
         for (index, button) in ratingButtons.enumerated() {
@@ -130,24 +126,24 @@ class RatingControl: UIStackView {
             //If the rating is greater than 0, the button must be filled
             if localRating > 0.0 {
                 
-                button.isSelected = true
-                
                 //Fill completely if the rating allows if there is at least a value of 1
-                if localRating > 1.0
+                if localRating >= 1.0
                 {
-                    button.setImage(filledStar, for: .selected)
+                    button.setImage(filledStar, for: .normal)
                     localRating -= 1.0
                 }
                 else //else, fill halfway through with the remaining rating
                 {
-                    button.setImage(halfwayFilledStar, for: .selected)
+                    button.setImage(halfwayFilledStar, for: .normal)
                     localRating = 0.0
                 }
             }
+            //Leave the star empty
             else {
-                button.isSelected = false
+                button.setImage(emptyStar, for: .normal)
             }
             
+            resetHighlightedImg(forButton: button)
         }
     }
     

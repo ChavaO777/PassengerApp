@@ -79,6 +79,8 @@ class ProfileViewController: UIViewController {
         initializeConfigVariable(configVariable: SOUND_USER_DEFAULTS_KEY, value: DEFAULT_SWITCH_VALUE) //Boolean
         initializeConfigVariable(configVariable: NOTIFICATION_ANTICIPATION_MINUTES_KEY, value: (DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE + DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)/2) //Int
         
+        print(UserDefaults.standard.integer(forKey: NOTIFICATION_ANTICIPATION_MINUTES_KEY))
+        
         //Set the switches into their correct values according to the config variables
         notificationsSwitch.setOn(UserDefaults.standard.bool(forKey: NOTIFICATIONS_USER_DEFAULTS_KEY), animated: false)
         vibrationSwitch.setOn(UserDefaults.standard.bool(forKey: VIBRATION_USER_DEFAULTS_KEY), animated: false)

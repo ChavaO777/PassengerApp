@@ -10,23 +10,42 @@ import UIKit
 import GoogleMaps
 
 class MapViewController: UIViewController {
-
+    
+    let URL = "10.50.65.22:8000/api"
     @IBOutlet weak var mapView: GMSMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        createMap()
+        updateCrafterLocations()
+    }
+    
+    private func updateCrafterLocations() {
+        
+        //creating a NSURL
+        let LIST_CRAFTERS_ROUTE = URL + "/crafters"
+        
+//        if dataTask != nil {
+//            
+//            dataTask?.cancel()
+//        }
+    }
+    
+    /**
+     *  Function to create the Google Maps map
+     */
+    private func createMap() {
+        
         //This call to bringSubview() was key!
         self.view.bringSubview(toFront: self.mapView)
-
+        
         //VWM Fin coords
         let lat = 19.1190942
         let lng = -98.2535574
         let zoomLevel = 17.0
         
-        let myCamera = GMSCameraPosition.camera(withLatitude: lat,
-                                              longitude: lng,
-                                              zoom: Float(zoomLevel))
+        let myCamera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: Float(zoomLevel))
         
         //Get the dimensions of the map's view
         let mapViewHeight = mapView.frame.height
@@ -50,9 +69,6 @@ class MapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: - Private Methods
-    
-    
     //Create a popup from a view
     private func createReviewPopup()
     {
@@ -64,15 +80,4 @@ class MapViewController: UIViewController {
         self.view.addSubview(reviewVC.view)
         reviewVC.didMove(toParentViewController: self)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

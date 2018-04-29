@@ -141,7 +141,6 @@ class RatingControl: UIStackView {
                 else //else, fill halfway through with the remaining rating
                 {
                     button.setImage(halfwayFilledStar, for: .selected)
-                    rating = 0.0
                     localRating = 0.0
                 }
             }

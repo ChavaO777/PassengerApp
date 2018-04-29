@@ -19,7 +19,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var cleanlinessPrizeButton: UIButton!
     @IBOutlet weak var kindnessPrizeButton: UIButton!
     
-    static let BACKEND_URL = "http:"
+    static let BACKEND_URL = "http://10.50.65.22:8000/api/"
     static let CRAFTERS_API_URL = "crafters/"
     static let DRIVERS_API_URL = "drivers/"
     static let REVIEWS_API_URL = "reviews/"
@@ -30,6 +30,16 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        getAvailableDrivers()
+        
+        driverPicker.dataSource = self
+        driverPicker.delegate = self
+        
+        getAvailableCrafters()
+        
+        crafterPicker.dataSource = self
+        crafterPicker.delegate = self
+        
         commentTextField.layer.borderWidth = 0.5
         commentTextField.layer.borderColor = UIColor.black.cgColor
         commentTextField.layer.cornerRadius = 0.5
@@ -37,15 +47,6 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         commentTextField.text = "Deja un comentario (opcional)"
         
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-		
-		getAvailableDrivers()
-		getAvailableCrafters()
-		
-		driverPicker.dataSource = self
-		driverPicker.delegate = self
-		
-		crafterPicker.dataSource = self
-		crafterPicker.delegate = self
 		
 		drivingPrizeButton.setImage (#imageLiteral(resourceName: "driving_Selected"), for: .selected)
 		drivingPrizeButton.setImage (#imageLiteral(resourceName: "driving"), for: .normal)
@@ -76,7 +77,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
 	
     
-    @IBAction func sendReview(_ sender: Any) {
+    @IBAction func getReviewData(_ sender: Any) {
 		
 		//Save indices for the currently selected driver and crafter
 		let selectedDriverIndex = driverPicker.selectedRow(inComponent: 0)
@@ -95,7 +96,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		
 		let review = Review.init(driver_id: driver_id, passenger_id: passenger_id, crafter_id: crafter_id, comment: comment!, score: score, kindness_prize: kindness_prize, cleanliness_prize: cleanliness_prize, driving_skills_prize: driving_skills_prize)
         
-		addReview(review)
+		sendReview(review)
         
 		updateDriver(selectedDriverIndex)
 		
@@ -110,8 +111,8 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		removeAnimate()
 	}
 	
-    //Does the actual post request to the server where the review is to be saved
-    private func addReview(_ review: Review)
+    //Does the  post request to the server where the review is to be saved
+    private func sendReview(_ review: Review)
     {
         //Send object to database
         let defaultSession = URLSession (configuration: .default)
@@ -122,8 +123,10 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.REVIEWS_API_URL)
         
         var request = URLRequest(url: url! as URL)
-        request.httpMethod = "POST"
+        //request.addValue("application/JSON", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
+        request.httpMethod = "POST"
         do {
             request.httpBody = try JSONEncoder().encode(review)
         } catch let jsonError{
@@ -140,7 +143,11 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 if httpResponse.statusCode == 200 {
                     DispatchQueue.main.async {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        print ("Review sent succesfully")
                     }
+                }
+                else {
+                    print ("Response: " + String(httpResponse.statusCode))
                 }
             }
         }
@@ -149,6 +156,9 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     private func getAvailableCrafters()
     {
+        //Remove everything before
+        self.crafters.removeAll()
+        
 		let defaultSession = URLSession (configuration: .default)
 		var dataTask: URLSessionDataTask?
 		
@@ -172,13 +182,20 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 						
 						do {
 							let craftersDecodedData = try JSONDecoder().decode([Crafter].self, from: data!)
-							
-							self.crafters = craftersDecodedData
+                            
+							self.crafters += craftersDecodedData
+                            self.crafterPicker.reloadAllComponents()
+                            print ("\nDECODED CRAFTERS: \(self.crafters.count)\n")
+
+                            
 						} catch let jsonError{
 							print (jsonError)
 						}
 					}
 				}
+                else {
+                    print ("Response: " + String(httpResponse.statusCode))
+                }
 			}
 			
 		}
@@ -187,6 +204,9 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 	
 	private func getAvailableDrivers()
 	{
+        //Remove everything before
+        self.drivers.removeAll()
+        
 		let defaultSession = URLSession (configuration: .default)
 		var dataTask: URLSessionDataTask?
 		
@@ -210,15 +230,21 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 						
 						do {
 							let decodedData = try JSONDecoder().decode([Driver].self, from: data!)
-							
-							self.drivers = decodedData
+                            
+							self.drivers += decodedData
+                            self.driverPicker.reloadAllComponents()
+                            print ("\nDECODED DRIVERS: \(self.drivers.count)\n")
 						} catch let jsonError{
 							print (jsonError)
 						}
 					}
 				}
+                else {
+                    print ("Response: " + String(httpResponse.statusCode))
+                }
+
 			}
-		}
+            		}
 		dataTask?.resume()
 	}
 	
@@ -246,6 +272,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.DRIVERS_API_URL + String(id))
 		
 		var request = URLRequest(url: url! as URL)
+        request.addValue("application/JSON", forHTTPHeaderField: "Content-Type")
 		request.httpMethod = "PUT"
 		
 		do {
@@ -264,6 +291,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 				if httpResponse.statusCode == 200 {
 					DispatchQueue.main.async {
 						UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        print ("Driver values updated")
 					}
 				}
 			}
@@ -315,7 +343,6 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
     }
     
-    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n") {
             textView.resignFirstResponder()
@@ -361,7 +388,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 	}
     
     // MARK: - Internal Structs for data
-	
+    
     private struct Crafter : Decodable
     {
         let id: String
@@ -390,5 +417,26 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let kindness_prize: Bool
         let cleanliness_prize: Bool
         let driving_skills_prize: Bool
+        
+        func getAsURLSafeString() -> String
+        {
+            return """
+            driver_id=\(String(describing: String(driver_id).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+                &
+            passenger_id=\(String(describing: passenger_id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+                &
+            crafter_id=\(String(describing: crafter_id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+                &
+            comment=\(String(describing: comment.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+                &
+            score=\(String(describing: String(score).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+                &
+            kindness_prize=\(String(describing: String(kindness_prize).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+            &
+            cleanliness_prize=\(String(describing: String(cleanliness_prize).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+            &
+            driving_skills_prize=\(String(describing: String(driving_skills_prize).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
+            """
+        }
     }
 }

@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate {
 
     
     @IBOutlet weak var rating: RatingControl!
     @IBOutlet weak var driverPicker: UIPickerView!
     @IBOutlet weak var crafterPicker: UIPickerView!
-    @IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var commentTextField: UITextView!
     @IBOutlet weak var drivingPrizeButton: UIButton!
     @IBOutlet weak var cleanlinessPrizeButton: UIButton!
     @IBOutlet weak var kindnessPrizeButton: UIButton!
@@ -30,7 +30,13 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        commentTextField.layer.borderWidth = 0.5
+        commentTextField.layer.borderColor = UIColor.black.cgColor
+        commentTextField.layer.cornerRadius = 0.5
+        commentTextField.delegate = self
+        commentTextField.text = "Deja un comentario (opcional)"
+        
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
 		
 		getAvailableDrivers()
 		getAvailableCrafters()
@@ -41,12 +47,12 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		crafterPicker.dataSource = self
 		crafterPicker.delegate = self
 		
-		drivingPrizeButton.setImage (UIImage.init(named: "driving_Selected"), for: .selected)
-		drivingPrizeButton.setImage (UIImage.init(named: "driving"), for: .normal)
-		cleanlinessPrizeButton.setImage (UIImage.init(named: "cleanliness_Selected"), for: .selected)
-		cleanlinessPrizeButton.setImage (UIImage.init(named: "cleanliness"), for: .normal)
-		kindnessPrizeButton.setImage (UIImage.init(named: "kindess_Selected"), for: .selected)
-		kindnessPrizeButton.setImage (UIImage.init(named: "kindness"), for: .normal)
+		drivingPrizeButton.setImage (#imageLiteral(resourceName: "driving_Selected"), for: .selected)
+		drivingPrizeButton.setImage (#imageLiteral(resourceName: "driving"), for: .normal)
+		cleanlinessPrizeButton.setImage (#imageLiteral(resourceName: "cleanliness_selected"), for: .selected)
+		cleanlinessPrizeButton.setImage (#imageLiteral(resourceName: "cleanliness"), for: .normal)
+		kindnessPrizeButton.setImage (#imageLiteral(resourceName: "kindness_Selected"), for: .selected)
+		kindnessPrizeButton.setImage (#imageLiteral(resourceName: "kindness"), for: .normal)
 	
     }
 
@@ -80,7 +86,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		let driver_id = drivers[selectedDriverIndex].id
 		let passenger_id = "passenger1"
 		let crafter_id = crafters[selectedCrafterIndex].id
-		let comment = commentTextField.text
+        let comment = commentTextField.text == "Deja un comentario (opcional)" ? "" : commentTextField.text
 		let score = rating.rating
 		let kindness_prize = kindnessPrizeButton.isSelected
 		let cleanliness_prize = cleanlinessPrizeButton.isSelected
@@ -291,6 +297,34 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		})
 	}
 	
+    //MARK: - UITextView Methods
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        if textView.text == "Deja un comentario (opcional)"
+        {
+            textView.text = ""
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+
+        if textView.text == ""
+        {
+            textView.text = "Deja un comentario (opcional)"
+        }
+        
+    }
+    
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+
+    
 	// MARK: - UIPickerView Methods
 	
 	func numberOfComponents(in pickerView: UIPickerView) -> Int {

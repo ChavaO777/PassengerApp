@@ -199,6 +199,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		navigationItem.title = textField.text
 	}
 	
+    //To allow the user to stop focusing on the text field
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		alarmNameTextField.resignFirstResponder()
 		return true

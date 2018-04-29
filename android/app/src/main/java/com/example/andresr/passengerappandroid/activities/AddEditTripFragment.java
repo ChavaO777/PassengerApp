@@ -102,7 +102,7 @@ public class AddEditTripFragment extends Fragment {
         timeTextView.setText(calendar.get(Calendar.HOUR_OF_DAY) + ":" + min);
     }
 
-    
+
 
 
 

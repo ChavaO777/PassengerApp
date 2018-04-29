@@ -17,6 +17,13 @@ public class MainActivity extends AppCompatActivity implements AddEditTripFragme
     private SectionsStatePagerAdapter adapter;
     private ViewPager viewPager;
 
+    private String serverBaseUri = "https://fierce-hollows-58615.herokuapp.com";
+
+    public String getServerBaseUri() {
+        return serverBaseUri;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

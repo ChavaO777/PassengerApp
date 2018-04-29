@@ -20,11 +20,24 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Create the map once
         createMap()
-        updateCrafterLocations()
     }
     
-    @objc func updateCrafterLocations() {
+    override func viewDidAppear(_ animated: Bool) {
+    
+        super.viewDidAppear(false)
+        
+        //Update the crafter locations every time the view appears
+        getCrafterLocations()
+    }
+    
+    /**
+     *  Function that makes an HTTP request to the backend server and
+     *  gets a list of the crafters. It then calls the function
+     *  placeCraftersOnMap() to update the crafters' locations on the map
+     */
+    @objc func getCrafterLocations() {
 
         let LIST_CRAFTERS_URL = URL + "/crafters"
         
@@ -49,6 +62,7 @@ class MapViewController: UIViewController {
             }
             else if let httpResponse = response as? HTTPURLResponse {
                 
+                //If the request was successful
                 if httpResponse.statusCode == 200 {
                     
                     DispatchQueue.main.async {
@@ -56,10 +70,12 @@ class MapViewController: UIViewController {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         
                         do{
-                            
+                            //Decode the JSON
                             let craftersDecodedData = try JSONDecoder().decode([Crafter].self, from: data!)
                             
-                            print(craftersDecodedData[0].id);
+                            //Pass in the array of crafters to place them on the map
+                            self.placeCraftersOnMap(craftersArray: craftersDecodedData)
+                            
                         } catch let jsonError{
                             
                             print(jsonError)
@@ -74,6 +90,25 @@ class MapViewController: UIViewController {
     }
     
     /**
+     *  Function that places markers on the map representing the
+     *  crafters in their current locations.
+     *
+     *  @param craftersArray an array of crafter structs
+     */
+    private func placeCraftersOnMap(craftersArray: [Crafter]) {
+    
+        for crafter in craftersArray {
+            
+            print("crafter.id = " + String(crafter.id))
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: Double(crafter.lat), longitude: Double(crafter.lng))
+            marker.title = String(crafter.name)
+            marker.snippet = String(crafter.id)
+            marker.map = self.mapView
+        }
+    }
+    
+    /**
      *  Function to create the Google Maps map
      */
     private func createMap() {
@@ -84,7 +119,7 @@ class MapViewController: UIViewController {
         //VWM Fin coords
         let lat = 19.1190942
         let lng = -98.2535574
-        let zoomLevel = 17.0
+        let zoomLevel = 12.0
         
         let myCamera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: Float(zoomLevel))
         
@@ -100,6 +135,12 @@ class MapViewController: UIViewController {
         
         //Set the camera
         mapView.camera = myCamera
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        marker.title = "Sydney"
+        marker.snippet = "Australia"
+        marker.map = mapViewGoogleMaps
         
         //Set the map to its corresponding view
         self.mapView = mapViewGoogleMaps

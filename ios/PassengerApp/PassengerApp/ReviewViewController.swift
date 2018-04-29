@@ -47,12 +47,12 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		crafterPicker.dataSource = self
 		crafterPicker.delegate = self
 		
-		drivingPrizeButton.setImage (UIImage.init(named: "driving_Selected"), for: .selected)
-		drivingPrizeButton.setImage (UIImage.init(named: "driving"), for: .normal)
-		cleanlinessPrizeButton.setImage (UIImage.init(named: "cleanliness_Selected"), for: .selected)
-		cleanlinessPrizeButton.setImage (UIImage.init(named: "cleanliness"), for: .normal)
-		kindnessPrizeButton.setImage (UIImage.init(named: "kindess_Selected"), for: .selected)
-		kindnessPrizeButton.setImage (UIImage.init(named: "kindness"), for: .normal)
+		drivingPrizeButton.setImage (#imageLiteral(resourceName: "driving_Selected"), for: .selected)
+		drivingPrizeButton.setImage (#imageLiteral(resourceName: "driving"), for: .normal)
+		cleanlinessPrizeButton.setImage (#imageLiteral(resourceName: "cleanliness_selected"), for: .selected)
+		cleanlinessPrizeButton.setImage (#imageLiteral(resourceName: "cleanliness"), for: .normal)
+		kindnessPrizeButton.setImage (#imageLiteral(resourceName: "kindness_Selected"), for: .selected)
+		kindnessPrizeButton.setImage (#imageLiteral(resourceName: "kindness"), for: .normal)
 	
     }
 

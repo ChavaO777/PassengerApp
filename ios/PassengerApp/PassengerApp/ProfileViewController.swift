@@ -10,38 +10,45 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    //Constants for the names of the user default keys
+    let NOTIFICATIONS_USER_DEFAULTS_KEY = "notifications"
+    let VIBRATION_USER_DEFAULTS_KEY = "vibration"
+    let SOUND_USER_DEFAULTS_KEY = "sound"
+    let DEFAULT_BOOLEAN_CONFIG_VARIABLE_VALUE = false
+    
+    //Outlets for the switches
     @IBOutlet weak var notificationsSwitch: UISwitch!
     @IBOutlet weak var vibrationSwitch: UISwitch!
     @IBOutlet weak var soundSwitch: UISwitch!
     
-    var notifications = true
-    var vibration = true
-    var sound = true
-    
+    /**
+    * Function that toggles the value of the notifications
+    * switch and updates the value in the UserDefaults.
+    */
     @IBAction func toggleNotifications(_ sender: UISwitch) {
         
-        notifications = sender.isOn
-        print("notifications = " + String(notifications))
-        
-//        UserDefaults.standard.set(true, forKey: "Key") //Bool
-//        UserDefaults.standard.set(1, forKey: "Key")  //Integer
-//        UserDefaults.standard.set("TEST", forKey: "Key") //setObject
-//
-//        UserDefaults.standard.bool(forKey: "Key")
-//        UserDefaults.standard.integer(forKey: "Key")
-//        UserDefaults.standard.string(forKey: "Key")
+        let notificationsCurrValue = sender.isOn
+        UserDefaults.standard.set(notificationsCurrValue, forKey: NOTIFICATIONS_USER_DEFAULTS_KEY) //Bool
     }
     
+    /**
+     * Function that toggles the value of the vibration
+     * switch and updates the value in the UserDefaults.
+     */
     @IBAction func toggleVibration(_ sender: UISwitch) {
         
-        vibration = sender.isOn
-        print("vibration = " + String(vibration))
+        let vibrationCurrValue = sender.isOn
+        UserDefaults.standard.set(vibrationCurrValue, forKey: VIBRATION_USER_DEFAULTS_KEY) //Bool
     }
     
+    /**
+     * Function that toggles the value of the sound
+     * switch and updates the value in the UserDefaults.
+     */
     @IBAction func toggleSound(_ sender: UISwitch) {
         
-        sound = sender.isOn
-        print("sound = " + String(sound))
+        let soundCurrValue = sender.isOn
+        UserDefaults.standard.set(soundCurrValue, forKey: SOUND_USER_DEFAULTS_KEY) //Bool
     }
     
     override func viewDidLoad() {
@@ -49,57 +56,53 @@ class ProfileViewController: UIViewController {
     
         // Do any additional setup after loading the view.
         
-        //Get the values from the ConfigVariables plist file
-//        getValueFromPlist(keyName: "notifications")
-//        getValueFromPlist(keyName: "vibration")
-//        getValueFromPlist(keyName: "sound")
+        //Initialize the config variables
+        initializeConfigVariable(configVariable: NOTIFICATIONS_USER_DEFAULTS_KEY)
+        initializeConfigVariable(configVariable: VIBRATION_USER_DEFAULTS_KEY)
+        initializeConfigVariable(configVariable: SOUND_USER_DEFAULTS_KEY)
         
-        
-        
-        notificationsSwitch.setOn(notifications, animated: false)
-        vibrationSwitch.setOn(vibration, animated: false)
-        soundSwitch.setOn(sound, animated: false)
-        
-        print(notifications)
-        print(vibration)
-        print(sound)
+        //Set the switches into their correct values according to the config variables
+        notificationsSwitch.setOn(UserDefaults.standard.bool(forKey: NOTIFICATIONS_USER_DEFAULTS_KEY), animated: false)
+        vibrationSwitch.setOn(UserDefaults.standard.bool(forKey: VIBRATION_USER_DEFAULTS_KEY), animated: false)
+        soundSwitch.setOn(UserDefaults.standard.bool(forKey: SOUND_USER_DEFAULTS_KEY), animated: false)
     }
     
-//    func getValueFromPlist(keyName: String){
-//
-//        //Path to the ConfigVariables plist file
-//        let path = Bundle.main.path(forResource: "ConfigVariables", ofType: "plist")
-//        //Dictionary with the key-value structures in that file
-//        let dict = NSDictionary(contentsOfFile: path!)
-//
-//        //Get the value of the key 'keyName'
-//        switch keyName {
-//
-//            case "notifications":
-//                //If the value in the plist is 1, then set the variable as true. Else, as false.
-//                notifications = dict?.value(forKeyPath: keyName) as! Int == 1 ? true : false
-//                break
-//
-//            case "vibration":
-//                //If the value in the plist is 1, then set the variable as true. Else, as false.
-//                vibration = dict?.value(forKeyPath: keyName) as! Int == 1 ? true : false
-//                break
-//
-//            case "sound":
-//                //If the value in the plist is 1, then set the variable as true. Else, as false.
-//                sound = dict?.value(forKeyPath: keyName) as! Int == 1 ? true : false
-//                break
-//        default:
-//
-//            break
-//        }
-//    }
+    /**
+     * Function to initialize the config variables for notifications,
+     * vibration and sound.
+     */
+    func initializeConfigVariable(configVariable: String) -> Void {
+        
+        //If the key does not exist yet
+        if(!isKeyPresentInUserDefaults(key: configVariable)) {
+            
+            //Set it to its default value
+            setDefaultBooleanConfigurationVariable(configVariable: configVariable)
+        }
+    }
+    
+    /**
+    *   Function to set a boolean config variable to the value
+    *   DEFAULT_BOOLEAN_CONFIG_VARIABLE_VALUE
+    */
+    func setDefaultBooleanConfigurationVariable(configVariable: String) -> Void {
+        
+        UserDefaults.standard.set(DEFAULT_BOOLEAN_CONFIG_VARIABLE_VALUE, forKey: configVariable)
+    }
+    
+    /**
+    *   Function to determine whether a given key is present in the
+    *   UserDefaults
+    */
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation
@@ -110,5 +113,4 @@ class ProfileViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

@@ -11,8 +11,11 @@ import GoogleMaps
 
 class MapViewController: UIViewController {
     
-    let URL = "10.50.65.22:8000/api"
+    let URL = "http://10.50.65.22:8000/api"
     @IBOutlet weak var mapView: GMSMapView!
+    
+    let defaultSession = URLSession(configuration: .default)
+    var dataTask: URLSessionDataTask?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +24,53 @@ class MapViewController: UIViewController {
         updateCrafterLocations()
     }
     
-    private func updateCrafterLocations() {
+    @objc func updateCrafterLocations() {
+
+        let LIST_CRAFTERS_URL = URL + "/crafters"
         
-        //creating a NSURL
-        let LIST_CRAFTERS_ROUTE = URL + "/crafters"
-        
-//        if dataTask != nil {
-//            
-//            dataTask?.cancel()
-//        }
+        if dataTask != nil {
+
+            dataTask?.cancel()
+        }
+
+        let url = NSURL(string: LIST_CRAFTERS_URL)
+
+        let request = NSMutableURLRequest(url: url! as URL)
+        request.addValue("application/JSON", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "GET"
+
+        dataTask = defaultSession.dataTask(with: request as URLRequest){
+
+            data, response, error in
+            
+            if error != nil {
+                
+                print(error!.localizedDescription)
+            }
+            else if let httpResponse = response as? HTTPURLResponse {
+                
+                if httpResponse.statusCode == 200 {
+                    
+                    DispatchQueue.main.async {
+                        
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        
+                        do{
+                            
+                            let craftersDecodedData = try JSONDecoder().decode([Crafter].self, from: data!)
+                            
+                            print(craftersDecodedData[0].id);
+                        } catch let jsonError{
+                            
+                            print(jsonError)
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        dataTask?.resume()
     }
     
     /**

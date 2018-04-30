@@ -86,7 +86,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 	
         		//Prepare new review object
 		let driver_id = drivers[selectedDriverIndex].id
-		let passenger_id = "passenger1"
+		let passenger_id = String("passenger1")
 		let crafter_id = crafters[selectedCrafterIndex].id
         let comment = commentTextField.text == "Deja un comentario (opcional)" ? "" : commentTextField.text
 		let score = rating.rating
@@ -95,7 +95,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		let driving_skills_prize = drivingPrizeButton.isSelected
 
 		
-		let review = Review.init(driver_id: driver_id, passenger_id: passenger_id, crafter_id: crafter_id, comment: comment!, score: score, kindness_prize: kindness_prize, cleanliness_prize: cleanliness_prize, driving_skills_prize: driving_skills_prize)
+		let review = Review(driver_id: driver_id, passenger_id: passenger_id, crafter_id: crafter_id, comment: comment!, score: score, kindness_prize: kindness_prize, cleanliness_prize: cleanliness_prize, driving_skills_prize: driving_skills_prize)
         
 		sendReview(review)
         
@@ -127,10 +127,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         let session = URLSession(configuration: config)
         var request = URLRequest(url: url! as URL)
-        request.encodeParameters(parameters: ["driver_id": String(review.driver_id), "passenger_id": review.passenger_id,
-                                              "crafter_id": review.crafter_id, "comment": review.comment,
-                                              "score": String(review.score), "kindness_prize": String(review.kindness_prize),
-                                              "cleanliness_prize": String(review.cleanliness_prize), "driving_skills_prize": String(review.driving_skills_prize)])
+        request.encodeParameters(parameters: review.getAsJSONParams())
         
         dataTask = session.dataTask(with: request) {
             data, response, error in
@@ -264,7 +261,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		let driving_skills_prize_count = drivers[selectedDriverIndex].driving_skills_prize_count + (drivingPrizeButton.isSelected ? 1 : 0)
 		
 		
-		let driver = Driver.init(id: id, first_name: first_name, last_name: last_name, review_count: review_count, review_avg: review_average, kindness_prize_count: kindness_prize_count, cleanliness_prize_count: cleanliess_prize_count, driving_skills_prize_count: driving_skills_prize_count)
+		let driver = Driver(id: id, first_name: first_name, last_name: last_name, review_count: review_count, review_avg: review_average, kindness_prize_count: kindness_prize_count, cleanliness_prize_count: cleanliess_prize_count, driving_skills_prize_count: driving_skills_prize_count)
 		
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		

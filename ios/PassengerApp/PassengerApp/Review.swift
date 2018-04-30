@@ -32,4 +32,12 @@ class Review : Codable
         self.cleanliness_prize = cleanliness_prize
         self.driving_skills_prize = driving_skills_prize
     }
+    
+    func getAsJSONParams() -> [String : String]
+    {
+        return ["driver_id": String(driver_id), "passenger_id": passenger_id,
+         "crafter_id": crafter_id, "comment": comment,
+         "score": String(score), "kindness_prize": String(kindness_prize),
+         "cleanliness_prize": String(cleanliness_prize), "driving_skills_prize": String(driving_skills_prize)]
+    }
 }

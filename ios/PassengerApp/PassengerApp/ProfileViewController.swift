@@ -68,7 +68,9 @@ class ProfileViewController: UIViewController {
         initializeConfigVariable(configVariableKey: UserConfiguration.SOUND_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
         initializeConfigVariable(configVariableKey: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY, value: (UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE + UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)/2) //Int
         
-        print(UserDefaults.standard.integer(forKey: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY))
+        print("HERE!")
+        print(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY))
+        print("Or here?")
         
         //Set the switches into their correct values according to the config variables
         notificationsSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY) as! Bool, animated: false)
@@ -76,7 +78,8 @@ class ProfileViewController: UIViewController {
         soundSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.SOUND_USER_DEFAULTS_KEY) as! Bool, animated: false)
         
         //Set the stepper to its correct value according to the config variable
-        NotificationAnticipationMinutesStepper.value = Double(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY) as! Int)
+//        NotificationAnticipationMinutesStepper.value = Double(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY) as! Double)
+        NotificationAnticipationMinutesStepper.value = 3 //TODO: fix this call to get the user configuration
     
         //Set the stepper configuration
         NotificationAnticipationMinutesStepper.wraps = true

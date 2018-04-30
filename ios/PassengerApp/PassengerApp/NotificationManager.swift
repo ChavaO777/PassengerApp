@@ -52,14 +52,14 @@ class NotificationManager : UNUserNotificationCenterDelegate
     static func createTripNotification(tripName: String, tripDepartureTime: String)
     {
         //Only make notifications if the user has notifications activated
-        if (UserConfiguration.getCanHaveNotifications())
+        if (!(UserConfiguration.getConfiguration (key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY) as! Bool))
         {
             return
         }
         
         //Get user default parameters related to notifications for background
-        var alarmAnticipationMinutes = UserConfiguration.getAlarmAnticipationMinutes()
-        var bCanHaveSound = UserConfiguration.getCanHaveSound()
+        let alarmAnticipationMinutes = (UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY)) as! Int
+        let bCanHaveSound = (UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)) as! Bool
 
         //Notification settings
         let content = UNMutableNotificationContent()
@@ -100,7 +100,7 @@ class NotificationManager : UNUserNotificationCenterDelegate
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         // Update the app interface directly.
         
-        if (UserConfiguration.getCanHaveSound())
+        if ((UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)) as! Bool)
         {
             // Play a sound if the user has such configuration
             completionHandler([.alert ,.sound])

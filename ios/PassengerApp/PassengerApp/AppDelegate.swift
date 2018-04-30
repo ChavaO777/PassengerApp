@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyCwQ3-yJz_IvPrO-uGEgmEOckI2RO2tTcw")
         
         //Provide delegate to Notifications Center
-        UNUserNotificationCenter.current().delegate = NotificationManager()
+        //UNUserNotificationCenter.current().delegate = NotificationManager()
 
         return true
     }

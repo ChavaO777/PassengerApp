@@ -1,21 +1,21 @@
 package com.example.andresr.passengerappandroid.activities;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import com.example.andresr.passengerappandroid.R;
@@ -30,9 +30,7 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class TripListFragment extends Fragment {
@@ -74,9 +72,23 @@ public class TripListFragment extends Fragment {
         adapter = new TripAdapter(container.getContext(), tripList);
         recyclerView.setAdapter(adapter);
         new GetTrips().execute();
+        registerForContextMenu(recyclerView);
         return v;
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()) {
+            case R.id.menu_item_delete:
+                tripList.remove(info.position);
+                adapter.notifyDataSetChanged();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

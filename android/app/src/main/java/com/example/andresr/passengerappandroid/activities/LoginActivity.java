@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements OnTaskCompleted 
             Toast.makeText(this, "Error: por favor introduce tu contraseña.", Toast.LENGTH_SHORT).show();
         } else {
             Log.d(TAG, "doLogin: Calling async task");
-            new LoginHelper.LoginManager(this).execute("http://192.168.5.228:8000/api/login", inputUserId.getText().toString(), inputPassword.getText().toString());
+            new LoginHelper.LoginManager(this).execute("http://10.0.2.2:8000/api/login", inputUserId.getText().toString(), inputPassword.getText().toString());
         }
     }
 

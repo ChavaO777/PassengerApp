@@ -8,6 +8,10 @@
 
 import Foundation
 
+/**
+ *  Model of the Station entity
+ */
+
 class Station : Codable
 {
     let id: Int
@@ -18,7 +22,7 @@ class Station : Codable
     var next_crafter_arrival_time: Double
     var next_crafter_id: String
     
-    static let ROUTE = "stations/"
+    static let ROUTE = "/stations"
     let ICON_NAME_STRING = "icon_station.png"
     
     /**

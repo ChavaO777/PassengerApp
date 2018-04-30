@@ -10,6 +10,7 @@
 		B053681BF6CC86276BAAB1FE /* libPods-PassengerApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F057D8BB4898EB72FC044AD /* libPods-PassengerApp.a */; };
 		B938FD952097A854007E9E14 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938FD932097A854007E9E14 /* LoginViewController.swift */; };
 		B938FD962097A854007E9E14 /* Passenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938FD942097A854007E9E14 /* Passenger.swift */; };
+		B938FD9C2097C046007E9E14 /* UserConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938FD9B2097C046007E9E14 /* UserConfiguration.swift */; };
 		B96C02FE2083D1C5007100F2 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = B96C02FD2083D1C5007100F2 /* Podfile */; };
 		B9E7276420915061003016D6 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7276320915061003016D6 /* RatingControl.swift */; };
 		B9E7276620915073003016D6 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7276520915073003016D6 /* ReviewViewController.swift */; };
@@ -60,6 +61,7 @@
 		744A1B6D1E84E84410C72B14 /* Pods-PassengerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassengerApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassengerApp/Pods-PassengerApp.debug.xcconfig"; sourceTree = "<group>"; };
 		B938FD932097A854007E9E14 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B938FD942097A854007E9E14 /* Passenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Passenger.swift; sourceTree = "<group>"; };
+		B938FD9B2097C046007E9E14 /* UserConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserConfiguration.swift; sourceTree = "<group>"; };
 		B96C02FD2083D1C5007100F2 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		B9E7276320915061003016D6 /* RatingControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		B9E7276520915073003016D6 /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
@@ -162,31 +164,31 @@
 		DED4BA66206B395200834B8D /* PassengerApp */ = {
 			isa = PBXGroup;
 			children = (
-				DE5ACFD02097C68300C985AC /* NotificationManager.swift */,
-				B938FD932097A854007E9E14 /* LoginViewController.swift */,
-				B938FD942097A854007E9E14 /* Passenger.swift */,
+				DE1D5CB82083C00F003C3084 /* AddTripViewController.swift */,
+				DED4BA67206B395200834B8D /* AppDelegate.swift */,
+				DED4BA6E206B395200834B8D /* Assets.xcassets */,
 				DE409AFE209781A600F371E4 /* Crafter.swift */,
-				DE409AFC209781A500F371E4 /* Station.swift */,
+				DE1D5CB62083B374003C3084 /* CustomButton.swift */,
 				DE409B022097854100F371E4 /* Driver.swift */,
-				DE409B04209786ED00F371E4 /* Review.swift */,
-				B9E727682091509F003016D6 /* Trip.swift */,
+				DE409AFA20976DDA00F371E4 /* ExtensionURLRequest.swift */,
 				DE409AFD209781A500F371E4 /* HTTPHandler.swift */,
+				DED4BA73206B395200834B8D /* Info.plist */,
+				DED4BA70206B395200834B8D /* LaunchScreen.storyboard */,
+				B938FD932097A854007E9E14 /* LoginViewController.swift */,
+				DED4BA6B206B395200834B8D /* Main.storyboard */,
+				DE1D5CBC2083CE73003C3084 /* MapViewController.swift */,
+				B938FD942097A854007E9E14 /* Passenger.swift */,
+				DE1D5CBE2083CEE6003C3084 /* ProfileViewController.swift */,
+				B9E7276320915061003016D6 /* RatingControl.swift */,
+				DE409B04209786ED00F371E4 /* Review.swift */,
+				B9E7276520915073003016D6 /* ReviewViewController.swift */,
+				DE409AFC209781A500F371E4 /* Station.swift */,
+				B9E727682091509F003016D6 /* Trip.swift */,
+				DE1D5CBA2083C58F003C3084 /* TripsViewController.swift */,
 				B9E727692091509F003016D6 /* TripTableViewCell.swift */,
 				B9E727672091509F003016D6 /* TripTableViewController.swift */,
 				B9E7276A2091509F003016D6 /* TripViewController.swift */,
-				B9E7276320915061003016D6 /* RatingControl.swift */,
-				DED4BA67206B395200834B8D /* AppDelegate.swift */,
-				B9E7276520915073003016D6 /* ReviewViewController.swift */,
-				DED4BA6B206B395200834B8D /* Main.storyboard */,
-				DE1D5CBE2083CEE6003C3084 /* ProfileViewController.swift */,
-				DE1D5CBC2083CE73003C3084 /* MapViewController.swift */,
-				DE1D5CBA2083C58F003C3084 /* TripsViewController.swift */,
-				DE1D5CB82083C00F003C3084 /* AddTripViewController.swift */,
-				DED4BA6E206B395200834B8D /* Assets.xcassets */,
-				DED4BA70206B395200834B8D /* LaunchScreen.storyboard */,
-				DED4BA73206B395200834B8D /* Info.plist */,
-				DE1D5CB62083B374003C3084 /* CustomButton.swift */,
-				DE409AFA20976DDA00F371E4 /* ExtensionURLRequest.swift */,
+				B938FD9B2097C046007E9E14 /* UserConfiguration.swift */,
 			);
 			path = PassengerApp;
 			sourceTree = "<group>";
@@ -390,6 +392,7 @@
 				B9E7276D2091509F003016D6 /* TripTableViewCell.swift in Sources */,
 				DE409B01209781A600F371E4 /* Crafter.swift in Sources */,
 				DE409AFF209781A600F371E4 /* Station.swift in Sources */,
+				B938FD9C2097C046007E9E14 /* UserConfiguration.swift in Sources */,
 				B9E7276C2091509F003016D6 /* Trip.swift in Sources */,
 				B9E7276B2091509F003016D6 /* TripTableViewController.swift in Sources */,
 				DE409AFB20976DDA00F371E4 /* ExtensionURLRequest.swift in Sources */,

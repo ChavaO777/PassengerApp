@@ -8,8 +8,12 @@
 
 import Foundation
 
-class Passenger : Decodable {
-    
+/**
+ *  Model of the Passenger entity
+ */
+
+class Passenger : Decodable
+{    
     let id: String
     let first_name: String
     let last_name: String

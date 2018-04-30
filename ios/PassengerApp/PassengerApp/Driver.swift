@@ -19,7 +19,7 @@ class Driver : Codable
     var cleanliness_prize_count: Int
     var driving_skills_prize_count: Int
     
-    static let ROUTE = "drivers/"
+    static let ROUTE = "/drivers"
     
     init(id: Int, first_name: String, last_name: String, review_count: Int, review_avg: Double, kindness_prize_count: Int, cleanliness_prize_count: Int, driving_skills_prize_count: Int)
     {

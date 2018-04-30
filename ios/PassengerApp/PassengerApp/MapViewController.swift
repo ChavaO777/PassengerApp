@@ -23,35 +23,42 @@ class MapViewController: UIViewController {
         
         //Create the map once
         createMap()
+        
+        print("A07104218")
+        //Get the stations' locations once
+        getElementsFromApi(route: "/stations", httpMethod: "GET", callbackFunction: self.placeStationsOnMap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
     
         super.viewDidAppear(false)
         
-        //Update the crafter locations every time the view appears
-        getCrafterLocations()
+        //Update the crafter' locations every time the view appears
+        getElementsFromApi(route: "/crafters", httpMethod: "GET", callbackFunction: self.placeCraftersOnMap)
     }
     
     /**
      *  Function that makes an HTTP request to the backend server and
-     *  gets a list of the crafters. It then calls the function
-     *  placeCraftersOnMap() to update the crafters' locations on the map
+     *  gets a list of the given entities
+     *
+     *  @param route the route to be used in the HTTP request
+     *  @param httpMethod the HTTP method to be used in the request
+     *  @param callbackFunction the function to be called within this function
      */
-    @objc func getCrafterLocations() {
+    @objc func getElementsFromApi(route: String, httpMethod: String, callbackFunction: @escaping (_ data: Data?) -> Void) {
 
-        let LIST_CRAFTERS_URL = URL + "/crafters"
+        let ROUTE_URL = URL + route
         
         if dataTask != nil {
 
             dataTask?.cancel()
         }
 
-        let url = NSURL(string: LIST_CRAFTERS_URL)
+        let url = NSURL(string: ROUTE_URL)
 
         let request = NSMutableURLRequest(url: url! as URL)
         request.addValue("application/JSON", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "GET"
+        request.httpMethod = httpMethod
 
         dataTask = defaultSession.dataTask(with: request as URLRequest){
 
@@ -69,22 +76,11 @@ class MapViewController: UIViewController {
                     DispatchQueue.main.async {
                         
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                        
-                        do{
-                            //Decode the JSON
-                            let craftersDecodedData = try JSONDecoder().decode([Crafter].self, from: data!)
-                            
-                            //Pass in the array of crafters to place them on the map
-                            self.placeCraftersOnMap(craftersArray: craftersDecodedData)
-                            
-                        } catch let jsonError{
-                            
-                            print(jsonError)
-                        }
+                        //Call the call-back function with the data received from the request
+                        callbackFunction(data)
                     }
                 }
             }
-            
         }
 
         dataTask?.resume()
@@ -96,19 +92,50 @@ class MapViewController: UIViewController {
      *
      *  @param craftersArray an array of crafter structs
      */
-    func placeCraftersOnMap(craftersArray: [Crafter]) {
+    func placeCraftersOnMap(data: Data?) {
+        
+        do{
+            let craftersArray = try JSONDecoder().decode([Crafter].self, from: data!)
+            
+            for crafter in craftersArray {
+                
+                let marker = GMSMarker()
+                marker.position = CLLocationCoordinate2DMake(Double(crafter.lat), Double(crafter.lng))
+                marker.title = String(crafter.name)
+                marker.snippet = String(crafter.id)
+                marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0)
+                marker.icon = UIImage(named: "icon_crafter.png")
+                
+                marker.map = self.mapView
+            }
+            
+        } catch let jsonError{
+            
+            print(jsonError)
+        }
+    }
     
-        for crafter in craftersArray {
+    func placeStationsOnMap(data: Data?) {
+        
+        do{
+            let stationsArray = try JSONDecoder().decode([Station].self, from: data!)
             
-            let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2DMake(Double(crafter.lat), Double(crafter.lng))
-            marker.title = String(crafter.name)
-            marker.snippet = String(crafter.id)
-            marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0)
-            marker.icon = UIImage(named: "icon_crafter.png")
+            for station in stationsArray {
+                
+                print("station name = " + String(station.name))
+                
+                let marker = GMSMarker()
+                marker.position = CLLocationCoordinate2DMake(Double(station.lat), Double(station.lng))
+                marker.title = String(station.name)
+                marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0)
+                marker.icon = UIImage(named: "icon_station.png")
+                
+                marker.map = self.mapView
+            }
             
-            marker.map = self.mapView
+        } catch let jsonError{
             
+            print(jsonError)
         }
     }
     

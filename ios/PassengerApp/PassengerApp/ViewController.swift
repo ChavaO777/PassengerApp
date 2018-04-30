@@ -12,7 +12,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+    
+        //Called first time user enters app, request notification permissions
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,6 +27,7 @@ class ViewController: UIViewController {
     @IBAction func login(_ sender: UIButton) {
         self.performSegue(withIdentifier: "loginSegue", sender: self)
     }
+    
     
 }
 

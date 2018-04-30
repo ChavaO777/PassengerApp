@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,8 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //Google Maps API Key
         GMSServices.provideAPIKey("AIzaSyCwQ3-yJz_IvPrO-uGEgmEOckI2RO2tTcw")
         
+        //Provide delegate to Notifications Center
+        UNUserNotificationCenter.current().delegate = NotificationManager()
+
         return true
     }
 

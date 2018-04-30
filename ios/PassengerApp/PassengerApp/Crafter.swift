@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Crafter : Decodable
+class Crafter : Codable
 {
     let id: String
     let name: String
@@ -17,7 +17,8 @@ class Crafter : Decodable
     let isActive: Bool
     let total_seats: Int
     let occupied_seats: Int
-    static let ROUTE = "/crafters"
+    
+    static let ROUTE = "crafters/"
     let ICON_NAME_STRING = "icon_crafter.png"
     
     /**

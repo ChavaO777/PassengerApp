@@ -20,17 +20,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
-    @IBAction func createReviewPopUp(_ sender: Any) {
-        
-        //Create popup for new trip data
-        let reviewVC = UIStoryboard (name: "Main" /*same story board, different view/scene */, bundle: nil).instantiateViewController(withIdentifier: "ReviewView") as! ReviewViewController
-        
-        self.addChildViewController(reviewVC)
-        reviewVC.view.frame = self.view.frame
-        self.view.addSubview(reviewVC.view)
-        reviewVC.didMove(toParentViewController: self)
+    @IBAction func login(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "loginSegue", sender: self)
     }
-
+    
 }
 

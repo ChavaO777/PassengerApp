@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Station : Decodable
+class Station : Codable
 {
     let id: Int
     let name: String
@@ -17,7 +17,8 @@ class Station : Decodable
     var waiting_people: Int
     var next_crafter_arrival_time: Double
     var next_crafter_id: String
-    static let ROUTE = "/stations"
+    
+    static let ROUTE = "stations/"
     let ICON_NAME_STRING = "icon_station.png"
     
     /**

@@ -21,6 +21,11 @@
 		DE1D5CBD2083CE73003C3084 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CBC2083CE73003C3084 /* MapViewController.swift */; };
 		DE1D5CBF2083CEE6003C3084 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CBE2083CEE6003C3084 /* ProfileViewController.swift */; };
 		DE409AFB20976DDA00F371E4 /* ExtensionURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE409AFA20976DDA00F371E4 /* ExtensionURLRequest.swift */; };
+		DE409AFF209781A600F371E4 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE409AFC209781A500F371E4 /* Station.swift */; };
+		DE409B00209781A600F371E4 /* HTTPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE409AFD209781A500F371E4 /* HTTPHandler.swift */; };
+		DE409B01209781A600F371E4 /* Crafter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE409AFE209781A600F371E4 /* Crafter.swift */; };
+		DE409B032097854100F371E4 /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE409B022097854100F371E4 /* Driver.swift */; };
+		DE409B05209786ED00F371E4 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE409B04209786ED00F371E4 /* Review.swift */; };
 		DED4BA68206B395200834B8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA67206B395200834B8D /* AppDelegate.swift */; };
 		DED4BA6A206B395200834B8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA69206B395200834B8D /* ViewController.swift */; };
 		DED4BA6D206B395200834B8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DED4BA6B206B395200834B8D /* Main.storyboard */; };
@@ -64,6 +69,11 @@
 		DE1D5CBC2083CE73003C3084 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		DE1D5CBE2083CEE6003C3084 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DE409AFA20976DDA00F371E4 /* ExtensionURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionURLRequest.swift; sourceTree = "<group>"; };
+		DE409AFC209781A500F371E4 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		DE409AFD209781A500F371E4 /* HTTPHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHandler.swift; sourceTree = "<group>"; };
+		DE409AFE209781A600F371E4 /* Crafter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crafter.swift; sourceTree = "<group>"; };
+		DE409B022097854100F371E4 /* Driver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
+		DE409B04209786ED00F371E4 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		DED4BA64206B395200834B8D /* PassengerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassengerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED4BA67206B395200834B8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DED4BA69206B395200834B8D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -148,7 +158,12 @@
 		DED4BA66206B395200834B8D /* PassengerApp */ = {
 			isa = PBXGroup;
 			children = (
+				DE409AFE209781A600F371E4 /* Crafter.swift */,
+				DE409AFC209781A500F371E4 /* Station.swift */,
+				DE409B022097854100F371E4 /* Driver.swift */,
+				DE409B04209786ED00F371E4 /* Review.swift */,
 				B9E727682091509F003016D6 /* Trip.swift */,
+				DE409AFD209781A500F371E4 /* HTTPHandler.swift */,
 				B9E727692091509F003016D6 /* TripTableViewCell.swift */,
 				B9E727672091509F003016D6 /* TripTableViewController.swift */,
 				B9E7276A2091509F003016D6 /* TripViewController.swift */,
@@ -165,7 +180,6 @@
 				DED4BA70206B395200834B8D /* LaunchScreen.storyboard */,
 				DED4BA73206B395200834B8D /* Info.plist */,
 				DE1D5CB62083B374003C3084 /* CustomButton.swift */,
-				B9939C242087D442003F923A /* ConfigVariables.plist */,
 				DE409AFA20976DDA00F371E4 /* ExtensionURLRequest.swift */,
 			);
 			path = PassengerApp;
@@ -368,6 +382,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9E7276D2091509F003016D6 /* TripTableViewCell.swift in Sources */,
+				DE409B01209781A600F371E4 /* Crafter.swift in Sources */,
+				DE409AFF209781A600F371E4 /* Station.swift in Sources */,
 				B9E7276C2091509F003016D6 /* Trip.swift in Sources */,
 				B9E7276B2091509F003016D6 /* TripTableViewController.swift in Sources */,
 				DE409AFB20976DDA00F371E4 /* ExtensionURLRequest.swift in Sources */,
@@ -376,9 +392,12 @@
 				DE1D5CB92083C00F003C3084 /* AddTripViewController.swift in Sources */,
 				B9E7276E2091509F003016D6 /* TripViewController.swift in Sources */,
 				DED4BA6A206B395200834B8D /* ViewController.swift in Sources */,
+				DE409B00209781A600F371E4 /* HTTPHandler.swift in Sources */,
 				B9E7276420915061003016D6 /* RatingControl.swift in Sources */,
 				DE1D5CBF2083CEE6003C3084 /* ProfileViewController.swift in Sources */,
+				DE409B05209786ED00F371E4 /* Review.swift in Sources */,
 				DED4BA68206B395200834B8D /* AppDelegate.swift in Sources */,
+				DE409B032097854100F371E4 /* Driver.swift in Sources */,
 				DE1D5CBB2083C58F003C3084 /* TripsViewController.swift in Sources */,
 				B9E7276620915073003016D6 /* ReviewViewController.swift in Sources */,
 			);

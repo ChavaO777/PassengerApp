@@ -22,7 +22,7 @@ class Trip: NSObject, NSCoding, Codable{
 	
 	//MARK: Archiving Paths
 	
-	//URL to save app data
+	//URL to save app data locally
 	static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
 	//append "trips" to path
 	static let ArchiveURL = DocumentsDirectory.appendingPathComponent("trips")

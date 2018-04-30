@@ -12,7 +12,7 @@ class HTTPHandler{
     
     static let defaultSession = URLSession(configuration: .default)
     static var dataTask: URLSessionDataTask?
-    static let URL = "http://localhost:8000/api"
+    static let URL = "http://192.168.5.228:8000/api/"
     
     /**
      *  Function that makes an HTTP request to the REST API in

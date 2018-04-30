@@ -24,8 +24,9 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     static let DRIVERS_API_URL = "drivers/"
     static let REVIEWS_API_URL = "reviews/"
     
-    private var drivers = [Driver]()
     private var crafters = [Crafter]()
+    private var drivers = [Driver]()
+    
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +84,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		let selectedDriverIndex = driverPicker.selectedRow(inComponent: 0)
 		let selectedCrafterIndex = crafterPicker.selectedRow(inComponent: 0)
 	
-		//Prepare new review object
+        		//Prepare new review object
 		let driver_id = drivers[selectedDriverIndex].id
 		let passenger_id = "passenger1"
 		let crafter_id = crafters[selectedCrafterIndex].id
@@ -384,38 +385,4 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 			fatalError("Unidentified picker view")
 		}
 	}
-    
-    // MARK: - Internal Structs for data
-    
-    private struct Crafter : Decodable
-    {
-        let id: String
-        let name: String
-    }
-    
-    private struct Driver : Codable
-    {
-        let id: Int
-        let first_name: String
-        let last_name: String
-        let review_count: Int
-        let review_avg: Double
-        let kindness_prize_count: Int
-        let cleanliness_prize_count: Int
-        let driving_skills_prize_count: Int
-    }
-    
-    private struct Review : Codable
-    {
-        let driver_id: Int
-        let passenger_id: String
-        let crafter_id: String
-        let comment: String
-        let score: Double
-        let kindness_prize: Bool
-        let cleanliness_prize: Bool
-        let driving_skills_prize: Bool
-        
-    }
-    
 }

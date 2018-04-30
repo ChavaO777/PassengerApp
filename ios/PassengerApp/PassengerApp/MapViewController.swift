@@ -21,7 +21,8 @@ class MapViewController: UIViewController {
         createMap()
         
         //Get the stations' locations once
-        HTTPHandler.makeHTTPRequest(route: Station.ROUTE, httpMethod: "GET", callbackFunction: self.placeStationsOnMap)
+        //The httpBody is nil because there is no body to send to this request
+        HTTPHandler.makeHTTPRequest(route: Station.ROUTE, httpMethod: "GET", httpBody: nil, callbackFunction: self.placeStationsOnMap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -29,7 +30,8 @@ class MapViewController: UIViewController {
         super.viewDidAppear(false)
         
         //Update the crafters' locations every time the view appears
-        HTTPHandler.makeHTTPRequest(route: Crafter.ROUTE, httpMethod: "GET", callbackFunction: self.placeCraftersOnMap)
+        //The httpBody is nil because there is no body to send to this request
+        HTTPHandler.makeHTTPRequest(route: Crafter.ROUTE, httpMethod: "GET", httpBody: nil, callbackFunction: self.placeCraftersOnMap)
     }
     
     /**

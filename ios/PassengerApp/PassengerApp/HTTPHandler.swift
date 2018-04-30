@@ -20,9 +20,11 @@ class HTTPHandler{
      *
      *  @param route the route to be used in the HTTP request
      *  @param httpMethod the HTTP method to be used in the request
+     *  @param httpBody a Data? corresponding to a JSON file to be passed to the request.
+     *         If a request does not require a body, this parameter can be sent as nil.
      *  @param callbackFunction the function to be called within this function
      */
-    @objc static func makeHTTPRequest(route: String, httpMethod: String, callbackFunction: @escaping (_ data: Data?) -> Void) {
+    @objc static func makeHTTPRequest(route: String, httpMethod: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void) {
         
         let ROUTE_URL = URL + route
         
@@ -36,6 +38,7 @@ class HTTPHandler{
         let request = NSMutableURLRequest(url: url! as URL)
         request.addValue("application/JSON", forHTTPHeaderField: "Content-Type")
         request.httpMethod = httpMethod
+        request.httpBody = httpBody
         
         dataTask = defaultSession.dataTask(with: request as URLRequest){
             

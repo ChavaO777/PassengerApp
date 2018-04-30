@@ -21,6 +21,7 @@
 		DE1D5CBB2083C58F003C3084 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CBA2083C58F003C3084 /* TripsViewController.swift */; };
 		DE1D5CBD2083CE73003C3084 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CBC2083CE73003C3084 /* MapViewController.swift */; };
 		DE1D5CBF2083CEE6003C3084 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1D5CBE2083CEE6003C3084 /* ProfileViewController.swift */; };
+		DE409AFB20976DDA00F371E4 /* ExtensionURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE409AFA20976DDA00F371E4 /* ExtensionURLRequest.swift */; };
 		DED4BA68206B395200834B8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA67206B395200834B8D /* AppDelegate.swift */; };
 		DED4BA6A206B395200834B8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA69206B395200834B8D /* ViewController.swift */; };
 		DED4BA6D206B395200834B8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DED4BA6B206B395200834B8D /* Main.storyboard */; };
@@ -64,6 +65,7 @@
 		DE1D5CBA2083C58F003C3084 /* TripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		DE1D5CBC2083CE73003C3084 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		DE1D5CBE2083CEE6003C3084 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		DE409AFA20976DDA00F371E4 /* ExtensionURLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionURLRequest.swift; sourceTree = "<group>"; };
 		DED4BA64206B395200834B8D /* PassengerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassengerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED4BA67206B395200834B8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DED4BA69206B395200834B8D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				DED4BA73206B395200834B8D /* Info.plist */,
 				DE1D5CB62083B374003C3084 /* CustomButton.swift */,
 				B9939C242087D442003F923A /* ConfigVariables.plist */,
+				DE409AFA20976DDA00F371E4 /* ExtensionURLRequest.swift */,
 			);
 			path = PassengerApp;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				B9E7276D2091509F003016D6 /* TripTableViewCell.swift in Sources */,
 				B9E7276C2091509F003016D6 /* Trip.swift in Sources */,
 				B9E7276B2091509F003016D6 /* TripTableViewController.swift in Sources */,
+				DE409AFB20976DDA00F371E4 /* ExtensionURLRequest.swift in Sources */,
 				DE1D5CB72083B374003C3084 /* CustomButton.swift in Sources */,
 				DE1D5CBD2083CE73003C3084 /* MapViewController.swift in Sources */,
 				DE1D5CB92083C00F003C3084 /* AddTripViewController.swift in Sources */,

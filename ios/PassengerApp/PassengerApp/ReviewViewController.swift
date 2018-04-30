@@ -19,7 +19,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var cleanlinessPrizeButton: UIButton!
     @IBOutlet weak var kindnessPrizeButton: UIButton!
     
-    static let BACKEND_URL = "http://10.50.65.22:8000/api/"
+    static let BACKEND_URL = "http://192.168.5.228:8000/api/"
     static let CRAFTERS_API_URL = "crafters/"
     static let DRIVERS_API_URL = "drivers/"
     static let REVIEWS_API_URL = "reviews/"
@@ -114,26 +114,24 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     //Does the  post request to the server where the review is to be saved
     private func sendReview(_ review: Review)
     {
-        //Send object to database
-        let defaultSession = URLSession (configuration: .default)
-        var dataTask: URLSessionDataTask?
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
+        /*UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.REVIEWS_API_URL)
+
+        var dataTask: URLSessionDataTask?
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = [
+            "Accept" : "application/json",
+            "Content-Type" : "application/x-www-form-urlencoded"
+        ]
         
+        let session = URLSession(configuration: config)
         var request = URLRequest(url: url! as URL)
-        //request.addValue("application/JSON", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.encodeParameters(parameters: ["driver_id": String(review.driver_id), "passenger_id": review.passenger_id,
+                                              "crafter_id": review.crafter_id, "comment": review.comment,
+                                              "score": String(review.score), "kindness_prize": String(review.kindness_prize),
+                                              "cleanliness_prize": String(review.cleanliness_prize), "driving_skills_prize": String(review.driving_skills_prize)])
         
-        request.httpMethod = "POST"
-        do {
-            request.httpBody = try JSONEncoder().encode(review)
-        } catch let jsonError{
-            fatalError(String(describing: jsonError))
-        }
-        
-        dataTask = defaultSession.dataTask(with: request) {
+        dataTask = session.dataTask(with: request) {
             data, response, error in
             
             if error != nil {
@@ -151,7 +149,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 }
             }
         }
-        dataTask?.resume()
+        dataTask?.resume() */
     }
     
     private func getAvailableCrafters()

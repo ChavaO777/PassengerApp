@@ -77,7 +77,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		sender.isSelected = !sender.isSelected
     }
 	
-    
+    //Reads the review data from the outlets, then makes the necessary changes on the DB
     @IBAction func getReviewData(_ sender: Any) {
 		
 		//Save indices for the currently selected driver and crafter
@@ -103,8 +103,6 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		
 		closePopup()
 	}
-		
-    // MARK: - Private Methods
 	
 	//CLOSE POP-UP View
 	@IBAction func closePopup()
@@ -112,6 +110,35 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		removeAnimate()
 	}
 	
+    // MARK: - Private Methods
+    
+    //Pop up aimation
+    private func showAnimate()
+    {
+        self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
+        self.view.alpha = 0.0
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.alpha = 1.0
+            self.view.transform = self.view.transform.scaledBy(x: 1.0, y: 1.0)
+        })
+    }
+    
+    //Animate out and close popup
+    private func removeAnimate()
+    {
+        UIView.animate(withDuration: 0.25, animations: {
+            self.view.alpha = 0.0
+            self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
+        }, completion: {(finished : Bool) in
+            if (finished)
+            {
+                self.view.removeFromSuperview()
+            }
+        })
+    }
+    
+    // MARK: - Data Request methods
+    
     //Does the  post request to the server where the review is to be saved
     private func sendReview(_ review: Review)
     {
@@ -150,107 +177,59 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         dataTask?.resume()
     }
     
+    private func getAvailableCraftersCallback(_ data: Data?)
+    {
+        do
+        {
+            let craftersDecodedData = try JSONDecoder().decode([Crafter].self, from: data!)
+            
+            //Remove everything before, in order to avoid repeated values
+            self.crafters.removeAll()
+            
+            self.crafters += craftersDecodedData
+            self.crafterPicker.reloadAllComponents()
+            
+            print ("\nDECODED CRAFTERS: \(self.crafters.count)\n")
+            
+        } catch let jsonError
+        {
+            print (jsonError)
+        }
+    }
+    
     private func getAvailableCrafters()
     {
-        //Remove everything before
-        self.crafters.removeAll()
-        
-		let defaultSession = URLSession (configuration: .default)
-		var dataTask: URLSessionDataTask?
-		
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-		
-		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.CRAFTERS_API_URL)
-		
-		var request = URLRequest(url: url! as URL)
-		request.httpMethod = "GET"
-		
-		dataTask = defaultSession.dataTask(with: request) {
-			data, response, error in
-			
-			if error != nil {
-				print (error!.localizedDescription)
-			}
-			else if let httpResponse = response as? HTTPURLResponse {
-				if httpResponse.statusCode == 200 {
-					DispatchQueue.main.async {
-						UIApplication.shared.isNetworkActivityIndicatorVisible = false
-						
-						do {
-							let craftersDecodedData = try JSONDecoder().decode([Crafter].self, from: data!)
-                            
-							self.crafters += craftersDecodedData
-                            self.crafterPicker.reloadAllComponents()
-                            print ("\nDECODED CRAFTERS: \(self.crafters.count)\n")
-
-                            
-						} catch let jsonError{
-							print (jsonError)
-						}
-					}
-				}
-                else {
-                    print ("Response: " + String(httpResponse.statusCode))
-                }
-			}
-			
-		}
-		dataTask?.resume()
+        HTTPHandler.makeHTTPGetRequest(route: Crafter.ROUTE, httpBody: nil, callbackFunction: getAvailableCraftersCallback)
     }
 	
+    private func getAvailableDriversCallback(_ data: Data?)
+    {
+        do
+        {
+            let driversDecodedData = try JSONDecoder().decode([Driver].self, from: data!)
+            
+            //Remove everything before, in order to avoid repeated values
+            self.drivers.removeAll()
+            
+            self.drivers += driversDecodedData
+            self.driverPicker.reloadAllComponents()
+            
+            print ("\nDECODED DRIVERS: \(self.drivers.count)\n")
+            
+        } catch let jsonError
+        {
+            print (jsonError)
+        }
+    }
+    
 	private func getAvailableDrivers()
 	{
-        //Remove everything before
-        self.drivers.removeAll()
-        
-		let defaultSession = URLSession (configuration: .default)
-		var dataTask: URLSessionDataTask?
-		
-		UIApplication.shared.isNetworkActivityIndicatorVisible = true
-		
-		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.DRIVERS_API_URL)
-		
-		var request = URLRequest(url: url! as URL)
-		request.httpMethod = "GET"
-		
-		dataTask = defaultSession.dataTask(with: request) {
-			data, response, error in
-			
-			if error != nil {
-				print (error!.localizedDescription)
-			}
-			else if let httpResponse = response as? HTTPURLResponse {
-				if httpResponse.statusCode == 200 {
-					DispatchQueue.main.async {
-						UIApplication.shared.isNetworkActivityIndicatorVisible = false
-						
-						do {
-							let decodedData = try JSONDecoder().decode([Driver].self, from: data!)
-                            
-							self.drivers += decodedData
-                            self.driverPicker.reloadAllComponents()
-                            print ("\nDECODED DRIVERS: \(self.drivers.count)\n")
-						} catch let jsonError{
-							print (jsonError)
-						}
-					}
-				}
-                else {
-                    print ("Response: " + String(httpResponse.statusCode))
-                }
-
-			}
-            		}
-		dataTask?.resume()
+        HTTPHandler.makeHTTPGetRequest(route: Driver.ROUTE, httpBody: nil, callbackFunction: getAvailableDriversCallback)
 	}
 	
+    //Update driver in database, considering the new values given in the review
 	func updateDriver(_ selectedDriverIndex: Int)
 	{
-		let defaultSession = URLSession (configuration: .default)
-		var dataTask: URLSessionDataTask?
-		
-		//Update driver in database
-		
 		let id = drivers[selectedDriverIndex].id
 		let first_name = drivers[selectedDriverIndex].first_name
 		let last_name = drivers[selectedDriverIndex].last_name
@@ -262,6 +241,17 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		
 		
 		let driver = Driver(id: id, first_name: first_name, last_name: last_name, review_count: review_count, review_avg: review_average, kindness_prize_count: kindness_prize_count, cleanliness_prize_count: cleanliess_prize_count, driving_skills_prize_count: driving_skills_prize_count)
+        
+        var data: Data?
+        
+        do {
+            data = try JSONEncoder().encode(driver)
+        } catch let jsonError{
+            fatalError(String(describing: jsonError))
+        }
+
+        
+        HTTPHandler.makeHTTPPutRequest(route: Driver.ROUTE + "/\(driver.id)", httpBody: data)
 		
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		
@@ -271,11 +261,6 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         request.addValue("application/JSON", forHTTPHeaderField: "Content-Type")
 		request.httpMethod = "PUT"
 		
-		do {
-			request.httpBody = try JSONEncoder().encode(driver)
-		} catch let jsonError{
-			fatalError(String(describing: jsonError))
-		}
 		
 		dataTask = defaultSession.dataTask(with: request) {
 			data, response, error in
@@ -293,35 +278,10 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 			}
 		}
 		dataTask?.resume()
-		
-	}
-	
-	//Pop up aimation
-	func showAnimate()
-	{
-		self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
-		self.view.alpha = 0.0
-		UIView.animate(withDuration: 0.3, animations: {
-			self.view.alpha = 1.0
-			self.view.transform = self.view.transform.scaledBy(x: 1.0, y: 1.0)
-		})
-	}
-	
-	//Animate out and close popup
-	func removeAnimate()
-	{
-		UIView.animate(withDuration: 0.25, animations: {
-			self.view.alpha = 0.0
-			self.view.transform = self.view.transform.scaledBy(x: 1.3, y: 1.3)
-		}, completion: {(finished : Bool) in
-			if (finished)
-			{
-				self.view.removeFromSuperview()
-			}
-		})
 	}
 	
     //MARK: - UITextView Methods
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         
         if textView.text == "Deja un comentario (opcional)"

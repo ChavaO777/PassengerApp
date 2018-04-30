@@ -10,10 +10,6 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    let PASSENGER_KEY = "passenger"
-    let TOKEN_KEY = "token"
-    let EXPIRATION_TIME_KEY = "expiration_time"
-    
     @IBOutlet weak var userId: UITextField!
     @IBOutlet weak var userPassword: UITextField!
     
@@ -60,11 +56,11 @@ class LoginViewController: UIViewController {
         let loginResponseDictionary = try? JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
         
         //If the token is present, the login was successful.
-        if loginResponseDictionary![TOKEN_KEY] != nil {
+        if loginResponseDictionary![Passenger.TOKEN_KEY] != nil {
         
             print("Successful login!")
             //Store the id, token and expiration time
-//                storePassengerData(loginResponseDictionary: loginResponseDictionary)
+            storePassengerData(loginResponseDictionary: loginResponseDictionary!)
             
             self.performSegue(withIdentifier: "loginSegue", sender: self)
         }
@@ -77,10 +73,14 @@ class LoginViewController: UIViewController {
     
     private func storePassengerData(loginResponseDictionary: [String: Any]) -> Void {
         
+        let passenger = loginResponseDictionary[Passenger.PASSENGER_KEY]!
+        print(passenger)
+        print(loginResponseDictionary)
+        
         //Store the passenger data (but not the password) in the UserDefaults
-        UserDefaults.standard.set(loginResponseDictionary[PASSENGER_KEY], forKey: PASSENGER_KEY)
-        UserDefaults.standard.set(loginResponseDictionary[TOKEN_KEY], forKey: TOKEN_KEY)
-        UserDefaults.standard.set(loginResponseDictionary[EXPIRATION_TIME_KEY], forKey: EXPIRATION_TIME_KEY)
+//        UserDefaults.standard.set(loginResponseDictionary[PASSENGER_KEY], forKey: PASSENGER_KEY)
+//        UserDefaults.standard.set(loginResponseDictionary[TOKEN_KEY], forKey: TOKEN_KEY)
+//        UserDefaults.standard.set(loginResponseDictionary[EXPIRATION_TIME_KEY], forKey: EXPIRATION_TIME_KEY)
     }
     
     private func alertAboutFailedAuthentication(message: String) {

@@ -10,6 +10,10 @@ import Foundation
 
 class Passenger : Decodable {
     
+    static let PASSENGER_KEY = "passenger"
+    static let TOKEN_KEY = "token"
+    static let EXPIRATION_TIME_KEY = "expiration_time"
+    
     let id: String
     let first_name: String
     let last_name: String

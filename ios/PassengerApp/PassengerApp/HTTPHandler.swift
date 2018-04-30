@@ -10,9 +10,17 @@ import Foundation
 
 class HTTPHandler{
     
-    static let defaultSession = URLSession(configuration: .default)
-    static var dataTask: URLSessionDataTask?
     static let URL = "http://localhost:8000/api"
+    
+    @objc static func makeHTTPGetRequest(route: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void){
+        
+        makeHTTPRequest(route: route, httpMethod: "GET", httpBody: httpBody, callbackFunction: callbackFunction)
+    }
+    
+    @objc static func makeHTTPPutRequest(route: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void){
+        
+        makeHTTPRequest(route: route, httpMethod: "PUT", httpBody: httpBody, callbackFunction: callbackFunction)
+    }
     
     /**
      *  Function that makes an HTTP request to the REST API in
@@ -26,13 +34,10 @@ class HTTPHandler{
      */
     @objc static func makeHTTPRequest(route: String, httpMethod: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void) {
         
-        let ROUTE_URL = URL + route
+        let defaultSession = URLSession(configuration: .default)
+        var dataTask: URLSessionDataTask?
         
-        if dataTask != nil {
-            
-            dataTask?.cancel()
-        }
-        
+        let ROUTE_URL = self.URL + route
         let url = NSURL(string: ROUTE_URL)
         
         let request = NSMutableURLRequest(url: url! as URL)
@@ -57,6 +62,57 @@ class HTTPHandler{
                         
                         //Call the call-back function with the data received from the request
                         callbackFunction(data)
+                    }
+                }
+            }
+        }
+        
+        dataTask?.resume()
+    }
+    
+    @objc static func makeHTTPPostRequest(route: String, parameters: [String : String], callbackFunction: @escaping (_ data: Data?) -> Void){
+        
+        let ROUTE_URL = self.URL + route
+        let url = NSURL (string: ROUTE_URL)
+        
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = [
+            
+            "Accept" : "application/json",
+            "Content-Type" : "application/x-www-form-urlencoded"
+        ]
+        
+        let session = URLSession(configuration: config)
+        var request = URLRequest(url: url! as URL)
+        request.encodeParameters(parameters: parameters)
+        
+        var dataTask: URLSessionDataTask?
+        
+        dataTask = session.dataTask(with: request) {
+            data, response, error in
+            
+            if error != nil {
+                print (error!.localizedDescription)
+            }
+            else if let httpResponse = response as? HTTPURLResponse {
+                
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 201{
+                    DispatchQueue.main.async {
+                        
+                        //If there is a call-back function, call it with the data received from the request
+                        callbackFunction(data)
+                        
+                        print ("Successful POST request to " + ROUTE_URL)
+                    }
+                }
+                else {
+                   
+                    DispatchQueue.main.async {
+                        
+                        //If there is a call-back function, call it with the data received from the request
+                        callbackFunction(data)
+
+                        print ("Response: " + String(httpResponse.statusCode))
                     }
                 }
             }

@@ -11,12 +11,7 @@ import GoogleMaps
 
 class MapViewController: UIViewController {
     
-    let URL = "http://localhost:8000/api"
-    
     var mapView:GMSMapView?
-    
-    let defaultSession = URLSession(configuration: .default)
-    var dataTask: URLSessionDataTask?
     
     override func viewDidLoad() {
         
@@ -26,64 +21,15 @@ class MapViewController: UIViewController {
         createMap()
         
         //Get the stations' locations once
-        getElementsFromApi(route: Station.ROUTE, httpMethod: "GET", callbackFunction: self.placeStationsOnMap)
+        HTTPHandler.makeHTTPRequest(route: Station.ROUTE, httpMethod: "GET", callbackFunction: self.placeStationsOnMap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
     
         super.viewDidAppear(false)
         
-        //Update the crafter' locations every time the view appears
-        getElementsFromApi(route: Crafter.ROUTE, httpMethod: "GET", callbackFunction: self.placeCraftersOnMap)
-    }
-    
-    /**
-     *  Function that makes an HTTP request to the backend server and
-     *  gets a list of the given entities
-     *
-     *  @param route the route to be used in the HTTP request
-     *  @param httpMethod the HTTP method to be used in the request
-     *  @param callbackFunction the function to be called within this function
-     */
-    @objc func getElementsFromApi(route: String, httpMethod: String, callbackFunction: @escaping (_ data: Data?) -> Void) {
-
-        let ROUTE_URL = URL + route
-        
-        if dataTask != nil {
-
-            dataTask?.cancel()
-        }
-
-        let url = NSURL(string: ROUTE_URL)
-
-        let request = NSMutableURLRequest(url: url! as URL)
-        request.addValue("application/JSON", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = httpMethod
-
-        dataTask = defaultSession.dataTask(with: request as URLRequest){
-
-            data, response, error in
-            
-            if error != nil {
-                
-                print(error!.localizedDescription)
-            }
-            else if let httpResponse = response as? HTTPURLResponse {
-                
-                //If the request was successful
-                if httpResponse.statusCode == 200 {
-                    
-                    DispatchQueue.main.async {
-                        
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                        //Call the call-back function with the data received from the request
-                        callbackFunction(data)
-                    }
-                }
-            }
-        }
-
-        dataTask?.resume()
+        //Update the crafters' locations every time the view appears
+        HTTPHandler.makeHTTPRequest(route: Crafter.ROUTE, httpMethod: "GET", callbackFunction: self.placeCraftersOnMap)
     }
     
     /**

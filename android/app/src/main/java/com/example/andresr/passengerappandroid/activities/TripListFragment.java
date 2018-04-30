@@ -95,7 +95,7 @@ public class TripListFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             HttpHandler sh = new HttpHandler();
             // Making a request to url and getting response
-            String url = "https://fierce-hollows-58615.herokuapp.com/trips";
+            String url = getString(R.string.herokuBaseUri);
             String jsonStr = sh.makeServiceCall(url);
 
             Log.e(TAG, "Response from url: " + jsonStr);

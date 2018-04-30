@@ -11,8 +11,9 @@ import android.view.ViewGroup;
 import com.example.andresr.passengerappandroid.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
     private MapView mapView;
     private GoogleMap map;
     @Nullable
@@ -23,7 +24,7 @@ public class MapFragment extends Fragment {
         mapView = (MapView) v.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
 
-        map = mapView.getMapAsync(this);
+        mapView.getMapAsync(this);
         map.getUiSettings().setMyLocationButtonEnabled(false);
         return inflater.inflate(R.layout.fragment_map, container, false);
 
@@ -44,5 +45,10 @@ public class MapFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
     }
 }

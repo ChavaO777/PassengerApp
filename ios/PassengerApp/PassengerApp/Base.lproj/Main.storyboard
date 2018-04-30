@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -641,6 +641,9 @@
                             </label>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="X4k-24-m32">
                                 <rect key="frame" x="265" y="470.5" width="94" height="29"/>
+                                <connections>
+                                    <action selector="editNotificationAnticipationMinutes:" destination="yaT-N0-bmT" eventType="valueChanged" id="lq5-bC-FOd"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total de viajes: X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRx-xV-Wsa">
                                 <rect key="frame" x="129.5" y="243" width="116" height="18"/>
@@ -714,6 +717,8 @@ alertas (min. antes)</string>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="NotificationAnticipationMinutesStepper" destination="X4k-24-m32" id="DG6-4b-GYo"/>
+                        <outlet property="notificationAnticipationMinutes" destination="9D2-6c-gPF" id="281-5S-J7q"/>
                         <outlet property="notificationsSwitch" destination="9pb-SJ-47F" id="QXU-uE-go0"/>
                         <outlet property="soundSwitch" destination="9n0-sb-I31" id="fSh-GA-gDc"/>
                         <outlet property="vibrationSwitch" destination="gvr-Gm-MqJ" id="87F-GU-dam"/>

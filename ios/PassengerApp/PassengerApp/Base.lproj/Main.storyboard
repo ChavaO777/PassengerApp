@@ -82,6 +82,14 @@
                                     <segue destination="KIh-3w-kxM" kind="show" id="KEp-lM-yWU"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSi-q8-q6E">
+                                <rect key="frame" x="177" y="585" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="WORG"/>
+                                <connections>
+                                    <action selector="createReviewPopUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="abd-6F-baz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.79614788293838501" green="0.86053365468978882" blue="0.97091919183731079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -371,7 +379,7 @@
         <!--Review View Controller-->
         <scene sceneID="dqz-aN-eHd">
             <objects>
-                <viewController id="jHh-f3-7ea" customClass="ReviewViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReviewView" id="jHh-f3-7ea" customClass="ReviewViewController" customModule="PassengerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ia4-mt-phR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -380,25 +388,25 @@
                                 <rect key="frame" x="37.5" y="43.5" width="300" height="600"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retroalimentación de viaje" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoe-jV-GhE">
-                                        <rect key="frame" x="15.5" y="50.5" width="180" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.5" y="50.5" width="210" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elige a tu conductor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BkE-2L-O44">
-                                        <rect key="frame" x="15.5" y="82" width="180" height="18"/>
+                                        <rect key="frame" x="0.5" y="82" width="210" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elige la crafter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XcP-tQ-PgI">
-                                        <rect key="frame" x="15.5" y="155.5" width="180" height="18"/>
+                                        <rect key="frame" x="0.5" y="155.5" width="210" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Califica al conductor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9mL-yr-92b">
-                                        <rect key="frame" x="15.5" y="243.5" width="180" height="18"/>
+                                        <rect key="frame" x="0.5" y="243.5" width="210" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -406,7 +414,7 @@
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8K-OS-ko8">
                                         <rect key="frame" x="0.0" y="105" width="300" height="60.5"/>
                                     </pickerView>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GQ-wD-awB">
+                                    <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GQ-wD-awB">
                                         <rect key="frame" x="0.0" y="182.5" width="300" height="60"/>
                                     </pickerView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pye-OF-Ao5" customClass="RatingControl" customModule="PassengerApp" customModuleProvider="target">
@@ -417,7 +425,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lip-2r-7mp">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lip-2r-7mp">
                                         <rect key="frame" x="30" y="350" width="90" height="90"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Lip-2r-7mp" secondAttribute="height" multiplier="1:1" id="D4b-eY-dK4"/>
@@ -428,7 +436,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AhH-PZ-00u">
-                                        <rect key="frame" x="41" y="610" width="42" height="30"/>
+                                        <rect key="frame" x="41" y="580" width="42" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Omitir"/>
                                         <connections>
@@ -436,14 +444,14 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0QT-d7-b9k">
-                                        <rect key="frame" x="262" y="610" width="42" height="30"/>
+                                        <rect key="frame" x="262" y="580" width="42" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Enviar"/>
                                         <connections>
-                                            <action selector="sendReview:" destination="jHh-f3-7ea" eventType="touchUpInside" id="G8h-lG-U3r"/>
+                                            <action selector="getReviewData:" destination="jHh-f3-7ea" eventType="touchUpInside" id="G8h-lG-U3r"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51H-gI-TIx">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="51H-gI-TIx">
                                         <rect key="frame" x="210" y="315" width="103" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="kindness"/>
@@ -451,7 +459,7 @@
                                             <action selector="onPrizeButtonTouch:" destination="jHh-f3-7ea" eventType="touchUpInside" id="aH1-zK-8vp"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0la-e9-MC1">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0la-e9-MC1">
                                         <rect key="frame" x="94" y="315" width="101" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button" image="cleanliness"/>
@@ -459,13 +467,13 @@
                                             <action selector="onPrizeButtonTouch:" destination="jHh-f3-7ea" eventType="touchUpInside" id="Q2r-vw-PIn"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="line" placeholder="Deja un comentario (opcional)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Oc-cR-Gng">
-                                        <rect key="frame" x="-9" y="438" width="348" height="120"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="interactive" text="Deja un comentario (opcional)" translatesAutoresizingMaskIntoConstraints="NO" id="rcK-Xn-Tqs">
+                                        <rect key="frame" x="8" y="423" width="284" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -476,7 +484,7 @@
                                     <constraint firstItem="e8K-OS-ko8" firstAttribute="centerX" secondItem="cvj-Mn-l0a" secondAttribute="centerX" id="HhM-XR-33F"/>
                                     <constraint firstItem="BkE-2L-O44" firstAttribute="width" secondItem="eoe-jV-GhE" secondAttribute="width" id="JFG-PD-SLU"/>
                                     <constraint firstItem="6GQ-wD-awB" firstAttribute="top" secondItem="XcP-tQ-PgI" secondAttribute="bottom" constant="9" id="MRz-oD-WqB"/>
-                                    <constraint firstItem="eoe-jV-GhE" firstAttribute="width" secondItem="cvj-Mn-l0a" secondAttribute="width" multiplier="0.6" id="N1Y-Fl-QlB"/>
+                                    <constraint firstItem="eoe-jV-GhE" firstAttribute="width" secondItem="cvj-Mn-l0a" secondAttribute="width" multiplier="0.7" id="N1Y-Fl-QlB"/>
                                     <constraint firstItem="XcP-tQ-PgI" firstAttribute="width" secondItem="BkE-2L-O44" secondAttribute="width" id="NEb-V3-RrR"/>
                                     <constraint firstItem="pye-OF-Ao5" firstAttribute="height" secondItem="cvj-Mn-l0a" secondAttribute="height" multiplier="0.12" id="NSh-TH-2QC"/>
                                     <constraint firstItem="XcP-tQ-PgI" firstAttribute="top" secondItem="e8K-OS-ko8" secondAttribute="bottom" constant="-9.5" id="Q9s-YJ-Gcf"/>
@@ -514,7 +522,7 @@
                     </view>
                     <connections>
                         <outlet property="cleanlinessPrizeButton" destination="0la-e9-MC1" id="KY8-x1-3mN"/>
-                        <outlet property="commentTextField" destination="4Oc-cR-Gng" id="cCA-zD-Ewf"/>
+                        <outlet property="commentTextField" destination="rcK-Xn-Tqs" id="gY9-j1-R6Y"/>
                         <outlet property="crafterPicker" destination="6GQ-wD-awB" id="GA2-7s-4fM"/>
                         <outlet property="driverPicker" destination="e8K-OS-ko8" id="upa-gD-LXh"/>
                         <outlet property="drivingPrizeButton" destination="Lip-2r-7mp" id="VNk-9u-94G"/>

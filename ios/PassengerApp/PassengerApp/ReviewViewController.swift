@@ -114,8 +114,42 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     //Does the  post request to the server where the review is to be saved
     private func sendReview(_ review: Review)
     {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.REVIEWS_API_URL)
         
+        var dataTask: URLSessionDataTask?
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = [
+            "Accept" : "application/json",
+            "Content-Type" : "application/x-www-form-urlencoded"
+        ]
         
+        let session = URLSession(configuration: config)
+        var request = URLRequest(url: url! as URL)
+        request.encodeParameters(parameters: ["driver_id": String(review.driver_id), "passenger_id": review.passenger_id,
+                                              "crafter_id": review.crafter_id, "comment": review.comment,
+                                              "score": String(review.score), "kindness_prize": String(review.kindness_prize),
+                                              "cleanliness_prize": String(review.cleanliness_prize), "driving_skills_prize": String(review.driving_skills_prize)])
+        
+        dataTask = session.dataTask(with: request) {
+            data, response, error in
+            
+            if error != nil {
+                print (error!.localizedDescription)
+            }
+            else if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 200{
+                    DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        print ("Review sent succesfully")
+                    }
+                }
+                else {
+                    print ("Response: " + String(httpResponse.statusCode))
+                }
+            }
+        }
+        dataTask?.resume()
     }
     
     private func getAvailableCrafters()
@@ -382,25 +416,6 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let cleanliness_prize: Bool
         let driving_skills_prize: Bool
         
-        func getAsURLSafeString() -> String
-        {
-            return """
-            driver_id=\(String(describing: String(driver_id).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
-                &
-            passenger_id=\(String(describing: passenger_id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
-                &
-            crafter_id=\(String(describing: crafter_id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
-                &
-            comment=\(String(describing: comment.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
-                &
-            score=\(String(describing: String(score).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
-                &
-            kindness_prize=\(String(describing: String(kindness_prize).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
-            &
-            cleanliness_prize=\(String(describing: String(cleanliness_prize).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
-            &
-            driving_skills_prize=\(String(describing: String(driving_skills_prize).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)))
-            """
-        }
     }
+    
 }

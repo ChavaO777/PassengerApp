@@ -19,14 +19,14 @@ class MapViewController: UIViewController {
     var dataTask: URLSessionDataTask?
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         //Create the map once
         createMap()
         
-        print("A07104218")
         //Get the stations' locations once
-        getElementsFromApi(route: "/stations", httpMethod: "GET", callbackFunction: self.placeStationsOnMap)
+        getElementsFromApi(route: Station.ROUTE, httpMethod: "GET", callbackFunction: self.placeStationsOnMap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -34,7 +34,7 @@ class MapViewController: UIViewController {
         super.viewDidAppear(false)
         
         //Update the crafter' locations every time the view appears
-        getElementsFromApi(route: "/crafters", httpMethod: "GET", callbackFunction: self.placeCraftersOnMap)
+        getElementsFromApi(route: Crafter.ROUTE, httpMethod: "GET", callbackFunction: self.placeCraftersOnMap)
     }
     
     /**
@@ -101,6 +101,12 @@ class MapViewController: UIViewController {
             //Iterate on the Crafter struct array
             for crafter in craftersArray {
                 
+                //If the crafter is not active, then skip it, i.e. don't place it on the map
+                if !crafter.isActive {
+                    
+                    continue
+                }
+                
                 //Create a marker
                 let marker = GMSMarker()
                 
@@ -108,11 +114,11 @@ class MapViewController: UIViewController {
                 marker.position = CLLocationCoordinate2DMake(Double(crafter.lat), Double(crafter.lng))
                 
                 marker.title = String(crafter.name)
-                marker.snippet = String(crafter.id)
+                marker.snippet = crafter.getMarkerSnippet()
                 marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0)
                 
                 //Set the marker's custom image
-                marker.icon = UIImage(named: "icon_crafter.png")
+                marker.icon = UIImage(named: crafter.ICON_NAME_STRING)
                 
                 //Set the marker's view
                 marker.map = self.mapView
@@ -146,11 +152,11 @@ class MapViewController: UIViewController {
                 marker.position = CLLocationCoordinate2DMake(Double(station.lat), Double(station.lng))
                 
                 marker.title = String(station.name)
-                marker.snippet = getStationMarkerSnippet(station: station)
+                marker.snippet = station.getMarkerSnippet()
                 marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0)
                 
                 //Set the marker's custom image
-                marker.icon = UIImage(named: "icon_station.png")
+                marker.icon = UIImage(named: station.ICON_NAME_STRING)
                 
                 //Set the marker's view
                 marker.map = self.mapView
@@ -160,18 +166,6 @@ class MapViewController: UIViewController {
             
             print(jsonError)
         }
-    }
-    
-    /**
-     *  Function to create a snippet for the stations' markers
-     *
-     *  @param station a station struct whose marker snippet is to be created
-     *  @returns markerSnippet a string corresponding to the station's marker's snippet
-     */
-    func getStationMarkerSnippet(station: Station) -> String {
-        
-        let markerSnippet = "Personas esperando una crafter: " + String(station.waiting_people) + "\nSiguiente crafter en: " + String(station.next_crafter_arrival_time) + " min."
-        return markerSnippet
     }
     
     /**

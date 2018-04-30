@@ -11,8 +11,9 @@ import GoogleMaps
 
 class MapViewController: UIViewController {
     
-    let URL = "http://10.50.65.22:8000/api"
-    @IBOutlet weak var mapView: GMSMapView!
+    let URL = "http://localhost:8000/api"
+    
+    var mapView:GMSMapView?
     
     let defaultSession = URLSession(configuration: .default)
     var dataTask: URLSessionDataTask?
@@ -95,55 +96,44 @@ class MapViewController: UIViewController {
      *
      *  @param craftersArray an array of crafter structs
      */
-    private func placeCraftersOnMap(craftersArray: [Crafter]) {
+    func placeCraftersOnMap(craftersArray: [Crafter]) {
     
         for crafter in craftersArray {
             
-            print("crafter.id = " + String(crafter.id))
             let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2D(latitude: Double(crafter.lat), longitude: Double(crafter.lng))
+            marker.position = CLLocationCoordinate2DMake(Double(crafter.lat), Double(crafter.lng))
             marker.title = String(crafter.name)
             marker.snippet = String(crafter.id)
+            marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0)
+            marker.icon = UIImage(named: "icon_crafter.png")
+            
             marker.map = self.mapView
+            
         }
     }
     
     /**
      *  Function to create the Google Maps map
      */
-    private func createMap() {
+    private func createMap(){
         
         //This call to bringSubview() was key!
-        self.view.bringSubview(toFront: self.mapView)
         
         //VWM Fin coords
         let lat = 19.1190942
         let lng = -98.2535574
-        let zoomLevel = 12.0
+        let zoomLevel = 15.0
+        
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
         
         let myCamera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: Float(zoomLevel))
+        mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.9), camera: myCamera)
         
-        //Get the dimensions of the map's view
-        let mapViewHeight = mapView.frame.height
-        let mapViewWidth = mapView.frame.width
+        //so the mapView is of width 200, height 200 and its center is same as center of the self.view
+        mapView?.center = self.view.center
         
-        //Create an instance of a map
-        let mapViewGoogleMaps = GMSMapView.map(withFrame: CGRect.init(x: 0, y: 0, width: mapViewWidth, height: mapViewHeight), camera: myCamera)
-        
-        //Set the map type
-        mapViewGoogleMaps.mapType = GMSMapViewType.satellite
-        
-        //Set the camera
-        mapView.camera = myCamera
-        
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapViewGoogleMaps
-        
-        //Set the map to its corresponding view
-        self.mapView = mapViewGoogleMaps
+        self.view.addSubview(mapView!)
     }
 
     override func didReceiveMemoryWarning() {

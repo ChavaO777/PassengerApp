@@ -90,22 +90,31 @@ class MapViewController: UIViewController {
      *  Function that places markers on the map representing the
      *  crafters in their current locations.
      *
-     *  @param craftersArray an array of crafter structs
+     *  @param data the data returned from an HTTP request
      */
     func placeCraftersOnMap(data: Data?) {
         
         do{
+            //Parse the data into an array of Crafter structs
             let craftersArray = try JSONDecoder().decode([Crafter].self, from: data!)
             
+            //Iterate on the Crafter struct array
             for crafter in craftersArray {
                 
+                //Create a marker
                 let marker = GMSMarker()
+                
+                //Add the marker's coordinates
                 marker.position = CLLocationCoordinate2DMake(Double(crafter.lat), Double(crafter.lng))
+                
                 marker.title = String(crafter.name)
                 marker.snippet = String(crafter.id)
                 marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0)
+                
+                //Set the marker's custom image
                 marker.icon = UIImage(named: "icon_crafter.png")
                 
+                //Set the marker's view
                 marker.map = self.mapView
             }
             
@@ -115,21 +124,35 @@ class MapViewController: UIViewController {
         }
     }
     
+    /**
+     *  Function that places markers on the map representing the
+     *  stations.
+     *
+     *  @param data the data returned from an HTTP request
+     */
     func placeStationsOnMap(data: Data?) {
         
         do{
+            //Parse the data into an array of Station structs
             let stationsArray = try JSONDecoder().decode([Station].self, from: data!)
             
+            //Iterate on the Station struct array
             for station in stationsArray {
                 
-                print("station name = " + String(station.name))
-                
+                //Create a marker
                 let marker = GMSMarker()
+                
+                //Add the marker's coordinates
                 marker.position = CLLocationCoordinate2DMake(Double(station.lat), Double(station.lng))
+                
                 marker.title = String(station.name)
+                marker.snippet = getStationMarkerSnippet(station: station)
                 marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0)
+                
+                //Set the marker's custom image
                 marker.icon = UIImage(named: "icon_station.png")
                 
+                //Set the marker's view
                 marker.map = self.mapView
             }
             
@@ -137,6 +160,18 @@ class MapViewController: UIViewController {
             
             print(jsonError)
         }
+    }
+    
+    /**
+     *  Function to create a snippet for the stations' markers
+     *
+     *  @param station a station struct whose marker snippet is to be created
+     *  @returns markerSnippet a string corresponding to the station's marker's snippet
+     */
+    func getStationMarkerSnippet(station: Station) -> String {
+        
+        let markerSnippet = "Personas esperando una crafter: " + String(station.waiting_people) + "\nSiguiente crafter en: " + String(station.next_crafter_arrival_time) + " min."
+        return markerSnippet
     }
     
     /**

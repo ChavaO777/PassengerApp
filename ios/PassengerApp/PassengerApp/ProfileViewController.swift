@@ -10,17 +10,6 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    //Constants for the names of the UserDefaults keys
-    let NOTIFICATIONS_USER_DEFAULTS_KEY = "notifications"
-    let VIBRATION_USER_DEFAULTS_KEY = "vibration"
-    let SOUND_USER_DEFAULTS_KEY = "sound"
-    let NOTIFICATION_ANTICIPATION_MINUTES_KEY = "notification_anticipation_minutes"
-    
-    //Constants for the default values of the UserDefaults keys
-    let DEFAULT_SWITCH_VALUE = false
-    let DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE = 1
-    let DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE = 5
-    
     //Outlets for the switches
     @IBOutlet weak var notificationsSwitch: UISwitch!
     @IBOutlet weak var vibrationSwitch: UISwitch!
@@ -35,7 +24,7 @@ class ProfileViewController: UIViewController {
     @IBAction func toggleNotifications(_ sender: UISwitch) {
         
         let notificationsCurrValue = sender.isOn
-        UserDefaults.standard.set(notificationsCurrValue, forKey: NOTIFICATIONS_USER_DEFAULTS_KEY)
+        UserConfiguration.setConfiguration(key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY, value: notificationsCurrValue)
     }
     
     /**
@@ -45,7 +34,7 @@ class ProfileViewController: UIViewController {
     @IBAction func toggleVibration(_ sender: UISwitch) {
         
         let vibrationCurrValue = sender.isOn
-        UserDefaults.standard.set(vibrationCurrValue, forKey: VIBRATION_USER_DEFAULTS_KEY)
+        UserConfiguration.setConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY, value: vibrationCurrValue)
     }
     
     /**
@@ -55,7 +44,7 @@ class ProfileViewController: UIViewController {
     @IBAction func toggleSound(_ sender: UISwitch) {
         
         let soundCurrValue = sender.isOn
-        UserDefaults.standard.set(soundCurrValue, forKey: SOUND_USER_DEFAULTS_KEY)
+        UserConfiguration.setConfiguration(key: UserConfiguration.SOUND_USER_DEFAULTS_KEY, value: soundCurrValue)
     }
 
     @IBAction func editNotificationAnticipationMinutes(_ sender: UIStepper) {
@@ -65,7 +54,7 @@ class ProfileViewController: UIViewController {
         //Assign the new value to the label
         notificationAnticipationMinutes.text = newNotificationAnticipationMinutes
         //Save the new value in the UserDefaults
-        UserDefaults.standard.set(newNotificationAnticipationMinutes, forKey: NOTIFICATION_ANTICIPATION_MINUTES_KEY)
+        UserConfiguration.setConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY, value: newNotificationAnticipationMinutes)
     }
     
     override func viewDidLoad() {
@@ -74,42 +63,42 @@ class ProfileViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         //Initialize the config variables
-        initializeConfigVariable(configVariable: NOTIFICATIONS_USER_DEFAULTS_KEY, value: DEFAULT_SWITCH_VALUE) //Boolean
-        initializeConfigVariable(configVariable: VIBRATION_USER_DEFAULTS_KEY, value: DEFAULT_SWITCH_VALUE) //Boolean
-        initializeConfigVariable(configVariable: SOUND_USER_DEFAULTS_KEY, value: DEFAULT_SWITCH_VALUE) //Boolean
-        initializeConfigVariable(configVariable: NOTIFICATION_ANTICIPATION_MINUTES_KEY, value: (DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE + DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)/2) //Int
+        initializeConfigVariable(configVariableKey: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
+        initializeConfigVariable(configVariableKey: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
+        initializeConfigVariable(configVariableKey: UserConfiguration.SOUND_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
+        initializeConfigVariable(configVariableKey: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY, value: (UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE + UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)/2) //Int
         
-        print(UserDefaults.standard.integer(forKey: NOTIFICATION_ANTICIPATION_MINUTES_KEY))
+        print(UserDefaults.standard.integer(forKey: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY))
         
         //Set the switches into their correct values according to the config variables
-        notificationsSwitch.setOn(UserDefaults.standard.bool(forKey: NOTIFICATIONS_USER_DEFAULTS_KEY), animated: false)
-        vibrationSwitch.setOn(UserDefaults.standard.bool(forKey: VIBRATION_USER_DEFAULTS_KEY), animated: false)
-        soundSwitch.setOn(UserDefaults.standard.bool(forKey: SOUND_USER_DEFAULTS_KEY), animated: false)
+        notificationsSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY) as! Bool, animated: false)
+        vibrationSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY) as! Bool, animated: false)
+        soundSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.SOUND_USER_DEFAULTS_KEY) as! Bool, animated: false)
         
         //Set the stepper to its correct value according to the config variable
-        NotificationAnticipationMinutesStepper.value = Double(UserDefaults.standard.integer(forKey: NOTIFICATION_ANTICIPATION_MINUTES_KEY))
+        NotificationAnticipationMinutesStepper.value = Double(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY) as! Int)
     
         //Set the stepper configuration
         NotificationAnticipationMinutesStepper.wraps = true
         NotificationAnticipationMinutesStepper.autorepeat = true
-        NotificationAnticipationMinutesStepper.minimumValue = Double(DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE)
-        NotificationAnticipationMinutesStepper.maximumValue = Double(DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)
+        NotificationAnticipationMinutesStepper.minimumValue = Double(UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE)
+        NotificationAnticipationMinutesStepper.maximumValue = Double(UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)
     }
     
     /**
      *  Function to initialize the config variables
      *
-     *  @param configVariable a string corresponding to the name of the
+     *  @param configVariableKey a string corresponding to the key of the
      *  configuration variable
      *  @param value the value to be set for that key
      */
-    func initializeConfigVariable(configVariable: String, value: Any) -> Void {
+    func initializeConfigVariable(configVariableKey: String, value: Any) -> Void {
         
         //If the key does not exist yet
-        if(!isKeyPresentInUserDefaults(key: configVariable)) {
+        if(!isKeyPresentInUserDefaults(key: configVariableKey)) {
             
             //Set it to the given value
-            UserDefaults.standard.set(value, forKey: configVariable)
+            UserConfiguration.setConfiguration(key: configVariableKey, value: value)
         }
     }
     

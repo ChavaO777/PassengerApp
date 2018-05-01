@@ -540,8 +540,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_userProfile_large" translatesAutoresizingMaskIntoConstraints="NO" id="1Ma-Yj-igS">
-                                <rect key="frame" x="137.5" y="101.5" width="100" height="100"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_userProfile_large" translatesAutoresizingMaskIntoConstraints="NO" id="1Ma-Yj-igS">
+                                <rect key="frame" x="137.5" y="66.5" width="100" height="100"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Doe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXh-ht-YY7">
                                 <rect key="frame" x="134" y="174" width="107.5" height="31"/>
@@ -621,8 +621,8 @@
                                     <action selector="editNotificationAnticipationMinutes:" destination="yaT-N0-bmT" eventType="valueChanged" id="lq5-bC-FOd"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total de viajes: X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRx-xV-Wsa">
-                                <rect key="frame" x="129.5" y="243" width="116" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total de viajes: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRx-xV-Wsa">
+                                <rect key="frame" x="134.5" y="243" width="106" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -702,6 +702,7 @@ alertas (min. antes)</string>
                         <outlet property="notificationsSwitch" destination="9pb-SJ-47F" id="QXU-uE-go0"/>
                         <outlet property="passengerName" destination="jXh-ht-YY7" id="zEr-Zt-cSf"/>
                         <outlet property="soundSwitch" destination="9n0-sb-I31" id="fSh-GA-gDc"/>
+                        <outlet property="tripCounter" destination="tRx-xV-Wsa" id="08u-Om-FeM"/>
                         <outlet property="vibrationSwitch" destination="gvr-Gm-MqJ" id="87F-GU-dam"/>
                     </connections>
                 </viewController>

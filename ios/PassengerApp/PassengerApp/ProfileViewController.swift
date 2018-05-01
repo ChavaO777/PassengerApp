@@ -19,6 +19,8 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var passengerName: UILabel!
     
+    @IBOutlet weak var tripCounter: UILabel!
+    
     /**
     *   Function that toggles the value of the notifications
     *   switch and updates the value in the UserDefaults.

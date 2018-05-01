@@ -142,39 +142,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     //Does the  post request to the server where the review is to be saved
     private func sendReview(_ review: Review)
     {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.REVIEWS_API_URL)
-        
-        var dataTask: URLSessionDataTask?
-        let config = URLSessionConfiguration.default
-        config.httpAdditionalHeaders = [
-            "Accept" : "application/json",
-            "Content-Type" : "application/x-www-form-urlencoded"
-        ]
-        
-        let session = URLSession(configuration: config)
-        var request = URLRequest(url: url! as URL)
-        request.encodeParameters(parameters: review.getAsJSONParams())
-        
-        dataTask = session.dataTask(with: request) {
-            data, response, error in
-            
-            if error != nil {
-                print (error!.localizedDescription)
-            }
-            else if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 200 || httpResponse.statusCode == 200{
-                    DispatchQueue.main.async {
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                        print ("Review sent succesfully")
-                    }
-                }
-                else {
-                    print ("Response: " + String(httpResponse.statusCode))
-                }
-            }
-        }
-        dataTask?.resume()
+        HTTPHandler.makeHTTPPostRequest(route: Review.ROUTE, parameters: review.getAsJSONParams())
     }
     
     private func getAvailableCraftersCallback(_ data: Data?)
@@ -252,32 +220,6 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 
         
         HTTPHandler.makeHTTPPutRequest(route: Driver.ROUTE + "/\(driver.id)", httpBody: data)
-		
-		UIApplication.shared.isNetworkActivityIndicatorVisible = true
-		
-		let url = NSURL (string: ReviewViewController.BACKEND_URL + ReviewViewController.DRIVERS_API_URL + String(id))
-		
-		var request = URLRequest(url: url! as URL)
-        request.addValue("application/JSON", forHTTPHeaderField: "Content-Type")
-		request.httpMethod = "PUT"
-		
-		
-		dataTask = defaultSession.dataTask(with: request) {
-			data, response, error in
-			
-			if error != nil {
-				print (error!.localizedDescription)
-			}
-			else if let httpResponse = response as? HTTPURLResponse {
-				if httpResponse.statusCode == 200 {
-					DispatchQueue.main.async {
-						UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                        print ("Driver values updated")
-					}
-				}
-			}
-		}
-		dataTask?.resume()
 	}
 	
     //MARK: - UITextView Methods

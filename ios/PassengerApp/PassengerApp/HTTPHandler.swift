@@ -10,7 +10,7 @@ import Foundation
 
 class HTTPHandler{
 
-    static let URL = "http://localhost:8000/api"
+    static let URL = "http://192.168.4.246/api"
     
     @objc static func makeHTTPGetRequest(route: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void = { _ in }){
         

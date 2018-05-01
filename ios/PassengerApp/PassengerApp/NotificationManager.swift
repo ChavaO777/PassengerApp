@@ -10,11 +10,10 @@ import Foundation
 import UserNotifications
 
 
-class NotificationManager : UNUserNotificationCenterDelegate
+class NotificationManager
 {
-    private static var bHasNotificationPermissions = Bool()
-    private static let tripNotificationID = "TRIP_NOTIFICATION"
-    private static let customRescheduleActionID = "RESCHEDULE_ACTION"
+    public static let tripNotificationID = "TRIP_NOTIFICATION"
+    public static let customRescheduleActionID = "RESCHEDULE_ACTION"
     
     static func requestNotificationPermission()
     {
@@ -23,11 +22,8 @@ class NotificationManager : UNUserNotificationCenterDelegate
             
             if (!granted)
             {
-                fatalError("You msut provide notification permission >:v")
+                fatalError("You must provide notification permission >:v")
             }
-            
-            self.bHasNotificationPermissions = granted
-            
             //Register notification category for trips
             
             // Create the custom actions and the category for a trip notification.
@@ -91,54 +87,16 @@ class NotificationManager : UNUserNotificationCenterDelegate
             }
         }
     }
-    
-    //MARK: - User Notification Center Delegate Methods
-    
-    //Called when a notification is delivered with the app in foreground
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        // Update the app interface directly.
-        
-        if ((UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)) as! Bool)
-        {
-            // Play a sound if the user has such configuration
-            completionHandler([.alert ,.sound])
-        }
-        else
-        {
-            // Play a sound if the user has such configuration
-            completionHandler([.alert])
-        }
+	
+	//Remove a notification for a pending trip
+    static func cancelTripNotification (forTripName tripName: String)
+    {
+		UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["Trip_\(tripName)"])
     }
-    
-    //Called when the user gets the notification and acts upong it
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.notification.request.content.categoryIdentifier == NotificationManager.tripNotificationID {
-            
-            // Handle the actions for the reschedule action
-            if response.actionIdentifier == NotificationManager.customRescheduleActionID {
-                
-                // Invalidate the old timer and create a new one. . .
-            }
-            else if response.actionIdentifier == UNNotificationDismissActionIdentifier {
-                // The user dismissed the notification without taking action
-            }
-            else if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
-                // The user launched the app
-            }
-        }
-    }
-
     
     /*
     //Gets all our notifications still in the user´s notification center
     getDeliveredNotificationsWithCompletionHandler:
-    //remove one of them
-    removeDeliveredNotificationsWithIdentifiers:
-    //To cancel an individual notification before it is delivered or to cancel a repeating notification
-    removePendingNotificationRequestsWithIdentifiers:
-     */
+	*/
+
 }

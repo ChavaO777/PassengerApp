@@ -64,10 +64,7 @@ class ProfileViewController: UIViewController {
     
         // Do any additional setup after loading the view.
         
-        print("HERE!")
-        print(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY))
-        print("Or here?")
-        
+        passengerName.text = UserConfiguration.getConfiguration(key: UserConfiguration.PASSENGER_FIRST_NAME) as? String
         //Set the switches into their correct values according to the config variables
         notificationsSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY) as! Bool, animated: false)
         vibrationSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY) as! Bool, animated: false)

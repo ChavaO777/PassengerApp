@@ -96,11 +96,13 @@ class LoginViewController: UIViewController {
         
         let passenger = loginResponseDictionary[UserConfiguration.PASSENGER_KEY]! as! Dictionary<String, AnyObject>
         
+        let passengerFirstName = passenger["first_name"]
         let passengerId = passenger["id"]
         let passengerToken = loginResponseDictionary[UserConfiguration.TOKEN_KEY]
         let expirationTime = loginResponseDictionary[UserConfiguration.EXPIRATION_TIME_KEY]
         
         // Store the passenger data (but not the password) in the UserDefaults
+        UserConfiguration.setConfiguration(key: UserConfiguration.PASSENGER_FIRST_NAME, value: passengerFirstName as Any)
         UserConfiguration.setConfiguration(key: UserConfiguration.PASSENGER_KEY, value: passengerId as Any)
         UserConfiguration.setConfiguration(key: UserConfiguration.TOKEN_KEY, value: passengerToken as Any)
         UserConfiguration.setConfiguration(key: UserConfiguration.EXPIRATION_TIME_KEY, value: expirationTime as Any)

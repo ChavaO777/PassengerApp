@@ -10,14 +10,14 @@ import Foundation
 
 class HTTPHandler{
 
-    static let URL = "http://localhost:8000/api"
+    static let URL = "http://192.168.4.246:8000/api"
     
-    @objc static func makeHTTPGetRequest(route: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void){
+    @objc static func makeHTTPGetRequest(route: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void = { _ in }){
         
         makeHTTPRequest(route: route, httpMethod: "GET", httpBody: httpBody, callbackFunction: callbackFunction)
     }
     
-    @objc static func makeHTTPPutRequest(route: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void){
+    @objc static func makeHTTPPutRequest(route: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void = { _ in }){
         
         makeHTTPRequest(route: route, httpMethod: "PUT", httpBody: httpBody, callbackFunction: callbackFunction)
     }
@@ -32,7 +32,7 @@ class HTTPHandler{
      *         If a request does not require a body, this parameter can be sent as nil.
      *  @param callbackFunction the function to be called within this function
      */
-    @objc static func makeHTTPRequest(route: String, httpMethod: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void) {
+    @objc static func makeHTTPRequest(route: String, httpMethod: String, httpBody: Data?, callbackFunction: @escaping (_ data: Data?) -> Void = { _ in }) {
         
         let defaultSession = URLSession(configuration: .default)
         var dataTask: URLSessionDataTask?
@@ -70,7 +70,7 @@ class HTTPHandler{
         dataTask?.resume()
     }
     
-    @objc static func makeHTTPPostRequest(route: String, parameters: [String : String], callbackFunction: @escaping (_ data: Data?) -> Void){
+    @objc static func makeHTTPPostRequest(route: String, parameters: [String : String], callbackFunction: @escaping (_ data: Data?) -> Void = { _ in }){
         
         let ROUTE_URL = self.URL + route
         let url = NSURL (string: ROUTE_URL)

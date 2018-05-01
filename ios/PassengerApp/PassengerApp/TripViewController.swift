@@ -8,9 +8,10 @@
 
 import UIKit
 import os.log
+import UserNotifications
 
 //View Controller that handles the add/edit screen for a single trip
-class TripViewController: UIViewController, UITextFieldDelegate {
+class TripViewController: UIViewController, UITextFieldDelegate, UNUserNotificationCenterDelegate {
 	
     //Colors used in the buttons selection and unselection
     
@@ -44,6 +45,52 @@ class TripViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var saturdayButton: UIButton!
     @IBOutlet weak var sundayButton: UIButton!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //Handle custom notifications?
+        UNUserNotificationCenter.current().delegate = self
+        
+        // Handle the text field’s user input through delegate callbacks.
+        alarmNameTextField.delegate = self
+        
+        
+        //The trip property will only be non-nil when an existing trip is being edited.
+        if let trip = trip {
+            
+            //Alarm name
+            navigationItem.title = trip.alarmName
+            alarmNameTextField.text = trip.alarmName
+            
+            //Alarm Date
+            datePicker.date = trip.alarmDate
+            
+            //Repetition days
+            repetitionDays = trip.repetitionDays
+            
+            //Remove the pending notification if any
+            if trip.active
+            {
+                NotificationManager.cancelTripNotification(forTripName: trip.alarmName)
+            }
+            
+        }
+        else{
+            //Initialize repetition days if creating a trip
+            for _ in 0...6 {
+                repetitionDays.append(false)
+            }
+        }
+        
+        updateSaveButtonState()
+        
+        redrawButtons()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
     //MARK: Navigation
     
     
@@ -68,12 +115,12 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 			fatalError("The TripViewController is not inside a navigation controller.")
 		}
     }
-	
-	/*
-	When clicking on the save button, this view controller builds its trip object,
-	based on the current information, for it to be visible for the destination view controller
-	*/
-	override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool
+
+    /*
+     When clicking on the save button, this view controller builds its trip object,
+     based on the current information, for it to be visible for the destination view controller
+     */
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool
 	{
 		// Configure the destination view controller only when the save button is pressed.
 		guard let button = sender as? UIBarButtonItem, button === saveButton else {
@@ -81,16 +128,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 			return false
 		}
 		
-		//Retrieve inputted data
-		let alarmName = alarmNameTextField.text ?? ""
-		
-		let formatter = DateFormatter()
-		formatter.locale = Locale(identifier: "es_mx")
-		formatter.dateFormat = "HH:mm"
-		let departureTime = formatter.string(from: datePicker.date)
-		
-		// Set the trip to be passed to TripTableViewController after the unwind segue.
-		trip = Trip(alarmName: alarmName, repetitionDays: repetitionDays, departureTime: departureTime, alarmDate: datePicker.date, active: true)
+        createTripFromInputData()
 		
 		
 		//Check if this view was called to add a new trip and not to edit one
@@ -100,11 +138,11 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		{
 			//if we are adding a new trip, check if there is already a trip with the same values
             
-			if checkForRepeatedTrip ()
+			if let message = checkForTripRepetition ()
 			{
                 //If it is, ask the user for an action
 				let alert = UIAlertController(title: "Alerta",
-											  message: "Ya existe un traslado con la hora y fecha establecidos",
+											  message: message,
 											  preferredStyle: .alert)
 				
 				// Discard current trip button
@@ -122,7 +160,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 				alert.addAction(cancel)
 				present(alert, animated: true, completion: nil)
 				
-				//when the user wants to reedit his trip, prevent the segue from happening
+				//when the user wants to re-edit his trip, prevent the segue from happening
 				return false
 			}
 		}
@@ -131,48 +169,12 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	}
 	
     // This method lets you configure a view controller before it's presented.
-	
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         super.prepare(for: segue, sender: sender)
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-		
-		// Handle the text field’s user input through delegate callbacks.
-		alarmNameTextField.delegate = self
-		
-		
-		//The trip property will only be non-nil when an existing trip is being edited.
-		if let trip = trip {
-			
-			//Alarm name
-			navigationItem.title = trip.alarmName
-			alarmNameTextField.text = trip.alarmName
-			
-			//Alarm Date
-			datePicker.date = trip.alarmDate
-			
-			//Repetition days
-			repetitionDays = trip.repetitionDays
-			
-		}
-		else{
-			//Initialize repetition days if creating a trip
-			for _ in 0...6 {
-				repetitionDays.append(false)
-			}
-		}
-		
-		updateSaveButtonState()
         
-        redrawButtons()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        //trip could be added/edited succesfully, make a notification for it
+        NotificationManager.createTripNotification(tripName: trip!.alarmName, tripDepartureTime: trip!.departureTime)
     }
 
 	
@@ -208,24 +210,29 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	//MARK: Private Methods
 	
 	/*Checks whether the current trip saved in the instance is already present in the stored trips
-		Returns true if it found a repeated trip, false otherwise.
-		A trip is considered equal to another if the departure time is the same and (the repetition days are the same or they have the same date)
-		It takes in a boolean, to indicate that if a trip is found to be repeated, it should be deleted right there
+		Returns a string specifying which criteria a repeated trip infringed
+        If there was no repeating trip, it returns nil
+		A trip is considered equal to another if the departure time is the same and (the repetition days are the same or they have the same date). Trips must have a unique name
 	*/
-	private func checkForRepeatedTrip() -> Bool
+	private func checkForTripRepetition() -> String?
 	{
+        //Load trips
 		let trips = Trip.loadTrips()
 		
 		//If there are no trips, it clearly is not repeating
 		if trips == nil || trips!.count == 0
 		{
-			return false
+			return nil
 		}
         
+        //Check trips
 		for t in trips!
 		{
-            t.printToConsole()
-            trip!.printToConsole()
+            //If a trip already has that name
+            if t.alarmName == trip!.alarmName
+            {
+                return "Ya existe un traslado con el mismo nombre."
+            }
             
 			//if the departure time is the same
 			if t.departureTime == trip!.departureTime
@@ -236,7 +243,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 					//Check if they are the same
 					if t.getRepetitionDaysAsString() == trip!.getRepetitionDaysAsString()
 					{
-						return true
+						return "Ya existe un traslado a la misma hora y con los mismos días repetidos."
 					}
 				}
 				//If only one has a repeated day, they cannot be equal, keep checking
@@ -246,13 +253,28 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 				}
 				//Otherwise, check for the same departure date
                 else if Calendar.current.isDate(t.alarmDate, equalTo: trip!.alarmDate, toGranularity: .minute){
-					return true
+					return "Ya existe un traslado a la misma hora y con la misma fecha."
 				}
 			}
 		}
-		return false
+		return nil
 	}
 	
+    //Fills this VC's trip field with the data from the user
+    private func createTripFromInputData() {
+        //Retrieve inputed data
+        let alarmName = alarmNameTextField.text ?? ""
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "es_mx")
+        formatter.dateFormat = "HH:mm"
+        let departureTime = formatter.string(from: datePicker.date)
+        
+        // Set the trip to be passed to TripTableViewController after the unwind segue.
+        trip = Trip(alarmName: alarmName, repetitionDays: repetitionDays, departureTime: departureTime, alarmDate: datePicker.date, active: true)
+    }
+    
+    //Allows saving only if the trip name is not empty
 	private func updateSaveButtonState() {
 		// Disable the Save button if the text field is empty.
 		let text = alarmNameTextField.text ?? ""
@@ -324,5 +346,45 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		else{
 			changeButtonColors(button: sundayButton, bkgColor: TripViewController.BUTTON_UNSELECTED_BKG_COLOR, tintColor: TripViewController.BUTTON_UNSELECTED_TINT_COLOR)
 		}
+    }
+    
+    //MARK: - User Notification Center Delegate Methods
+    
+    //Called when a notification is delivered with the app in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        let sounds = UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)
+        
+        if ((sounds) as! Bool)
+        {
+            // Play a sound if the user has such configuration
+            completionHandler([.alert ,.sound])
+        }
+        else
+        {
+            // Play a sound if the user has such configuration
+            completionHandler([.alert])
+        }
+    }
+    
+    //Called when the user gets the notification and acts upong it
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        if response.notification.request.content.categoryIdentifier == NotificationManager.tripNotificationID {
+            
+            // Handle the actions for the reschedule action
+            if response.actionIdentifier == NotificationManager.customRescheduleActionID {
+                
+            }
+            else if response.actionIdentifier == UNNotificationDismissActionIdentifier {
+                // The user dismissed the notification without taking action
+            }
+            else if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
+                // The user launched the app
+            }
+        }
     }
 }

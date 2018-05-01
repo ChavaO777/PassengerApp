@@ -129,10 +129,26 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
     }
     */
 
-    //MARK: - InteractiveTableViewCellDelegate implementations
+    //MARK: - InteractiveTableViewCellDelegate methods
+    
     func didTapCell(_ cell: UITableViewCell, cellForRowAt rowIndex: Int?) {
+    
+        //Get trip in question
+        let trip = trips[rowIndex!]
+        
         //toggle its active value, when the switch is flipped on the table view cell
-        trips[rowIndex!].active = !trips[rowIndex!].active
+        trip.active = !(trip.active)
+        
+        //If the trip was deactivated and became active, create notification
+        if (trip.active)
+        {
+            NotificationManager.createTripNotification(tripName: trip.alarmName, tripDepartureTime: trip.departureTime)
+        }
+        else
+        {
+            //Otherwise, cancel notification
+            NotificationManager.cancelTripNotification(forTripName: trip.alarmName)
+        }
     }
     
     

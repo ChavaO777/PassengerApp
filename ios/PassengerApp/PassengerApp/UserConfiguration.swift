@@ -24,7 +24,7 @@ class UserConfiguration {
     static let EXPIRATION_TIME_KEY = "expirationTime"
     
     //Constants for the default values of the UserDefaults keys
-    static let DEFAULT_SWITCH_VALUE = false
+    static let DEFAULT_SWITCH_VALUE = true
     static let DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE = 1
     static let DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE = 5
     
@@ -45,7 +45,51 @@ class UserConfiguration {
      *  @param key the key corresponding to that variable
      */
     static func getConfiguration(key: String) -> Any {
-        
         return UserDefaults.standard.object(forKey: key) as Any
+    }
+        
+    // MARK: - User Defaults
+    
+    /**
+     *  Ensures that all the required user configuration exists
+     *
+     */
+    public static func initializeUserConfiguration()
+    {
+        //Initialize the config variables
+        initializeConfigVariable(configVariableKey: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
+        initializeConfigVariable(configVariableKey: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
+        initializeConfigVariable(configVariableKey: UserConfiguration.SOUND_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
+        initializeConfigVariable(configVariableKey: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY, value: (UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE + UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)/2) //Int
+    }
+    
+    /**
+     *  Function to initialize the config variables
+     *
+     *  @param configVariableKey a string corresponding to the key of the
+     *  configuration variable
+     *  @param value the value to be set for that key
+     */
+    private static func initializeConfigVariable(configVariableKey: String, value: Any) -> Void {
+        
+        //If the key does not exist yet
+        if(!isKeyPresentInUserDefaults(key: configVariableKey)) {
+            
+            //Set it to the given value
+            UserConfiguration.setConfiguration(key: configVariableKey, value: value)
+        }
+    }
+    
+    /**
+     *  Function to determine whether a given key is present in the
+     *  UserDefaults
+     *
+     *  @param key the name of the key whose existence in the UserDefaults
+     *  is to be checked
+     *  @returns True if the key exists in the UserDefaults. Else, false
+     */
+    private static func isKeyPresentInUserDefaults(key: String) -> Bool {
+        
+        return UserDefaults.standard.object(forKey: key) != nil
     }
 }

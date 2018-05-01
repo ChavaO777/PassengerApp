@@ -17,6 +17,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var notificationAnticipationMinutes: UILabel!
     @IBOutlet weak var NotificationAnticipationMinutesStepper: UIStepper!
     
+    @IBOutlet weak var passengerName: UILabel!
+    
     /**
     *   Function that toggles the value of the notifications
     *   switch and updates the value in the UserDefaults.
@@ -62,13 +64,9 @@ class ProfileViewController: UIViewController {
     
         // Do any additional setup after loading the view.
         
-        //Initialize the config variables
-        initializeConfigVariable(configVariableKey: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
-        initializeConfigVariable(configVariableKey: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
-        initializeConfigVariable(configVariableKey: UserConfiguration.SOUND_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
-        initializeConfigVariable(configVariableKey: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY, value: (UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE + UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)/2) //Int
-        
-        print(UserDefaults.standard.integer(forKey: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY))
+        print("HERE!")
+        print(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY))
+        print("Or here?")
         
         //Set the switches into their correct values according to the config variables
         notificationsSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY) as! Bool, animated: false)
@@ -76,7 +74,8 @@ class ProfileViewController: UIViewController {
         soundSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.SOUND_USER_DEFAULTS_KEY) as! Bool, animated: false)
         
         //Set the stepper to its correct value according to the config variable
-        NotificationAnticipationMinutesStepper.value = Double(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY) as! Int)
+//        NotificationAnticipationMinutesStepper.value = Double(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY) as! Double)
+        NotificationAnticipationMinutesStepper.value = 3 //TODO: fix this call to get the user configuration
     
         //Set the stepper configuration
         NotificationAnticipationMinutesStepper.wraps = true
@@ -85,38 +84,19 @@ class ProfileViewController: UIViewController {
         NotificationAnticipationMinutesStepper.maximumValue = Double(UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)
     }
     
-    /**
-     *  Function to initialize the config variables
-     *
-     *  @param configVariableKey a string corresponding to the key of the
-     *  configuration variable
-     *  @param value the value to be set for that key
-     */
-    func initializeConfigVariable(configVariableKey: String, value: Any) -> Void {
-        
-        //If the key does not exist yet
-        if(!isKeyPresentInUserDefaults(key: configVariableKey)) {
-            
-            //Set it to the given value
-            UserConfiguration.setConfiguration(key: configVariableKey, value: value)
-        }
-    }
-    
-    /**
-     *  Function to determine whether a given key is present in the
-     *  UserDefaults
-     *
-     *  @param key the name of the key whose existence in the UserDefaults
-     *  is to be checked
-     *  @returns True if the key exists in the UserDefaults. Else, false
-     */
-    func isKeyPresentInUserDefaults(key: String) -> Bool {
-        
-        return UserDefaults.standard.object(forKey: key) != nil
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func createTripReview(_ sender: UIButton) {
+  
+        //Create popup for new trip data
+        let reviewVC = UIStoryboard (name: "Main" /*same story board, different view/scene */, bundle: nil).instantiateViewController(withIdentifier: "ReviewView") as! ReviewViewController
+        
+        self.addChildViewController(reviewVC)
+        reviewVC.view.frame = self.view.frame
+        self.view.addSubview(reviewVC.view)
+        reviewVC.didMove(toParentViewController: self)
     }
 }

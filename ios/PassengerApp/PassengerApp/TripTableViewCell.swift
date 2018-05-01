@@ -33,6 +33,8 @@ class TripTableViewCell: UITableViewCell {
     }
     
     @IBAction func onSwitchValueChanged(_ sender: UISwitch)        {
+        
+        //call delegate to change the trip status
         cellDelegate?.didTapCell(self, cellForRowAt: currentIndexPath)
     }
     

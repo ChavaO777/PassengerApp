@@ -14,12 +14,22 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_URL", "\"http://192.168.4.246:8000/api\"")
+            buildConfigField("String", "HEROKU_URL", "\"https://fierce-hollows-58615.herokuapp.com/trips\"")
         }
+        debug {
+            buildConfigField("String", "API_URL", "\"http://192.168.4.246:8000/api\"")
+            buildConfigField("String", "HEROKU_URL", "\"https://fierce-hollows-58615.herokuapp.com/trips\"")
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'

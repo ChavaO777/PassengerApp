@@ -13,5 +13,14 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="notifications">notification</string>
+    <string name="vibration">vibration</string>
+    <string name="sound">sound</string>
     <string name="title_activity_maps">Map</string>
+    <string name="settings_alert_text">Alertas de traslado:</string>
+    <string name="settings_buttons">Cambiar</string>
+    <string name="settings_button_logout">Cerrar sesión</string>
+    <string name="default_stop">Entrada Principal</string>
+    <string name="home_stop">homestop</string>
+    <string name="fav_stop">favstop</string>
 </resources>

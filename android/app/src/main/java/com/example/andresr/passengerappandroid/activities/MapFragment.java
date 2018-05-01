@@ -79,5 +79,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         map.addMarker(new MarkerOptions().position(wv).title("VW Puebla"));
         map.moveCamera(CameraUpdateFactory.newLatLng(wv));
+        //changed zoom level here
+        map.animateCamera( CameraUpdateFactory.zoomTo( 16.0f ) );
+
     }
 }

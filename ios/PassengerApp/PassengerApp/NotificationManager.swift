@@ -40,7 +40,11 @@ class NotificationManager
             let tripCategory = UNNotificationCategory(identifier: tripNotificationID,
                                                       actions: [rescheduleAction],
                                                       intentIdentifiers: [],
-                                                      options: UNNotificationCategoryOptions(rawValue: 0))
+													  options: [UNNotificationCategoryOptions.allowInCarPlay,
+																UNNotificationCategoryOptions.customDismissAction,
+																UNNotificationCategoryOptions.hiddenPreviewsShowSubtitle,
+																UNNotificationCategoryOptions.hiddenPreviewsShowTitle
+																])
             
             
             // Register the notification category
@@ -59,15 +63,11 @@ class NotificationManager
         {
             return
         }
-        
-        //Get user default parameters related to notifications for background
-        let alarmAnticipationMinutes = (UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY)) as! Int
-        let bCanHaveSound = (UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)) as! Bool
 
         //Notification settings
         let content = UNMutableNotificationContent()
         content.title = NSString.localizedUserNotificationString(forKey: tripName, arguments: nil)
-        content.body = NSString.localizedUserNotificationString(forKey: "Faltan \(alarmAnticipationMinutes) minutos para tu traslado", arguments: nil)
+        content.body = NSString.localizedUserNotificationString(forKey: "Faltan \(anticipationNotificationMinutes) minutos para tu traslado", arguments: nil)
         content.categoryIdentifier = tripNotificationID
         if (bCanHaveSound)
         {

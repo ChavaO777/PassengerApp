@@ -14,9 +14,14 @@ class NotificationManager
 {
     public static let tripNotificationID = "TRIP_NOTIFICATION"
     public static let customRescheduleActionID = "RESCHEDULE_ACTION"
-    
+	
+	public static var bActiveNotifications = Bool()
+	public static var bCanHaveSound = Bool()
+	public static var bCanHaveVibration = Bool()
+	public static var anticipationNotificationMinutes = Int()
+	
     static func requestNotificationPermission()
-    {
+    {		
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             
@@ -47,8 +52,10 @@ class NotificationManager
     
     static func createTripNotification(tripName: String, tripDepartureTime: String)
     {
+		updateUserConfigValues()
+		
         //Only make notifications if the user has notifications activated
-        if (!(UserConfiguration.getConfiguration (key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY) as! Bool))
+		if (!bActiveNotifications)
         {
             return
         }
@@ -99,4 +106,16 @@ class NotificationManager
     getDeliveredNotificationsWithCompletionHandler:
 	*/
 
+	private static func updateUserConfigValues()
+	{
+		let notifications = UserConfiguration.getConfiguration (key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY)
+		let sound = UserConfiguration.getConfiguration(key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)
+		let vibration = UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY)
+		let minutes = UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY)
+		
+		bActiveNotifications = notifications as! Bool
+		bCanHaveSound = sound as! Bool
+		bCanHaveVibration = vibration as! Bool
+		anticipationNotificationMinutes = minutes as! Int
+	}
 }

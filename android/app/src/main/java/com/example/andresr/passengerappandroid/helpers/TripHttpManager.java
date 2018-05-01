@@ -24,6 +24,7 @@ public class TripHttpManager extends AsyncTask<String, Void, Integer> {
         this.listener = listener;
     }
 
+    public static final int ERR_BAD_QUERY = -3;
     public static final int ERR_CONNECTION = -2;
     public static final int ERR_NOTFOUND = -1;
     public static final int SUCCESS_DELETE = 2;
@@ -59,7 +60,7 @@ public class TripHttpManager extends AsyncTask<String, Void, Integer> {
                     case "DELETE": return SUCCESS_DELETE;
                     case "UPDATE": return SUCCESS_UPDATE;
                 }
-                return SUCCESS_DELETE;
+                return ERR_BAD_QUERY;
             } else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
                 return ERR_NOTFOUND;
             }

@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.andresr.passengerappandroid.BuildConfig;
 import com.example.andresr.passengerappandroid.R;
 import com.example.andresr.passengerappandroid.adapters.TripAdapter;
 import com.example.andresr.passengerappandroid.helpers.HttpHandler;
@@ -107,7 +108,7 @@ public class TripListFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             HttpHandler sh = new HttpHandler();
             // Making a request to url and getting response
-            String url = getString(R.string.herokuBaseUri);
+            String url = BuildConfig.HEROKU_URL;
             String jsonStr = sh.makeServiceCall(url);
 
             Log.e(TAG, "Response from url: " + jsonStr);
@@ -133,7 +134,7 @@ public class TripListFragment extends Fragment {
 
                         Trip trip = new Trip(false, monday, tuesday, wednesday, thursday, friday, saturday, sunday, df.parse(day), id);
                         tripList.add(trip);
-                        adapter.notifyItemInserted(tripList.size() - 1);
+                        //adapter.notifyItemInserted(tripList.size() - 1);
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -150,6 +151,7 @@ public class TripListFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+            adapter.notifyDataSetChanged();
             recyclerView.invalidate();
         }
     }

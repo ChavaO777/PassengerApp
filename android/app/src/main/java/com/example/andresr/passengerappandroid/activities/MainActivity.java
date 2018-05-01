@@ -22,13 +22,6 @@ public class MainActivity extends AppCompatActivity implements AddEditTripFragme
     private ViewPager viewPager;
     public Trip tripToEdit; // Contains info of trip to edit
 
-    private String serverBaseUri = "https://fierce-hollows-58615.herokuapp.com";
-
-    public String getServerBaseUri() {
-        return serverBaseUri;
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

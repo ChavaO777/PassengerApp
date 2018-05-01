@@ -19,6 +19,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.andresr.passengerappandroid.BuildConfig;
 import com.example.andresr.passengerappandroid.R;
 import com.example.andresr.passengerappandroid.activities.MainActivity;
 import com.example.andresr.passengerappandroid.helpers.TripHttpManager;
@@ -68,7 +69,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                                 tripList.remove(holder.getAdapterPosition());
                                 notifyItemRemoved(holder.getAdapterPosition());
                                 // Do an async call to remove from server
-                                new TripHttpManager((MainActivity) mCtx).execute(mCtx.getString(R.string.herokuBaseUri), "DELETE", Integer.toString(trip.getId()));
+                                new TripHttpManager((MainActivity) mCtx).execute(BuildConfig.HEROKU_URL, "DELETE", Integer.toString(trip.getId()));
                                 return true;
                             case R.id.menu_item_edit:
                                 // Send to other fragment
@@ -97,7 +98,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                                 tripList.remove(holder.getAdapterPosition());
                                 notifyItemRemoved(holder.getAdapterPosition());
                                 // Do an async call to remove from server
-                                new TripHttpManager((MainActivity) mCtx).execute(Resources.getSystem().getString(R.string.herokuBaseUri), "DELETE", Integer.toString(trip.getId()));
+                                new TripHttpManager((MainActivity) mCtx).execute(BuildConfig.HEROKU_URL, "DELETE", Integer.toString(trip.getId()));
                                 return true;
                             case R.id.menu_item_edit:
                                 // Send to other fragment

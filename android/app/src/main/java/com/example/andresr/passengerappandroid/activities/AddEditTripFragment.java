@@ -36,13 +36,12 @@ import static android.content.ContentValues.TAG;
 public class AddEditTripFragment extends Fragment {
 
     Button chooseTimeButton, chooseDateButton;
-    TextView timeTextView, dateTextView;
+    ToggleButton mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton;
+    TextView timeTextView, dateTextView, textTitle;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     private int hourOfDay, minute, day, month, year;
-
-    List<ToggleButton> repeatToggleButtonList;
 
     @Nullable
     @Override
@@ -52,17 +51,16 @@ public class AddEditTripFragment extends Fragment {
         chooseDateButton = v.findViewById(R.id.chooseDateButton);
         timeTextView = v.findViewById(R.id.timeTextView);
         dateTextView = v.findViewById(R.id.dateTextView);
-        repeatToggleButtonList = new ArrayList<>();
-        repeatToggleButtonList.add((ToggleButton) v.findViewById(R.id.mondayButton));
-        repeatToggleButtonList.add((ToggleButton) v.findViewById(R.id.tuesdayButton));
-        repeatToggleButtonList.add((ToggleButton) v.findViewById(R.id.wednesdayButton));
-        repeatToggleButtonList.add((ToggleButton) v.findViewById(R.id.thursdayButton));
-        repeatToggleButtonList.add((ToggleButton) v.findViewById(R.id.fridayButton));
-        repeatToggleButtonList.add((ToggleButton) v.findViewById(R.id.saturdayButton));
-        repeatToggleButtonList.add((ToggleButton) v.findViewById(R.id.sundayButton));
-        for (ToggleButton tb : repeatToggleButtonList) {
-            tb.setChecked(false);
-        }
+        textTitle = v.findViewById(R.id.textTitle);
+
+        mondayButton = v.findViewById(R.id.mondayButton);
+        tuesdayButton = v.findViewById(R.id.tuesdayButton);
+        wednesdayButton = v.findViewById(R.id.wednesdayButton);
+        thursdayButton = v.findViewById(R.id.thursdayButton);
+        fridayButton = v.findViewById(R.id.fridayButton);
+        saturdayButton = v.findViewById(R.id.saturdayButton);
+        sundayButton = v.findViewById(R.id.sundayButton);
+        textTitle.setText("Nuevo traslado");
         chooseTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +74,7 @@ public class AddEditTripFragment extends Fragment {
         final Trip myTrip = ((MainActivity)getActivity()).tripToEdit;
         // Check if tripToEdit is not null, so we can pull the values to populate the date/time
         if (myTrip != null) {
+            textTitle.setText("Editar traslado");
             Date date = myTrip.getDate();
             String min = "0";
             if (date.getMinutes() < 10) {
@@ -89,15 +88,58 @@ public class AddEditTripFragment extends Fragment {
             year = date.getYear() + 1900;
             month = date.getMonth();
             day = date.getDate();
+
             // Populate ToggleButtons
-            Log.d(TAG, "onCreateView:  CHECKING MYTRIP AGAIN" );
-            repeatToggleButtonList.get(0).setChecked(myTrip.isMonday());
-            repeatToggleButtonList.get(1).setChecked(myTrip.isTuesday());
-            repeatToggleButtonList.get(2).setChecked(myTrip.isWednesday());
-            repeatToggleButtonList.get(3).setChecked(myTrip.isThursday());
-            repeatToggleButtonList.get(4).setChecked(myTrip.isFriday());
-            repeatToggleButtonList.get(5).setChecked(myTrip.isSaturday());
-            repeatToggleButtonList.get(6).setChecked(myTrip.isSunday());
+            mondayButton.post(new Runnable() {
+                @Override
+                public void run() {
+                    mondayButton.setChecked(myTrip.isMonday());
+                    mondayButton.setSelected(myTrip.isMonday());
+                }
+            });
+            tuesdayButton.post(new Runnable() {
+                @Override
+                public void run() {
+                    tuesdayButton.setChecked(myTrip.isMonday());
+                    tuesdayButton.setSelected(myTrip.isMonday());
+                }
+            });
+            wednesdayButton.post(new Runnable() {
+                @Override
+                public void run() {
+                    wednesdayButton.setChecked(myTrip.isMonday());
+                    wednesdayButton.setSelected(myTrip.isMonday());
+                }
+            });
+            thursdayButton.post(new Runnable() {
+                @Override
+                public void run() {
+                    thursdayButton.setChecked(myTrip.isMonday());
+                    thursdayButton.setSelected(myTrip.isMonday());
+                }
+            });
+            fridayButton.post(new Runnable() {
+                @Override
+                public void run() {
+                    fridayButton.setChecked(myTrip.isMonday());
+                    fridayButton.setSelected(myTrip.isMonday());
+                }
+            });
+            saturdayButton.post(new Runnable() {
+                @Override
+                public void run() {
+                    saturdayButton.setChecked(myTrip.isMonday());
+                    saturdayButton.setSelected(myTrip.isMonday());
+                }
+            });
+            sundayButton.post(new Runnable() {
+                @Override
+                public void run() {
+                    sundayButton.setChecked(myTrip.isMonday());
+                    sundayButton.setSelected(myTrip.isMonday());
+                }
+            });
+
         }
 
         chooseDateButton.setOnClickListener(new View.OnClickListener() {

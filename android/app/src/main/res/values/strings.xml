@@ -16,7 +16,6 @@
     <string name="notifications">notification</string>
     <string name="vibration">vibration</string>
     <string name="sound">sound</string>
-    <string name="herokuBaseUri">https://fierce-hollows-58615.herokuapp.com/trips</string>
     <string name="title_activity_maps">Map</string>
     <string name="settings_alert_text">Alertas de traslado:</string>
     <string name="settings_buttons">Cambiar</string>

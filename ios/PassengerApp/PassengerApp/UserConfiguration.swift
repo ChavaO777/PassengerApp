@@ -24,7 +24,7 @@ class UserConfiguration {
     static let EXPIRATION_TIME_KEY = "expirationTime"
     
     //Constants for the default values of the UserDefaults keys
-    static let DEFAULT_SWITCH_VALUE = false
+    static let DEFAULT_SWITCH_VALUE = true
     static let DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE = 1
     static let DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE = 5
     

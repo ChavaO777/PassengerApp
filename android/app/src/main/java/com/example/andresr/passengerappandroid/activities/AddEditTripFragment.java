@@ -23,7 +23,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import com.example.andresr.passengerappandroid.BuildConfig;
 import com.example.andresr.passengerappandroid.R;
+import com.example.andresr.passengerappandroid.helpers.TripHttpManager;
 import com.example.andresr.passengerappandroid.models.Trip;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ import static android.content.ContentValues.TAG;
 
 public class AddEditTripFragment extends Fragment {
 
-    Button chooseTimeButton, chooseDateButton;
+    Button chooseTimeButton, chooseDateButton, saveButton;
     ToggleButton mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton;
     TextView timeTextView, dateTextView, textTitle;
 
@@ -49,6 +51,7 @@ public class AddEditTripFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_edit_trip, container, false);
         chooseTimeButton = v.findViewById(R.id.chooseTimeButton);
         chooseDateButton = v.findViewById(R.id.chooseDateButton);
+        saveButton = v.findViewById(R.id.saveButton);
         timeTextView = v.findViewById(R.id.timeTextView);
         dateTextView = v.findViewById(R.id.dateTextView);
         textTitle = v.findViewById(R.id.textTitle);
@@ -165,7 +168,85 @@ public class AddEditTripFragment extends Fragment {
             }
         };
 
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Distinguish between UPDATE and CREATE
+                String url = BuildConfig.HEROKU_URL;
+                String monday = Boolean.toString(mondayButton.isChecked());
+                String tuesday = Boolean.toString(tuesdayButton.isChecked());
+                String wednesday = Boolean.toString(wednesdayButton.isChecked());
+                String thursday = Boolean.toString(thursdayButton.isChecked());
+                String friday = Boolean.toString(fridayButton.isChecked());
+                String saturday = Boolean.toString(saturdayButton.isChecked());
+                String sunday = Boolean.toString(sundayButton.isChecked());
+                String dayToSend = createTimeString();
+                if (myTrip == null) {
+                    // CREATE
+                    String method = "POST";
+                    new TripHttpManager(((MainActivity)getActivity()))
+                            .execute( url
+                                    , method
+                                    , ""
+                                    , dayToSend
+                                    , monday
+                                    , tuesday
+                                    , wednesday
+                                    , thursday
+                                    , friday
+                                    , saturday
+                                    , sunday);
+                    ((MainActivity)getActivity()).tripToEdit = null;
+                } else {
+                    // UPDATE
+
+                    String method = "PATCH";
+                    String id = Integer.toString(myTrip.getId());
+                    new TripHttpManager(((MainActivity)getActivity()))
+                            .execute( url
+                                    , method
+                                    , id
+                                    , dayToSend
+                                    , monday
+                                    , tuesday
+                                    , wednesday
+                                    , thursday
+                                    , friday
+                                    , saturday
+                                    , sunday);
+                    ((MainActivity)getActivity()).tripToEdit = null;
+
+                    // Return user to other fragment
+
+                }
+            }
+        });
+
         return v;
+    }
+
+    private String createTimeString() {
+        // Creates time string from attributes
+        StringBuilder sb = new StringBuilder();
+        sb.append(year);
+        sb.append("-");
+        if (month < 10)
+            sb.append("0");
+        sb.append(month);
+        sb.append("-");
+        if (day < 10)
+            sb.append("0");
+        sb.append(day);
+        sb.append("T");
+        if (hourOfDay < 10)
+            sb.append("0");
+        sb.append(hourOfDay);
+        sb.append(":");
+        if (minute < 10)
+            sb.append("0");
+        sb.append(minute);
+        sb.append(":00+00:00");
+        return sb.toString();
     }
 
     // Called from MainActivity whenever the time is updated

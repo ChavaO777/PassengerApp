@@ -8,10 +8,9 @@
 
 import UIKit
 import os.log
-import UserNotifications
 
 //View Controller that handles the add/edit screen for a single trip
-class TripViewController: UIViewController, UITextFieldDelegate, UNUserNotificationCenterDelegate {
+class TripViewController: UIViewController, UITextFieldDelegate {
 	
     //Colors used in the buttons selection and unselection
     
@@ -348,43 +347,4 @@ class TripViewController: UIViewController, UITextFieldDelegate, UNUserNotificat
 		}
     }
     
-    //MARK: - User Notification Center Delegate Methods
-    
-    //Called when a notification is delivered with the app in foreground
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        let sounds = UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)
-        
-        if ((sounds) as! Bool)
-        {
-            // Play a sound if the user has such configuration
-            completionHandler([.alert ,.sound])
-        }
-        else
-        {
-            // Play a sound if the user has such configuration
-            completionHandler([.alert])
-        }
-    }
-    
-    //Called when the user gets the notification and acts upong it
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.notification.request.content.categoryIdentifier == NotificationManager.tripNotificationID {
-            
-            // Handle the actions for the reschedule action
-            if response.actionIdentifier == NotificationManager.customRescheduleActionID {
-                
-            }
-            else if response.actionIdentifier == UNNotificationDismissActionIdentifier {
-                // The user dismissed the notification without taking action
-            }
-            else if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
-                // The user launched the app
-            }
-        }
-    }
 }

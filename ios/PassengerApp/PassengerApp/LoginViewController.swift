@@ -15,12 +15,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Declare configuration variables if they don´t exist
-        UserConfiguration.initializeUserConfiguration()
-        
-        //Request notification permission
-        NotificationManager.requestNotificationPermission()
     }
     
     /**

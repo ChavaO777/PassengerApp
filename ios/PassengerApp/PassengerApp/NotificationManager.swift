@@ -14,43 +14,43 @@ class NotificationManager
 {
     public static let tripNotificationID = "TRIP_NOTIFICATION"
     public static let customRescheduleActionID = "RESCHEDULE_ACTION"
+	private static var tripNotificationsInCenter = Int()
 	
-	public static var bActiveNotifications = Bool()
-	public static var bCanHaveSound = Bool()
-	public static var bCanHaveVibration = Bool()
-	public static var anticipationNotificationMinutes = Int()
+	private static var bActiveNotifications = Bool()
+	private static var bCanHaveSound = Bool()
+	private static var bCanHaveVibration = Bool()
+	private static var anticipationNotificationMinutes = Int()
 	
-    static func requestNotificationPermission()
+    static func initializeNotifications()
     {		
         let center = UNUserNotificationCenter.current()
+		
+		//Request notification permissions, only asked once
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             
             if (!granted)
             {
                 fatalError("You must provide notification permission >:v")
             }
-            //Register notification category for trips
-            
-            // Create the custom actions and the category for a trip notification.
-            let rescheduleAction = UNNotificationAction(identifier: customRescheduleActionID,
-                                                        title: "Reagendar",
-                                                        options: .foreground)
-                                                        //options: .customDismissAction)
-            
-            let tripCategory = UNNotificationCategory(identifier: tripNotificationID,
-                                                      actions: [rescheduleAction],
-                                                      intentIdentifiers: [],
-													  options: [UNNotificationCategoryOptions.allowInCarPlay,
-																UNNotificationCategoryOptions.customDismissAction,
-																UNNotificationCategoryOptions.hiddenPreviewsShowSubtitle,
-																UNNotificationCategoryOptions.hiddenPreviewsShowTitle
-																])
-            
-            
-            // Register the notification category
-            let center = UNUserNotificationCenter.current()
-            center.setNotificationCategories([tripCategory])
         }
+		
+		// Create the custom actions and the category for a trip notification.
+		let rescheduleAction = UNNotificationAction(identifier: customRescheduleActionID,
+													title: "Reagendar",
+													options: .foreground)
+													//options: .customDismissAction)
+		
+		let tripCategory = UNNotificationCategory(identifier: tripNotificationID,
+												  actions: [rescheduleAction],
+												  intentIdentifiers: [],
+												  options: [UNNotificationCategoryOptions.allowInCarPlay,
+															UNNotificationCategoryOptions.customDismissAction,
+															UNNotificationCategoryOptions.hiddenPreviewsShowSubtitle,
+															UNNotificationCategoryOptions.hiddenPreviewsShowTitle
+													])
+		
+		// Register the notification category for trips
+		center.setNotificationCategories([tripCategory])
 		
 		/*NotificationCenter.default.addObserver(<#T##observer: NSObject##NSObject#>, selector: #selector(self.handleTripRepetition(notification)), name:  options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
 		center.addObserver(self, forKeyPath: <#T##String#>, options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
@@ -65,6 +65,14 @@ class NotificationManager
 		
 	}
 	
+	static func countDeliveredNotifications() -> NSNumber
+	{
+		UNUserNotificationCenter.current().getDeliveredNotifications { (notifications) in
+			 tripNotificationsInCenter = notifications.count
+		}
+		return tripNotificationsInCenter as NSNumber
+	}
+	
     static func createTripNotification(tripName: String, tripDepartureTime: String)
     {
 		updateUserConfigValues()
@@ -77,6 +85,7 @@ class NotificationManager
 
         //Notification settings
         let content = UNMutableNotificationContent()
+		content.badge = countDeliveredNotifications()
         content.title = NSString.localizedUserNotificationString(forKey: tripName, arguments: nil)
         content.body = NSString.localizedUserNotificationString(forKey: "Faltan \(anticipationNotificationMinutes) minutos para tu traslado", arguments: nil)
         content.categoryIdentifier = tripNotificationID

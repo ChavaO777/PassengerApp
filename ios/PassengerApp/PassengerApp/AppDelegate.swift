@@ -22,9 +22,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Google Maps API Key
         GMSServices.provideAPIKey("AIzaSyCwQ3-yJz_IvPrO-uGEgmEOckI2RO2tTcw")
         
+        //Declare configuration variables if they don´t exist
+        UserConfiguration.initializeUserConfiguration()
+        
         //Provide delegate to Notifications Center
-        //UNUserNotificationCenter.current().delegate = NotificationManager()
-
+        UNUserNotificationCenter.current().delegate = self
+        
+        //Request notification permission
+        NotificationManager.initializeNotifications()
+        
+        
         return true
     }
 

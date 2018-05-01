@@ -34,6 +34,7 @@
 		DED4BA72206B395200834B8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DED4BA70206B395200834B8D /* LaunchScreen.storyboard */; };
 		DED4BA7D206B395200834B8D /* PassengerAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA7C206B395200834B8D /* PassengerAppTests.swift */; };
 		DED4BA88206B395200834B8D /* PassengerAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA87206B395200834B8D /* PassengerAppUITests.swift */; };
+		DEEEE3B92098F819005BBD8A /* ExtensionAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEEE3B82098F819005BBD8A /* ExtensionAppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		DED4BA83206B395200834B8D /* PassengerAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassengerAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED4BA87206B395200834B8D /* PassengerAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassengerAppUITests.swift; sourceTree = "<group>"; };
 		DED4BA89206B395200834B8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEEEE3B82098F819005BBD8A /* ExtensionAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 				B9E727672091509F003016D6 /* TripTableViewController.swift */,
 				B9E7276A2091509F003016D6 /* TripViewController.swift */,
 				B938FD9B2097C046007E9E14 /* UserConfiguration.swift */,
+				DEEEE3B82098F819005BBD8A /* ExtensionAppDelegate.swift */,
 			);
 			path = PassengerApp;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				DE409AFB20976DDA00F371E4 /* ExtensionURLRequest.swift in Sources */,
 				DE1D5CB72083B374003C3084 /* CustomButton.swift in Sources */,
 				DE1D5CBD2083CE73003C3084 /* MapViewController.swift in Sources */,
+				DEEEE3B92098F819005BBD8A /* ExtensionAppDelegate.swift in Sources */,
 				B938FD962097A854007E9E14 /* Passenger.swift in Sources */,
 				B938FD952097A854007E9E14 /* LoginViewController.swift in Sources */,
 				B9E7276E2091509F003016D6 /* TripViewController.swift in Sources */,

@@ -24,7 +24,6 @@ public class Trip {
         this.date = date;
         this.id = id;
         this.text = makeText();
-
     }
 
     public Trip(String text, boolean isSet, boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday, boolean saturday, boolean sunday) {
@@ -47,6 +46,8 @@ public class Trip {
     public void setIsSet(boolean set) {
         isSet = set;
     }
+
+    public int getId() { return id; }
 
     private String makeText() {
         StringBuilder sb = new StringBuilder();

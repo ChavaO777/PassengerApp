@@ -7,12 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.andresr.passengerappandroid.R;
 import com.example.andresr.passengerappandroid.adapters.SectionsStatePagerAdapter;
 import com.example.andresr.passengerappandroid.helpers.BottomNavigationViewHelper;
+import com.example.andresr.passengerappandroid.helpers.OnTaskCompleted;
+import com.example.andresr.passengerappandroid.helpers.TripHttpManager;
 
-public class MainActivity extends AppCompatActivity implements AddEditTripFragment.TimePickerFragment.OnTimeSelectedListener {
+public class MainActivity extends AppCompatActivity implements AddEditTripFragment.TimePickerFragment.OnTimeSelectedListener, OnTaskCompleted {
 
     private SectionsStatePagerAdapter adapter;
     private ViewPager viewPager;
@@ -88,5 +91,18 @@ public class MainActivity extends AppCompatActivity implements AddEditTripFragme
             // TODO: check if fragment is not present
         }
 
+    }
+
+    @Override
+    // Called once the AsyncTask to Add/Delete/Edit trip finished.
+    public void onTaskCompleted(int rc) {
+        switch (rc) {
+            case TripHttpManager.ERR_CONNECTION:
+                Toast.makeText(this, "Error en el servidor. Por favor contactar a un administrador", Toast.LENGTH_SHORT).show();
+            break;
+            case TripHttpManager.SUCCESS_DELETE:
+                Toast.makeText(this, "Traslado borrado exitosamente.", Toast.LENGTH_SHORT).show();
+            break;
+        }
     }
 }

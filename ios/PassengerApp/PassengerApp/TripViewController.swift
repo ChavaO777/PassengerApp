@@ -354,7 +354,10 @@ class TripViewController: UIViewController, UITextFieldDelegate, UNUserNotificat
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        if ((UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)) as! Bool)
+        
+        let sounds = UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)
+        
+        if ((sounds) as! Bool)
         {
             // Play a sound if the user has such configuration
             completionHandler([.alert ,.sound])

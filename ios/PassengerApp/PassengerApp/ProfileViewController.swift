@@ -62,12 +62,6 @@ class ProfileViewController: UIViewController {
     
         // Do any additional setup after loading the view.
         
-        //Initialize the config variables
-        initializeConfigVariable(configVariableKey: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
-        initializeConfigVariable(configVariableKey: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
-        initializeConfigVariable(configVariableKey: UserConfiguration.SOUND_USER_DEFAULTS_KEY, value: UserConfiguration.DEFAULT_SWITCH_VALUE) //Boolean
-        initializeConfigVariable(configVariableKey: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY, value: (UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE + UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)/2) //Int
-        
         print("HERE!")
         print(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY))
         print("Or here?")
@@ -88,35 +82,7 @@ class ProfileViewController: UIViewController {
         NotificationAnticipationMinutesStepper.maximumValue = Double(UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)
     }
     
-    /**
-     *  Function to initialize the config variables
-     *
-     *  @param configVariableKey a string corresponding to the key of the
-     *  configuration variable
-     *  @param value the value to be set for that key
-     */
-    func initializeConfigVariable(configVariableKey: String, value: Any) -> Void {
-        
-        //If the key does not exist yet
-        if(!isKeyPresentInUserDefaults(key: configVariableKey)) {
-            
-            //Set it to the given value
-            UserConfiguration.setConfiguration(key: configVariableKey, value: value)
-        }
-    }
-    
-    /**
-     *  Function to determine whether a given key is present in the
-     *  UserDefaults
-     *
-     *  @param key the name of the key whose existence in the UserDefaults
-     *  is to be checked
-     *  @returns True if the key exists in the UserDefaults. Else, false
-     */
-    func isKeyPresentInUserDefaults(key: String) -> Bool {
-        
-        return UserDefaults.standard.object(forKey: key) != nil
-    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -17,6 +17,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var notificationAnticipationMinutes: UILabel!
     @IBOutlet weak var NotificationAnticipationMinutesStepper: UIStepper!
     
+    @IBOutlet weak var passengerName: UILabel!
+    
     /**
     *   Function that toggles the value of the notifications
     *   switch and updates the value in the UserDefaults.

@@ -19,6 +19,7 @@ class Passenger : Decodable
     let last_name: String
     let token: String //The token received after a successful login
     static let ROUTE = "/login"
+    static let TRIP_COUNTER_ROUTE = "/reviewsByPassenger"
     
     init(id: String, first_name: String, last_name: String, token: String) {
         self.id = id

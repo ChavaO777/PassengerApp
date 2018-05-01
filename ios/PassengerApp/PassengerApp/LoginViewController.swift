@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
             parameters["password"] = userPasswordText
             
             //Call the backend with the required parameters to try to login and handle the response later
-            HTTPHandler.makeHTTPPostRequest(route: Passenger.ROUTE, parameters: parameters, callbackFunction: handleLoginResponse)
+            HTTPHandler.makeHTTPPostRequest(route: Passenger.ROUTE, parameters: parameters, callbackFunction: self.handleLoginResponse)
         }
     }
     

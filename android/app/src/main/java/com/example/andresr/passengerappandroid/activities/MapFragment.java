@@ -1,11 +1,13 @@
 package com.example.andresr.passengerappandroid.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +23,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private SupportMapFragment mapFragment;
     private GoogleMap map;
+    private static final String TAG = "MapFragment";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,14 +44,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             FragmentTransaction ft = fm.beginTransaction();
             mapFragment = SupportMapFragment.newInstance();
             ft.replace(R.id.map, mapFragment).commit();
-
         }
         mapFragment.getMapAsync(this);
-/*
-        mapView = (MapView) v.findViewById(R.id.mapview);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this); //this is important
-/**/
         return v;
 
     }
@@ -76,11 +80,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         LatLng wv = new LatLng(19.1150491,-98.2442522);
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        //0googleMap.getUiSettings().setZoomControlsEnabled(true);
         map.addMarker(new MarkerOptions().position(wv).title("VW Puebla"));
         map.moveCamera(CameraUpdateFactory.newLatLng(wv));
         //changed zoom level here
         map.animateCamera( CameraUpdateFactory.zoomTo( 16.0f ) );
 
+        setStationsMarkers();
+    }
+
+    public void setStationsMarkers() {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL serverEndPoint = new URL("http://192.168.4.246:8000");
+                    HttpsURLConnection myConnection = (HttpsURLConnection) serverEndPoint.openConnection();
+                    String msg;
+                    if (myConnection.getResponseCode() == 200) {
+                        msg = "conexion exitosa";
+                    }
+                    else {
+                        msg = "error" + myConnection.getResponseCode();
+                    }
+                    Log.e(TAG, msg);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }); 
     }
 }

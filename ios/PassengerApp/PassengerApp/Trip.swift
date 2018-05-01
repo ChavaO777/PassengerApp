@@ -102,6 +102,8 @@ class Trip: NSObject, NSCoding, Codable{
 		
 	}
     
+    //MARK: - Class Methods
+    
     //Provides loading functionality, returning the array of retrieved trips
     static func loadTrips() -> [Trip]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Trip.ArchiveURL.path) as? [Trip]
@@ -118,6 +120,24 @@ class Trip: NSObject, NSCoding, Codable{
             os_log("Failed to save trips...", log: OSLog.default, type: .error)
         }
     }
+    
+    //Finds a trip given its name
+    static func findTrip(withName tripName: String) -> Trip?
+    {
+        if let trips = Trip.loadTrips()
+        {
+            for t in trips
+            {
+                if t.alarmName == tripName
+                {
+                    return t
+                }
+            }
+        }
+        return nil
+    }
+    
+    //MARK: - Instance Methods
     
     //Checks that the array of repetition days, has at least one of them as true
     func hasRepetionDay() -> Bool

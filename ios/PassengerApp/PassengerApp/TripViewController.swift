@@ -47,8 +47,6 @@ class TripViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Handle custom notifications?
-        UNUserNotificationCenter.current().delegate = self
         
         // Handle the text field’s user input through delegate callbacks.
         alarmNameTextField.delegate = self

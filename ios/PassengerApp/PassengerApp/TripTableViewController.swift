@@ -101,9 +101,13 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
                 
         if editingStyle == .delete {
+            
+            //Delete trip's notification upon deletion
+            let trip = trips[indexPath.row]
+            NotificationManager.cancelTripNotification(forTripName: trip.alarmName)
+            
             // Delete the row from the data source
             trips.remove(at: indexPath.row)
-            
             Trip.saveTrips(trips)
             
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -202,6 +206,21 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 let selectedTrip = trips[indexPath.row]
                 //Pass trip to the trip detail controller
                 tripDetailViewController.trip = selectedTrip
+            
+            //Loads a particular trip from its notification
+            case "loadTripSegue":
+            
+                print("Loading segue from its notification...")
+            
+                guard let tripDetailViewController = segue.destination as? TripViewController else {
+                    fatalError("Unexpected destination: \(segue.destination)")
+                }
+            
+                //Get trip from caller, it must exist if it had a notification
+                let trip = sender as! Trip
+                
+                //Pass trip to the trip detail controller
+                tripDetailViewController.trip = trip
             
             default:
                 fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")

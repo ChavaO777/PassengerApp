@@ -32,6 +32,7 @@ public class TripHttpManager extends AsyncTask<String, Void, Integer> {
     public static final int ERR_BAD_QUERY = -3;
     public static final int ERR_CONNECTION = -2;
     public static final int ERR_NOTFOUND = -1;
+    public static final int SUCCESS_CREATE = 1;
     public static final int SUCCESS_DELETE = 2;
     public static final int SUCCESS_UPDATE = 3;
 
@@ -88,7 +89,8 @@ public class TripHttpManager extends AsyncTask<String, Void, Integer> {
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
                 switch(method){
                     case "DELETE": return SUCCESS_DELETE;
-                    case "UPDATE": return SUCCESS_UPDATE;
+                    case "PATCH": return SUCCESS_UPDATE;
+                    case "POST": return SUCCESS_CREATE;
                 }
                 return ERR_BAD_QUERY;
             } else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {

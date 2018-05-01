@@ -98,6 +98,14 @@ public class MainActivity extends AppCompatActivity implements AddEditTripFragme
             case TripHttpManager.SUCCESS_DELETE:
                 Toast.makeText(this, "Traslado borrado exitosamente.", Toast.LENGTH_SHORT).show();
             break;
+            case TripHttpManager.SUCCESS_UPDATE:
+                setViewPager(0);
+                Toast.makeText(this, "Traslado editado exitosamente.", Toast.LENGTH_SHORT).show();
+            break;
+            case TripHttpManager.SUCCESS_CREATE:
+                setViewPager(0);
+                Toast.makeText(this, "Traslado creado exitosamente.", Toast.LENGTH_SHORT).show();
+            break;
         }
     }
 }

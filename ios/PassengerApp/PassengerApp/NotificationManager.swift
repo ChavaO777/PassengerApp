@@ -51,9 +51,20 @@ class NotificationManager
             let center = UNUserNotificationCenter.current()
             center.setNotificationCategories([tripCategory])
         }
+		
+		/*NotificationCenter.default.addObserver(<#T##observer: NSObject##NSObject#>, selector: #selector(self.handleTripRepetition(notification)), name:  options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
+		center.addObserver(self, forKeyPath: <#T##String#>, options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifier"), object: nil) */
+
         
     }
-    
+	
+	static func handleTripRepetition (notification: Notification)
+	{
+		
+	}
+	
     static func createTripNotification(tripName: String, tripDepartureTime: String)
     {
 		updateUserConfigValues()

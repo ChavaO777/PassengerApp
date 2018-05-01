@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +24,14 @@ import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 import com.example.andresr.passengerappandroid.R;
+import com.example.andresr.passengerappandroid.models.Trip;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class AddEditTripFragment extends Fragment {
 
@@ -55,6 +60,9 @@ public class AddEditTripFragment extends Fragment {
         repeatToggleButtonList.add((ToggleButton) v.findViewById(R.id.fridayButton));
         repeatToggleButtonList.add((ToggleButton) v.findViewById(R.id.saturdayButton));
         repeatToggleButtonList.add((ToggleButton) v.findViewById(R.id.sundayButton));
+        for (ToggleButton tb : repeatToggleButtonList) {
+            tb.setChecked(false);
+        }
         chooseTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,20 +71,50 @@ public class AddEditTripFragment extends Fragment {
             }
         });
 
+
+
+        final Trip myTrip = ((MainActivity)getActivity()).tripToEdit;
+        // Check if tripToEdit is not null, so we can pull the values to populate the date/time
+        if (myTrip != null) {
+            Date date = myTrip.getDate();
+            String min = "0";
+            if (date.getMinutes() < 10) {
+                min += Integer.toString(date.getMinutes());
+            } else min = Integer.toString(date.getMinutes());
+            timeTextView.setText(date.getHours() + ":" + min);
+            minute = date.getMinutes();
+            hourOfDay = date.getHours();
+            // Populate date
+            dateTextView.setText(date.getDate() + "/" + date.getMonth() + "/" + (date.getYear() + 1900));
+            year = date.getYear() + 1900;
+            month = date.getMonth();
+            day = date.getDate();
+            // Populate ToggleButtons
+            Log.d(TAG, "onCreateView:  CHECKING MYTRIP AGAIN" );
+            repeatToggleButtonList.get(0).setChecked(myTrip.isMonday());
+            repeatToggleButtonList.get(1).setChecked(myTrip.isTuesday());
+            repeatToggleButtonList.get(2).setChecked(myTrip.isWednesday());
+            repeatToggleButtonList.get(3).setChecked(myTrip.isThursday());
+            repeatToggleButtonList.get(4).setChecked(myTrip.isFriday());
+            repeatToggleButtonList.get(5).setChecked(myTrip.isSaturday());
+            repeatToggleButtonList.get(6).setChecked(myTrip.isSunday());
+        }
+
         chooseDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                year = cal.get(Calendar.YEAR);
-                month = cal.get(Calendar.MONTH);
-                day = cal.get(Calendar.DAY_OF_MONTH);
+                if (myTrip == null) { // If we are in 'add new trip' mode
+                    Calendar cal = Calendar.getInstance();
+                    year = cal.get(Calendar.YEAR);
+                    month = cal.get(Calendar.MONTH);
+                    day = cal.get(Calendar.DAY_OF_MONTH);
+                } // else the values should already be there.
 
                 DatePickerDialog dialog = new DatePickerDialog(getActivity(), mDateSetListener, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
-
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {

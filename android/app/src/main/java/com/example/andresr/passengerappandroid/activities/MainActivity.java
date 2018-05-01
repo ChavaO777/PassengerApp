@@ -14,11 +14,13 @@ import com.example.andresr.passengerappandroid.adapters.SectionsStatePagerAdapte
 import com.example.andresr.passengerappandroid.helpers.BottomNavigationViewHelper;
 import com.example.andresr.passengerappandroid.helpers.OnTaskCompleted;
 import com.example.andresr.passengerappandroid.helpers.TripHttpManager;
+import com.example.andresr.passengerappandroid.models.Trip;
 
 public class MainActivity extends AppCompatActivity implements AddEditTripFragment.TimePickerFragment.OnTimeSelectedListener, OnTaskCompleted {
 
     private SectionsStatePagerAdapter adapter;
     private ViewPager viewPager;
+    public Trip tripToEdit; // Contains info of trip to edit
 
     private String serverBaseUri = "https://fierce-hollows-58615.herokuapp.com";
 

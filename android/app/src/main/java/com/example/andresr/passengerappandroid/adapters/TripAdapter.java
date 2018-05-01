@@ -70,6 +70,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                                 // Do an async call to remove from server
                                 new TripHttpManager((MainActivity) mCtx).execute(mCtx.getString(R.string.herokuBaseUri), "DELETE", Integer.toString(trip.getId()));
                                 return true;
+                            case R.id.menu_item_edit:
+                                // Send to other fragment
+                                ((MainActivity)mCtx).tripToEdit = trip;
+                                ((MainActivity)mCtx).setViewPager(4);
+                                return true;
                         }
                         return false;
                     }
@@ -93,6 +98,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                                 notifyItemRemoved(holder.getAdapterPosition());
                                 // Do an async call to remove from server
                                 new TripHttpManager((MainActivity) mCtx).execute(Resources.getSystem().getString(R.string.herokuBaseUri), "DELETE", Integer.toString(trip.getId()));
+                                return true;
+                            case R.id.menu_item_edit:
+                                // Send to other fragment
+                                ((MainActivity)mCtx).tripToEdit = trip;
+                                ((MainActivity)mCtx).setViewPager(4);
                                 return true;
                         }
                         return false;
@@ -127,8 +137,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
 
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-            contextMenu.add(Menu.NONE, R.id.menu_item_delete, Menu.NONE, "Delete");
-            contextMenu.add(Menu.NONE, R.id.menu_item_save, Menu.NONE, "Save");
+            contextMenu.add(Menu.NONE, R.id.menu_item_delete, Menu.NONE, "Borrar");
+            contextMenu.add(Menu.NONE, R.id.menu_item_edit, Menu.NONE, "Editar");
         }
     }
 

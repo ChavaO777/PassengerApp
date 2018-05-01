@@ -149,9 +149,6 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
             //Otherwise, cancel notification
             NotificationManager.cancelTripNotification(forTripName: trip.alarmName)
         }
-        
-        
-        
     }
     
     

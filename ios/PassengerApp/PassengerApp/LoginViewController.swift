@@ -69,7 +69,7 @@ class LoginViewController: UIViewController {
         let loginResponseDictionary = try? JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
         
         //If the token is present, the login was successful.
-        if loginResponseDictionary![UserConfiguration.TOKEN_KEY] != nil {
+        if  loginResponseDictionary != nil && loginResponseDictionary![UserConfiguration.TOKEN_KEY] != nil {
         
             print("Successful login!")
             //Store the id, token and expiration time

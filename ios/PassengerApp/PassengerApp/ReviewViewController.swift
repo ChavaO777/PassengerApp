@@ -19,11 +19,6 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBOutlet weak var cleanlinessPrizeButton: UIButton!
     @IBOutlet weak var kindnessPrizeButton: UIButton!
     
-    static let BACKEND_URL = "http://192.168.5.228:8000/api/"
-    static let CRAFTERS_API_URL = "crafters/"
-    static let DRIVERS_API_URL = "drivers/"
-    static let REVIEWS_API_URL = "reviews/"
-    
     private var crafters = [Crafter]()
     private var drivers = [Driver]()
     
@@ -86,7 +81,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 	
         		//Prepare new review object
 		let driver_id = drivers[selectedDriverIndex].id
-		let passenger_id = String("passenger1")
+		let passenger_id = (UserConfiguration.getConfiguration(key: UserConfiguration.PASSENGER_KEY)) as! String
 		let crafter_id = crafters[selectedCrafterIndex].id
         let comment = commentTextField.text == "Deja un comentario (opcional)" ? "" : commentTextField.text
 		let score = rating.rating
@@ -95,7 +90,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		let driving_skills_prize = drivingPrizeButton.isSelected
 
 		
-		let review = Review(driver_id: driver_id, passenger_id: passenger_id, crafter_id: crafter_id, comment: comment!, score: score, kindness_prize: kindness_prize, cleanliness_prize: cleanliness_prize, driving_skills_prize: driving_skills_prize)
+        let review = Review(driver_id: driver_id, passenger_id: passenger_id as! String, crafter_id: crafter_id, comment: comment!, score: score, kindness_prize: kindness_prize, cleanliness_prize: cleanliness_prize, driving_skills_prize: driving_skills_prize)
         
 		sendReview(review)
         

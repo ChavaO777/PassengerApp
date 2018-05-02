@@ -17,6 +17,8 @@ class MapViewController: UIViewController {
     let zoomLevel = 15.0
     var mapView:GMSMapView?
     
+    var stationsArray = [Station]()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -27,6 +29,8 @@ class MapViewController: UIViewController {
         //Get the stations' locations once
         //The httpBody is nil because there is no body to send to this request
         HTTPHandler.makeHTTPGetRequest(route: Station.ROUTE, httpBody: nil, callbackFunction: self.placeStationsOnMap)
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -36,6 +40,36 @@ class MapViewController: UIViewController {
         //Update the crafters' locations every time the view appears
         //The httpBody is nil because there is no body to send to this request
         HTTPHandler.makeHTTPGetRequest(route: Crafter.ROUTE, httpBody: nil, callbackFunction: self.placeCraftersOnMap)
+        
+        drawCircuit()
+    }
+    
+    /**
+     *  Function that draws the circuit the crafters follow, using GMS polygon and
+     *  the position of the stations
+     */
+    func drawCircuit()
+    {
+        print ("Drawing ciruit...")
+        
+        let path = GMSMutablePath()
+        
+        //Draw circuit
+        for station in stationsArray
+        {
+            path.add(CLLocationCoordinate2D(latitude: station.lat, longitude: station.lng))
+            print("Drawing point at (lat:\(station.lat), \(station.lng))")
+        }
+        
+        //Close circuit
+        let station = stationsArray[0]
+        path.add(CLLocationCoordinate2D(latitude: station.lat, longitude: station.lng))
+
+        
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeColor = .yellow
+        polyline.strokeWidth = 5.0
+        polyline.map = mapView
     }
     
     /**
@@ -92,7 +126,7 @@ class MapViewController: UIViewController {
         
         do{
             //Parse the data into an array of Station structs
-            let stationsArray = try JSONDecoder().decode([Station].self, from: data!)
+            stationsArray += try JSONDecoder().decode([Station].self, from: data!)
             
             //Iterate on the Station struct array
             for station in stationsArray {

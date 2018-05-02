@@ -1,3 +1,4 @@
+
 //
 //  NotificationManager.swift
 //  PassengerApp
@@ -36,12 +37,14 @@ class NotificationManager
         }
 		
 		// Create the custom actions and the category for a trip notification.
-		// Create the custom actions and the category for a trip notification.
-		let snoozeAction = UNNotificationAction(identifier: customSnoozeActionID,
+		let snoozeAction =  UNTextInputNotificationAction(identifier: customSnoozeActionID,
 													title: "Posponer",
-													options: .foreground)
+													options: [],
+													textInputButtonTitle: "Minutos",
+													textInputPlaceholder: "¿Por cuántos minutos quieres posponer la notificación"
+													)
 		let rescheduleAction = UNNotificationAction(identifier: customRescheduleActionID,
-													title: "Reagendar",
+													title: "Reagendar traslado",
 													options: .foreground)
 													//options: .customDismissAction)
 		
@@ -56,16 +59,11 @@ class NotificationManager
 		
 		// Register the notification category for trips
 		center.setNotificationCategories([tripCategory])
-		
-		/*NotificationCenter.default.addObserver(<#T##observer: NSObject##NSObject#>, selector: #selector(self.handleTripRepetition(notification)), name:  options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
-		center.addObserver(self, forKeyPath: <#T##String#>, options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
-		
-		NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifier"), object: nil) */
-
         
     }
 	
-	static func handleTripRepetition (notification: Notification)
+	//TODO: reschedule notifications for other days if the trip has days of repetition
+	@objc static func handleTripRepetition (notification: Notification)
 	{
 		
 	}

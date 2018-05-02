@@ -12,6 +12,8 @@ import os.log
 //View Controller that handles the add/edit screen for a single trip
 class TripViewController: UIViewController, UITextFieldDelegate {
 	
+    public var bComesfromNotification = Bool()
+    
     //Colors used in the buttons selection and unselection
     
     private static let BUTTON_SELECTED_BKG_COLOR = UIColor(red: 134.0/255.0, green: 192.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)

@@ -210,7 +210,7 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
             //Loads a particular trip from its notification
             case "loadTripSegue":
             
-                print("Loading segue from its notification...")
+                print("Loading segue from trip notification...")
             
                 guard let tripDetailViewController = segue.destination as? TripViewController else {
                     fatalError("Unexpected destination: \(segue.destination)")
@@ -221,6 +221,12 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 
                 //Pass trip to the trip detail controller
                 tripDetailViewController.trip = trip
+            
+                /*
+                 * indicate that the TripViewController comes from a notification loading,
+                 * so we avoid adding a new trip on return
+                 */
+                tripDetailViewController.bComesfromNotification = true
             
             default:
                 fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
@@ -241,6 +247,12 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 // if so, update an existing trip.
                 trips[selectedIndexPath.row] = trip
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            }
+            //If the trip view comes from a notification, we are definetely not adding a new trip
+            else if sourceViewController.bComesfromNotification
+            {
+                //Reset flag
+                sourceViewController.bComesfromNotification = false
             }
             else
             {

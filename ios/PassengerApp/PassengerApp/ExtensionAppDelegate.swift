@@ -39,11 +39,12 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         self.window?.rootViewController = tabBarNVC
         self.window?.makeKeyAndVisible()
         
+        print("Attempting to load notification for trip \"\(tripName)\"")
         
         //let tripVC = mainStoryboard.instantiateViewController(withIdentifier: "TripList")
         //let tripVCIndex = tabBarNVC.childViewControllers.index(of: tripVC)
         
-        self.window?.rootViewController?.childViewControllers[0].performSegue(withIdentifier: "loadTripSegue", sender: Trip.findTrip(withName: tripName)) //As sender, pass the trip to load :s
+    self.window?.rootViewController?.childViewControllers[0].childViewControllers[0].performSegue(withIdentifier: "loadTripSegue", sender: Trip.findTrip(withName: tripName)) //As sender, pass the trip to load :s
         
         /*
             let vc = TripViewController.storyboard!.instantiateViewController(withIdentifier: "TripView") as! UINavigationController
@@ -71,7 +72,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate
             if response.actionIdentifier == NotificationManager.customRescheduleActionID {
                 
                 //Gets the trip name from the notification request id (with format "Trip_<tripName>")
-                let tripName = response.notification.request.identifier.components(separatedBy: "_")[0]
+                let tripName = response.notification.request.identifier.components(separatedBy: "_")[1]
 
                 //Load the TripViewController with that trip's data
                 loadTripFromNotification (tripName: tripName)

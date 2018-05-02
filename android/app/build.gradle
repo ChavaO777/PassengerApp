@@ -14,11 +14,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "API_URL", "\"http://192.168.4.246:8000/api\"")
+            buildConfigField("String", "API_URL", "\"http://10.50.65.22:8000/api\"")
             buildConfigField("String", "HEROKU_URL", "\"https://fierce-hollows-58615.herokuapp.com/trips\"")
         }
         debug {
-            buildConfigField("String", "API_URL", "\"http://192.168.4.246:8000/api\"")
+            buildConfigField("String", "API_URL", "\"http://10.50.65.22:8000/api\"")
             buildConfigField("String", "HEROKU_URL", "\"https://fierce-hollows-58615.herokuapp.com/trips\"")
         }
     }

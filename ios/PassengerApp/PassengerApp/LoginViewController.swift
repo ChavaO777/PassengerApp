@@ -8,14 +8,14 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var userId: UITextField!
     @IBOutlet weak var userPassword: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        userPassword.delegate = self
         //Declare configuration variables if they don´t exist
         UserConfiguration.initializeUserConfiguration()
         
@@ -87,6 +87,12 @@ class LoginViewController: UIViewController {
             let message = "El usuario y/o la contraseña son incorrectos."
             alertAboutFailedAuthentication(message: message)
         }
+    }
+    
+    //To allow the user to stop focusing on the text field
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        userPassword.resignFirstResponder()
+        return true
     }
     
     /**

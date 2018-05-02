@@ -8,38 +8,16 @@
 
 import UIKit
 import UserNotifications
+import AudioToolbox.AudioServices
 
 extension AppDelegate : UNUserNotificationCenterDelegate
 {
-    //Called when a notification is delivered with the app in foreground
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        let sounds = UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)
-        let notifications = UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY)
-    
-        //The notification must not be shown if the user silenced them
-        if (!(notifications as! Bool))
-        {
-            return
-        }
-        
-        if ((sounds) as! Bool)
-        {
-            // Play a sound if the user has such configuration
-            completionHandler([.alert , .badge ,.sound])
-        }
-        else
-        {
-            completionHandler([.alert, .badge])
-        }
-        
-    }
-    
+    //Helps handling a notifiction reschedule action, by taking the user to that trip edition
     func loadTripFromNotification (tripName: String)
     {
-
+        
+        //TODO: Check if the user is signed in
+        
         let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let tabBarNVC = mainStoryboard.instantiateViewController(withIdentifier: "tabBarController") as!  UITabBarController
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -51,7 +29,47 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         //let tripVC = mainStoryboard.instantiateViewController(withIdentifier: "TripList")
         //let tripVCIndex = tabBarNVC.childViewControllers.index(of: tripVC)
         
-    self.window?.rootViewController?.childViewControllers[0].childViewControllers[0].performSegue(withIdentifier: "loadTripSegue", sender: Trip.findTrip(withName: tripName)) //As sender, pass the trip to load :s
+        self.window?.rootViewController?.childViewControllers[0].childViewControllers[0].performSegue(withIdentifier: "loadTripSegue", sender: Trip.findTrip(withName: tripName)) //As sender, pass the trip to load :s
+    }
+    
+    //Called when a notification is delivered with the app in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        let sounds = (UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)) as! Bool
+        let notifications = (UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY)) as! Bool
+        let vibration = (UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY)) as! Bool
+    
+        //The notification must not be shown if the user silenced them
+        if !notifications
+        {
+            print ("Notifications setting off, avoiding notification")
+            return
+        }
+        
+        //Provide sound if the config allows it
+        if sounds
+        {
+            //Also check for vibration setting
+            if vibration
+            {
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            }
+            // Play a sound if the user has such configuration
+            completionHandler([.alert , .badge ,.sound])
+        }
+        else
+        {
+            if vibration
+            {
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            }
+            completionHandler([.alert, .badge])
+        }
+        
+        //Delivered notification
+        
     }
     
     //Called when the user gets the notification and acts upong it

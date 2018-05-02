@@ -23,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -108,7 +109,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Log.e(TAG, "Added marker " + station);
             LatLng pos = station.getLatLng();
             String name = station.getName();
-            map.addMarker(new MarkerOptions().position(pos).title(name));
+            MarkerOptions marker = new MarkerOptions().position(pos).title(name);
+            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_station));
+            map.addMarker(marker);
         }
 
         for (String crafterId : crafterMap.keySet()) {
@@ -117,7 +120,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Log.e(TAG, "Added marker " + crafter);
             LatLng pos = crafter.getLatLng();
             String name = crafter.getName();
-            map.addMarker(new MarkerOptions().position(pos).title(name));
+            MarkerOptions marker = new MarkerOptions().position(pos).title(name);
+            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_crafter));
+            map.addMarker(marker);
         }
     }
     private class GetStations extends AsyncTask<Void, Void, Void> {

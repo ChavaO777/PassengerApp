@@ -15,9 +15,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate
     //Helps handling a notifiction reschedule action, by taking the user to that trip edition
     func loadTripFromNotification (tripName: String)
     {
-        
-        //TODO: Check if the user is signed in
-        
         //Create the TabBarNavController
         let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let tabBarNVC = mainStoryboard.instantiateViewController(withIdentifier: "tabBarController") as!  UITabBarController
@@ -80,12 +77,22 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         
         //Handle only trip notifications
         if response.notification.request.content.categoryIdentifier == NotificationManager.tripNotificationID {
+
             
             //Gets the trip name from the notification request id (with format "Trip_<tripName>")
             let tripName = response.notification.request.identifier.components(separatedBy: "_")[1]
             
             // Handle the actions for the reschedule action
             if response.actionIdentifier == NotificationManager.customRescheduleActionID {
+                
+                //Only reschedule if the user has its token, meaning he left the session open
+                if (!canEnterApp())
+                {
+                    //take the user to the login screen
+                    takeUserToLogin()
+                    return
+                }
+                
                 //Load the TripViewController with that trip's data
                 loadTripFromNotification (tripName: tripName)
             }
@@ -98,6 +105,14 @@ extension AppDelegate : UNUserNotificationCenterDelegate
             //Handle snooze action ID
             else if response.actionIdentifier == NotificationManager.customSnoozeActionID
             {
+                //Only snooze if the user has its token, meaning he left the session open
+                if (!canEnterApp())
+                {
+                    //take the user to the login screen
+                    takeUserToLogin()
+                    return
+                }
+                
                 //Parse the user input as a number
                 let textResponse = response as! UNTextInputNotificationResponse
                 
@@ -123,5 +138,24 @@ extension AppDelegate : UNUserNotificationCenterDelegate
             }
         }
         completionHandler()
+    }
+    
+    //Checks if the user is allowed to go into the app
+    func canEnterApp() -> Bool
+    {
+        let token = (UserConfiguration.getConfiguration(key: UserConfiguration.TOKEN_KEY)) as! String
+        
+        //An empty token "" means the user is not signed in
+        return token != ""
+    }
+    
+    func takeUserToLogin()
+    {
+        //Go to login
+        let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let login = mainStoryboard.instantiateViewController(withIdentifier: "loginView") as!  UIViewController
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = login
+        self.window?.makeKeyAndVisible()
     }
 }

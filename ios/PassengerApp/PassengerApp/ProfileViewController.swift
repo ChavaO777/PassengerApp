@@ -50,6 +50,16 @@ class ProfileViewController: UIViewController {
         let soundCurrValue = sender.isOn
         UserConfiguration.setConfiguration(key: UserConfiguration.SOUND_USER_DEFAULTS_KEY, value: soundCurrValue)
     }
+    
+    @IBAction func signOut()
+    {
+        //Set empty strings for user data defaults (his id, name and token)
+        UserConfiguration.setConfiguration(key: UserConfiguration.PASSENGER_FIRST_NAME, value: "" as Any)
+        UserConfiguration.setConfiguration(key: UserConfiguration.PASSENGER_KEY, value: "" as Any)
+        UserConfiguration.setConfiguration(key: UserConfiguration.TOKEN_KEY, value: "" as Any)
+        
+        self.performSegue(withIdentifier: "signOut", sender: self)
+    }
 
     @IBAction func editNotificationAnticipationMinutes(_ sender: UIStepper) {
         

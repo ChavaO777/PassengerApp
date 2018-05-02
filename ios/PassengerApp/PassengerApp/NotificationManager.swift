@@ -14,6 +14,7 @@ class NotificationManager
 {
     public static let tripNotificationID = "TRIP_NOTIFICATION"
     public static let customRescheduleActionID = "RESCHEDULE_ACTION"
+	public static let customSnoozeActionID = "SNOOZE_ACTION"
 	private static var tripNotificationsInCenter = Int()
 	
 	private static var bActiveNotifications = Bool()
@@ -35,13 +36,17 @@ class NotificationManager
         }
 		
 		// Create the custom actions and the category for a trip notification.
+		// Create the custom actions and the category for a trip notification.
+		let snoozeAction = UNNotificationAction(identifier: customSnoozeActionID,
+													title: "Posponer",
+													options: .foreground)
 		let rescheduleAction = UNNotificationAction(identifier: customRescheduleActionID,
 													title: "Reagendar",
 													options: .foreground)
 													//options: .customDismissAction)
 		
 		let tripCategory = UNNotificationCategory(identifier: tripNotificationID,
-												  actions: [rescheduleAction],
+												  actions: [snoozeAction, rescheduleAction],
 												  intentIdentifiers: [],
 												  options: [UNNotificationCategoryOptions.allowInCarPlay,
 															UNNotificationCategoryOptions.customDismissAction,

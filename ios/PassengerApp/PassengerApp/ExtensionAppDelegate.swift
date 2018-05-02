@@ -17,6 +17,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         let sounds = UserConfiguration.getConfiguration (key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)
+        let notifications = UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY)
+    
+        //The notification must not be shown if the user silenced them
+        if (!(notifications as! Bool))
+        {
+            return
+        }
         
         if ((sounds) as! Bool)
         {
@@ -25,9 +32,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         }
         else
         {
-            // Play a sound if the user has such configuration
             completionHandler([.alert, .badge])
         }
+        
     }
     
     func loadTripFromNotification (tripName: String)
@@ -45,20 +52,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         //let tripVCIndex = tabBarNVC.childViewControllers.index(of: tripVC)
         
     self.window?.rootViewController?.childViewControllers[0].childViewControllers[0].performSegue(withIdentifier: "loadTripSegue", sender: Trip.findTrip(withName: tripName)) //As sender, pass the trip to load :s
-        
-        /*
-            let vc = TripViewController.storyboard!.instantiateViewController(withIdentifier: "TripView") as! UINavigationController
-            //className.present(vc, animated: false, completion: nil)
-         
-            let navBarNC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController") as! UINavigationController
-         
-         
-         
-            self.addChildViewController(reviewVC)
-            reviewVC.view.frame = self.view.frame
-            self.view.addSubview(reviewVC.view)
-            reviewVC.didMove(toParentViewController: self)
-        */
     }
     
     //Called when the user gets the notification and acts upong it

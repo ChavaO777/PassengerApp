@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Request notification permission
         NotificationManager.initializeNotifications()
         
+        //When application loads, the badge counter should restart
+        UIApplication.shared.applicationIconBadgeNumber = 0
         
         return true
     }

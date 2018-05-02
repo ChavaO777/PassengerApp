@@ -1,12 +1,25 @@
 package com.example.andresr.passengerappandroid.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.andresr.passengerappandroid.R;
@@ -14,10 +27,15 @@ import com.example.andresr.passengerappandroid.adapters.SectionsStatePagerAdapte
 import com.example.andresr.passengerappandroid.helpers.BottomNavigationViewHelper;
 import com.example.andresr.passengerappandroid.helpers.OnTaskCompleted;
 import com.example.andresr.passengerappandroid.helpers.TripHttpManager;
+import com.example.andresr.passengerappandroid.helpers.TripNotificationReceiver;
+import com.example.andresr.passengerappandroid.jobservices.TripJobService;
 import com.example.andresr.passengerappandroid.models.Trip;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements AddEditTripFragment.TimePickerFragment.OnTimeSelectedListener, OnTaskCompleted {
 
+    private static final String TAG = "MainActivity";
     private SectionsStatePagerAdapter adapter;
     private ViewPager viewPager;
     public Trip tripToEdit; // Contains info of trip to edit
@@ -57,6 +75,34 @@ public class MainActivity extends AppCompatActivity implements AddEditTripFragme
             }
 
         });
+
+//        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//
+//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "Alerta de traslado")
+//                .setSound(soundUri)
+//                .setSmallIcon(R.drawable.icon_crafter)
+//                .setContentTitle("Prueba de notificación")
+//                .setContentText("Probando que podamos mandar notificaciones")
+//
+//                .setPriority(NotificationCompat.PRIORITY_MAX);
+//
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//        notificationManager.notify(1, mBuilder.build());
+//
+//
+//        Calendar cal = Calendar.getInstance();
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),180000 , pendingIntent);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent("com.andresr.action.DISPLAY_NOTIFICATION");
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 5);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -71,6 +117,26 @@ public class MainActivity extends AppCompatActivity implements AddEditTripFragme
 
     public void setViewPager(int fragmentNumber) {
         viewPager.setCurrentItem(fragmentNumber);
+    }
+
+    public void startJobService(Trip tripInfo) {
+        ComponentName componentName = new ComponentName(this, TripJobService.class);
+        JobInfo info = new JobInfo.Builder(123, componentName)
+                .setPersisted(true)
+                .setPeriodic(15 * 60 * 1000)
+                .build();
+        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        int resultCode = scheduler.schedule(info);
+        if (resultCode == JobScheduler.RESULT_SUCCESS) {
+            Log.d(TAG, "startJobService: Job scheduled");
+        } else {
+            Log.d(TAG, "startJobService: Job scheduling failed");
+        }
+    }
+
+    public void cancelJob(View v) {
+        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        scheduler.cancel(123);
     }
 
 

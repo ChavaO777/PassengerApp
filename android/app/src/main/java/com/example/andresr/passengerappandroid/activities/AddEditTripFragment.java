@@ -1,11 +1,15 @@
 package com.example.andresr.passengerappandroid.activities;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,6 +30,7 @@ import android.widget.ToggleButton;
 import com.example.andresr.passengerappandroid.BuildConfig;
 import com.example.andresr.passengerappandroid.R;
 import com.example.andresr.passengerappandroid.helpers.TripHttpManager;
+import com.example.andresr.passengerappandroid.jobservices.TripJobService;
 import com.example.andresr.passengerappandroid.models.Trip;
 
 import java.util.ArrayList;
@@ -197,6 +202,19 @@ public class AddEditTripFragment extends Fragment {
                                     , saturday
                                     , sunday);
                     ((MainActivity)getActivity()).tripToEdit = null;
+
+                    // Trigger job creation
+
+//                    ((MainActivity)getActivity()).startJobService(myTrip);
+                    AlarmManager alarmManager = (AlarmManager) ((MainActivity)getActivity()).getSystemService(Context.ALARM_SERVICE);
+
+                    Intent notificationIntent = new Intent("com.andresr.action.DISPLAY_NOTIFICATION");
+                    PendingIntent broadcast = PendingIntent.getBroadcast(((MainActivity)getActivity()), 33, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.SECOND, 5);
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+
                 } else {
                     // UPDATE
 
@@ -218,12 +236,15 @@ public class AddEditTripFragment extends Fragment {
 
                     // Return user to other fragment
 
+                    // Trigger job creation
+
                 }
             }
         });
 
         return v;
     }
+
 
     private String createTimeString() {
         // Creates time string from attributes

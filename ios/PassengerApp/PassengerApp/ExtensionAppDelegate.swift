@@ -78,6 +78,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         //Handle only trip notifications
         if response.notification.request.content.categoryIdentifier == NotificationManager.tripNotificationID {
 
+            let vibration = (UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY)) as! Bool
+            
+            //Also check for vibration setting
+            if vibration
+            {
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            }
             
             //Gets the trip name from the notification request id (with format "Trip_<tripName>")
             let tripName = response.notification.request.identifier.components(separatedBy: "_")[1]

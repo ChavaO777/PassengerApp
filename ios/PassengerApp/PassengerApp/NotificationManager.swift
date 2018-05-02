@@ -1,3 +1,4 @@
+
 //
 //  NotificationManager.swift
 //  PassengerApp
@@ -38,7 +39,7 @@ class NotificationManager
 		// Create the custom actions and the category for a trip notification.
 		let snoozeAction =  UNTextInputNotificationAction(identifier: customSnoozeActionID,
 													title: "Posponer",
-													options: .init(rawValue: 0),
+													options: [],
 													textInputButtonTitle: "Minutos",
 													textInputPlaceholder: "¿Por cuántos minutos quieres posponer la notificación"
 													)
@@ -58,12 +59,6 @@ class NotificationManager
 		
 		// Register the notification category for trips
 		center.setNotificationCategories([tripCategory])
-		
-		/*NotificationCenter.default.addObserver(<#T##observer: NSObject##NSObject#>, selector: #selector(self.handleTripRepetition(notification)), name:  options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
-		center.addObserver(self, forKeyPath: <#T##String#>, options: <#T##NSKeyValueObservingOptions#>, context: <#T##UnsafeMutableRawPointer?#>)
-		
-		NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifier"), object: nil) */
-
         
     }
 	

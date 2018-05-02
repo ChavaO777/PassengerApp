@@ -233,25 +233,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repetición" lineBreakMode="tailTruncation" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="1dR-8h-ZfO">
-                                <rect key="frame" x="0.0" y="510" width="337.5" height="26.5"/>
+                                <rect key="frame" x="37.5" y="423.5" width="337.5" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gAN-jg-mpj">
-                                <rect key="frame" x="10" y="173.5" width="356" height="233"/>
+                                <rect key="frame" x="10" y="181.5" width="356" height="222"/>
                                 <date key="date" timeIntervalSinceReferenceDate="546394647.80464005">
                                     <!--2018-04-26 00:17:27 +0000-->
                                 </date>
                             </datePicker>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre de la alarma" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9ge-we-il8">
-                                <rect key="frame" x="79" y="438.5" width="217" height="33.5"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="S21-tQ-65y">
-                                <rect key="frame" x="0.0" y="548.5" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="472" width="375" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AcH-oQ-3Zt">
                                         <rect key="frame" x="0.0" y="0.0" width="53.5" height="30"/>
@@ -305,32 +299,39 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elige la hora y fecha de partida" lineBreakMode="tailTruncation" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="3qp-de-zkH">
-                                <rect key="frame" x="0.0" y="115" width="337.5" height="26.5"/>
+                                <rect key="frame" x="19" y="147" width="337.5" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre de la alarma" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9ge-we-il8">
+                                <rect key="frame" x="79" y="98" width="217" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="1dR-8h-ZfO" firstAttribute="top" secondItem="gAN-jg-mpj" secondAttribute="bottom" multiplier="1.05" id="0Fr-yh-sNf"/>
                             <constraint firstItem="9ge-we-il8" firstAttribute="centerX" secondItem="Ju8-We-pRb" secondAttribute="centerX" id="3gc-h8-KQM"/>
                             <constraint firstItem="gAN-jg-mpj" firstAttribute="height" secondItem="aJ7-qd-fNK" secondAttribute="height" multiplier="0.35" id="9Uc-B6-yDu"/>
-                            <constraint firstItem="9ge-we-il8" firstAttribute="top" secondItem="gAN-jg-mpj" secondAttribute="bottom" multiplier="1.08" id="CKh-4e-uZy"/>
                             <constraint firstItem="gAN-jg-mpj" firstAttribute="centerX" secondItem="Ju8-We-pRb" secondAttribute="centerX" id="DhW-IM-rW0"/>
                             <constraint firstItem="3qp-de-zkH" firstAttribute="height" secondItem="aJ7-qd-fNK" secondAttribute="height" multiplier="0.04" id="EE6-cG-hxU"/>
-                            <constraint firstItem="gAN-jg-mpj" firstAttribute="centerY" secondItem="Ju8-We-pRb" secondAttribute="centerY" multiplier="0.85" id="FLw-Bb-9bi"/>
-                            <constraint firstItem="1dR-8h-ZfO" firstAttribute="centerX" secondItem="3qp-de-zkH" secondAttribute="centerX" id="I1C-j2-FRn"/>
-                            <constraint firstItem="1dR-8h-ZfO" firstAttribute="top" secondItem="9ge-we-il8" secondAttribute="bottom" multiplier="1.08" id="KnP-Qe-hxf"/>
+                            <constraint firstItem="gAN-jg-mpj" firstAttribute="centerY" secondItem="Ju8-We-pRb" secondAttribute="centerY" multiplier="0.9" id="FLw-Bb-9bi"/>
+                            <constraint firstItem="1dR-8h-ZfO" firstAttribute="centerX" secondItem="3qp-de-zkH" secondAttribute="centerX" multiplier="1.1" id="I1C-j2-FRn"/>
+                            <constraint firstItem="3qp-de-zkH" firstAttribute="centerX" secondItem="9ge-we-il8" secondAttribute="centerX" id="Ktc-Ko-gYJ"/>
                             <constraint firstItem="S21-tQ-65y" firstAttribute="centerX" secondItem="Ju8-We-pRb" secondAttribute="centerX" id="N8Q-nZ-paC"/>
-                            <constraint firstItem="3qp-de-zkH" firstAttribute="leading" secondItem="Ju8-We-pRb" secondAttribute="leading" id="Vi6-O1-Y19"/>
+                            <constraint firstItem="9ge-we-il8" firstAttribute="centerY" secondItem="Ju8-We-pRb" secondAttribute="centerY" multiplier="0.35" id="TaS-LG-pyS"/>
                             <constraint firstItem="9ge-we-il8" firstAttribute="width" secondItem="aJ7-qd-fNK" secondAttribute="width" multiplier="0.575" constant="1" id="esF-j7-3Oc"/>
                             <constraint firstItem="3qp-de-zkH" firstAttribute="width" secondItem="aJ7-qd-fNK" secondAttribute="width" multiplier="0.9" id="g9c-7v-Jte"/>
                             <constraint firstItem="9ge-we-il8" firstAttribute="height" secondItem="aJ7-qd-fNK" secondAttribute="height" multiplier="0.05" id="hbl-hV-2Au"/>
                             <constraint firstItem="1dR-8h-ZfO" firstAttribute="height" secondItem="3qp-de-zkH" secondAttribute="height" id="its-To-2Om"/>
-                            <constraint firstItem="S21-tQ-65y" firstAttribute="top" secondItem="1dR-8h-ZfO" secondAttribute="bottom" multiplier="1.02" constant="1" id="kIu-16-b1w"/>
+                            <constraint firstItem="3qp-de-zkH" firstAttribute="top" secondItem="9ge-we-il8" secondAttribute="bottom" multiplier="1.15" id="k7B-Gu-7Rt"/>
+                            <constraint firstItem="S21-tQ-65y" firstAttribute="top" secondItem="1dR-8h-ZfO" secondAttribute="bottom" multiplier="1.05" constant="1" id="kIu-16-b1w"/>
                             <constraint firstItem="gAN-jg-mpj" firstAttribute="width" secondItem="aJ7-qd-fNK" secondAttribute="width" multiplier="0.95" id="kTi-Ia-U1z"/>
                             <constraint firstItem="1dR-8h-ZfO" firstAttribute="width" secondItem="3qp-de-zkH" secondAttribute="width" id="nzM-h0-5Hy"/>
-                            <constraint firstItem="3qp-de-zkH" firstAttribute="top" secondItem="Ju8-We-pRb" secondAttribute="top" multiplier="1.8" id="qLi-hj-KYh"/>
+                            <constraint firstItem="3qp-de-zkH" firstAttribute="top" secondItem="Ju8-We-pRb" secondAttribute="top" multiplier="2.3" id="qLi-hj-KYh"/>
                             <constraint firstItem="S21-tQ-65y" firstAttribute="leading" secondItem="Ju8-We-pRb" secondAttribute="leading" id="xAn-2E-TLL"/>
                             <constraint firstItem="S21-tQ-65y" firstAttribute="width" secondItem="aJ7-qd-fNK" secondAttribute="width" id="xuk-Pr-kXO"/>
                         </constraints>

@@ -138,9 +138,22 @@ class NotificationManager
 		let vibration = UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY)
 		let minutes = UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY)
 		
+		print("hey!")
+		print(vibration)
+		print(minutes)
+		
 		bActiveNotifications = notifications as! Bool
 		bCanHaveSound = sound as! Bool
 		bCanHaveVibration = vibration as! Bool
-		anticipationNotificationMinutes = minutes as! Int
+		
+//		do{
+//			anticipationNotificationMinutes = minutes as! Int
+//		}
+//		catch let error{
+		
+//			print(error)
+			//hardcoding. TODO: Fix this!
+			anticipationNotificationMinutes = 5
+//		}
 	}
 }

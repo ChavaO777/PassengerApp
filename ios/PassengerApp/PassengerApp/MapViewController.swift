@@ -9,13 +9,22 @@
 import UIKit
 import GoogleMaps
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     //VWM Fin coords
-    let vwm_lat = 19.1190942
-    let vwm_lng = -98.2535574
+    let vwmLat = 19.1190942
+    let vwmLng = -98.2535574
+    let defaultUserLat = 19.120636
+    let defaultUserLng = -98.254361
     let zoomLevel = 15.0
     var mapView:GMSMapView?
+    
+    //To get the user's current location
+    var locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
+    
+    //A default location in vwm
+//    let defaultLocation = CLLocation(latitude: defaultUserLat, longitude: defaultUserLng)
     
     var stationsArray = [Station]()
     
@@ -30,7 +39,13 @@ class MapViewController: UIViewController {
         //The httpBody is nil because there is no body to send to this request
         HTTPHandler.makeHTTPGetRequest(route: Station.ROUTE, httpBody: nil, callbackFunction: self.placeStationsOnMap)
         
-        
+        // Initialize the location manager.
+        locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.distanceFilter = 50
+        locationManager.startUpdatingLocation()
+        locationManager.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -164,11 +179,13 @@ class MapViewController: UIViewController {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         
-        let myCamera = GMSCameraPosition.camera(withLatitude: vwm_lat, longitude: vwm_lng, zoom: Float(zoomLevel))
+        let myCamera = GMSCameraPosition.camera(withLatitude: vwmLat, longitude: vwmLng, zoom: Float(zoomLevel))
         mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.9), camera: myCamera)
         
         //so the mapView is of width 200, height 200 and its center is same as center of the self.view
         mapView?.center = self.view.center
+        mapView?.settings.myLocationButton = true
+        mapView?.isMyLocationEnabled = true
         
         self.view.addSubview(mapView!)
     }

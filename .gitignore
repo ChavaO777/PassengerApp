@@ -93,3 +93,4 @@ fastlane/test_output
 hs_err_pid*
 
 .DS_Store
+android/\.idea/caches/build_file_checksums\.ser

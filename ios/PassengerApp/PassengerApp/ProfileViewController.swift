@@ -17,6 +17,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var notificationAnticipationMinutes: UILabel!
     @IBOutlet weak var NotificationAnticipationMinutesStepper: UIStepper!
     
+    @IBOutlet weak var passengerName: UILabel!
+    
+    @IBOutlet weak var tripCounter: UILabel!
+    
     /**
     *   Function that toggles the value of the notifications
     *   switch and updates the value in the UserDefaults.
@@ -62,10 +66,11 @@ class ProfileViewController: UIViewController {
     
         // Do any additional setup after loading the view.
         
-        print("HERE!")
-        print(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY))
-        print("Or here?")
+        //Set the first name of the passenger at the top of the view
+        passengerName.text = UserConfiguration.getConfiguration(key: UserConfiguration.PASSENGER_FIRST_NAME) as? String
         
+        setTripCounter()
+
         //Set the switches into their correct values according to the config variables
         notificationsSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY) as! Bool, animated: false)
         vibrationSwitch.setOn(UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY) as! Bool, animated: false)
@@ -82,10 +87,43 @@ class ProfileViewController: UIViewController {
         NotificationAnticipationMinutesStepper.maximumValue = Double(UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE)
     }
     
-
-
+    private func setTripCounter() {
+        
+        let passengerId = UserConfiguration.getConfiguration(key: UserConfiguration.PASSENGER_KEY) as! String
+        let url = Passenger.TRIP_COUNTER_ROUTE + "/" + passengerId
+        HTTPHandler.makeHTTPGetRequest(route: url, httpBody: nil, callbackFunction: self.handleReviewsByPassengerResponse)
+    }
+    
+    private func handleReviewsByPassengerResponse(data: Data?) {
+        
+        do{
+            //Decode the response to the reviews by passenger call
+            let reviewsByPassengerResponseDictionary = try? JSONSerialization.jsonObject(with: data!, options: [])
+            
+            //Get the count of the reviews in the result set
+            let reviewsByCurrentPassenger = String((reviewsByPassengerResponseDictionary! as AnyObject).count)
+            //Assign the count to the label below the passenger's name
+            tripCounter.text = tripCounter.text! + reviewsByCurrentPassenger
+        
+        } catch let jsonError{
+            
+            print(jsonError)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func createTripReview(_ sender: UIButton) {
+  
+        //Create popup for new trip data
+        let reviewVC = UIStoryboard (name: "Main" /*same story board, different view/scene */, bundle: nil).instantiateViewController(withIdentifier: "ReviewView") as! ReviewViewController
+        
+        self.addChildViewController(reviewVC)
+        reviewVC.view.frame = self.view.frame
+        self.view.addSubview(reviewVC.view)
+        reviewVC.didMove(toParentViewController: self)
     }
 }

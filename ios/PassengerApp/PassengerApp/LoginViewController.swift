@@ -8,13 +8,20 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var userId: UITextField!
     @IBOutlet weak var userPassword: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        userPassword.delegate = self
+        //Declare configuration variables if they don´t exist
+        UserConfiguration.initializeUserConfiguration()
+        
+        //Request notification permission
+        NotificationManager.requestNotificationPermission()
     }
     
     /**
@@ -41,7 +48,7 @@ class LoginViewController: UIViewController {
             parameters["password"] = userPasswordText
             
             //Call the backend with the required parameters to try to login and handle the response later
-            HTTPHandler.makeHTTPPostRequest(route: Passenger.ROUTE, parameters: parameters, callbackFunction: handleLoginResponse)
+            HTTPHandler.makeHTTPPostRequest(route: Passenger.ROUTE, parameters: parameters, callbackFunction: self.handleLoginResponse)
         }
     }
     
@@ -83,6 +90,12 @@ class LoginViewController: UIViewController {
         }
     }
     
+    //To allow the user to stop focusing on the text field
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        userPassword.resignFirstResponder()
+        return true
+    }
+    
     /**
      *  Function to store the logged-in passenger's data in the UserDefaults
      */
@@ -90,11 +103,13 @@ class LoginViewController: UIViewController {
         
         let passenger = loginResponseDictionary[UserConfiguration.PASSENGER_KEY]! as! Dictionary<String, AnyObject>
         
+        let passengerFirstName = passenger["first_name"]
         let passengerId = passenger["id"]
         let passengerToken = loginResponseDictionary[UserConfiguration.TOKEN_KEY]
         let expirationTime = loginResponseDictionary[UserConfiguration.EXPIRATION_TIME_KEY]
         
         // Store the passenger data (but not the password) in the UserDefaults
+        UserConfiguration.setConfiguration(key: UserConfiguration.PASSENGER_FIRST_NAME, value: passengerFirstName as Any)
         UserConfiguration.setConfiguration(key: UserConfiguration.PASSENGER_KEY, value: passengerId as Any)
         UserConfiguration.setConfiguration(key: UserConfiguration.TOKEN_KEY, value: passengerToken as Any)
         UserConfiguration.setConfiguration(key: UserConfiguration.EXPIRATION_TIME_KEY, value: expirationTime as Any)

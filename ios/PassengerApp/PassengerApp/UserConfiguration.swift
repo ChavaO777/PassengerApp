@@ -20,6 +20,7 @@ class UserConfiguration {
     static let SOUND_USER_DEFAULTS_KEY = "sound"
     static let NOTIFICATION_ANTICIPATION_MINUTES_KEY = "notification_anticipation_minutes"
     static let PASSENGER_KEY = "passenger"
+    static let PASSENGER_FIRST_NAME = "passenger_first_name"
     static let TOKEN_KEY = "token"
     static let EXPIRATION_TIME_KEY = "expirationTime"
     

@@ -133,14 +133,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate
                 
                 //Format minutesSnooze from now, as a string in format "HH:MM"
                 let date = Date().addingTimeInterval(Double(minutesSnooze! * 60))
-                let calender = Calendar.current
-                let components = calender.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
+                let components = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
 
                 let hour = components.hour!
                 let minute = components.minute!
                 
                 //Create the new notification
-                NotificationManager.createTripNotification(tripName: tripName, tripDepartureTime: "\(String(hour)):\(String(minute))")
+                NotificationManager.createTripNotification(tripName: tripName, tripDepartureTime: "\(String(hour)):\(String(minute))", tripDate: Date())
                 
             }
         }

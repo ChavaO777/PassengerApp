@@ -76,7 +76,29 @@ class NotificationManager
 		return tripNotificationsInCenter as NSNumber
 	}
 	
-    static func createTripNotification(tripName: String, tripDepartureTime: String)
+	//Returns a date components containing the desired date and time, that the notification should go off
+	static func getNotificationDateComponents (fromTripDate tripDate: Date, fromTripTime tripDepartureTime: String) -> DateComponents
+	{
+		//Get the time from the string defining a trips departure time
+		let splitTime = tripDepartureTime.components(separatedBy: ":")
+		//Move departure time, to account for the anticipation minutes configuration
+		let minutes = Int(splitTime[1])
+		let hours = Int(splitTime[0])
+		
+		//construct components from the trip date, then change the hour and minutes to match the departureTime
+		var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: tripDate)
+		dateComponents.hour = hours
+		dateComponents.minute = minutes
+		
+		//Create new date, with the anticipationMinutes considered
+		let newDate = Calendar.current.date(from: dateComponents)!.addingTimeInterval(Double(-60 * anticipationNotificationMinutes))
+		
+		//Create final date components
+		return Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: newDate)
+
+	}
+	
+	static func createTripNotification(tripName: String, tripDepartureTime: String, tripDate: Date)
     {
 		updateUserConfigValues()
 		
@@ -96,14 +118,10 @@ class NotificationManager
         {
             content.sound = UNNotificationSound.default()
         }
-        
-        // Configure the time trigger
-        var dateInfo = DateComponents()
-        //Get the time from the string defining a trips departure time
-        let splitTime = tripDepartureTime.components(separatedBy: ":")
-        dateInfo.hour = Int(splitTime[0])
-        dateInfo.minute = Int(splitTime[1])
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo, repeats: false)
+		
+		
+		//create time trigger to indicate when the notifiation should appear
+		let trigger = UNCalendarNotificationTrigger(dateMatching: getNotificationDateComponents(fromTripDate: tripDate, fromTripTime:  tripDepartureTime), repeats: false)
         
         // Create the request object.
         let request = UNNotificationRequest(identifier: "Trip_\(tripName)", content: content, trigger: trigger)

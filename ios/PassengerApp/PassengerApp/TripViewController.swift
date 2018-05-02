@@ -173,7 +173,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         super.prepare(for: segue, sender: sender)
         
         //trip could be added/edited succesfully, make a notification for it
-        NotificationManager.createTripNotification(tripName: trip!.alarmName, tripDepartureTime: trip!.departureTime)
+        NotificationManager.createTripNotification(tripName: trip!.alarmName, tripDepartureTime: trip!.departureTime, tripDate: trip!.alarmDate)
     }
 
 	

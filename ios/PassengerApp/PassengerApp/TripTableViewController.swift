@@ -146,7 +146,7 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
         //If the trip was deactivated and became active, create notification
         if (trip.active)
         {
-            NotificationManager.createTripNotification(tripName: trip.alarmName, tripDepartureTime: trip.departureTime)
+            NotificationManager.createTripNotification(tripName: trip.alarmName, tripDepartureTime: trip.departureTime, tripDate: trip.alarmDate)
         }
         else
         {

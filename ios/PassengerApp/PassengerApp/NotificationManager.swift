@@ -36,12 +36,14 @@ class NotificationManager
         }
 		
 		// Create the custom actions and the category for a trip notification.
-		// Create the custom actions and the category for a trip notification.
-		let snoozeAction = UNNotificationAction(identifier: customSnoozeActionID,
+		let snoozeAction =  UNTextInputNotificationAction(identifier: customSnoozeActionID,
 													title: "Posponer",
-													options: .foreground)
+													options: .init(rawValue: 0),
+													textInputButtonTitle: "Minutos",
+													textInputPlaceholder: "¿Por cuántos minutos quieres posponer la notificación"
+													)
 		let rescheduleAction = UNNotificationAction(identifier: customRescheduleActionID,
-													title: "Reagendar",
+													title: "Reagendar traslado",
 													options: .foreground)
 													//options: .customDismissAction)
 		
@@ -65,7 +67,8 @@ class NotificationManager
         
     }
 	
-	static func handleTripRepetition (notification: Notification)
+	//TODO: reschedule notifications for other days if the trip has days of repetition
+	@objc static func handleTripRepetition (notification: Notification)
 	{
 		
 	}

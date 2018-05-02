@@ -18,6 +18,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         
         //TODO: Check if the user is signed in
         
+        //Create the TabBarNavController
         let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let tabBarNVC = mainStoryboard.instantiateViewController(withIdentifier: "tabBarController") as!  UITabBarController
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -28,7 +29,8 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         
         //let tripVC = mainStoryboard.instantiateViewController(withIdentifier: "TripList")
         //let tripVCIndex = tabBarNVC.childViewControllers.index(of: tripVC)
-        
+
+        //Make the segues all the way to the trip details view
         self.window?.rootViewController?.childViewControllers[0].childViewControllers[0].performSegue(withIdentifier: "loadTripSegue", sender: Trip.findTrip(withName: tripName)) //As sender, pass the trip to load :s
     }
     
@@ -56,7 +58,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate
             {
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             }
-            // Play a sound if the user has such configuration
             completionHandler([.alert , .badge ,.sound])
         }
         else
@@ -77,14 +78,14 @@ extension AppDelegate : UNUserNotificationCenterDelegate
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         
+        //Handle only trip notifications
         if response.notification.request.content.categoryIdentifier == NotificationManager.tripNotificationID {
+            
+            //Gets the trip name from the notification request id (with format "Trip_<tripName>")
+            let tripName = response.notification.request.identifier.components(separatedBy: "_")[1]
             
             // Handle the actions for the reschedule action
             if response.actionIdentifier == NotificationManager.customRescheduleActionID {
-                
-                //Gets the trip name from the notification request id (with format "Trip_<tripName>")
-                let tripName = response.notification.request.identifier.components(separatedBy: "_")[1]
-
                 //Load the TripViewController with that trip's data
                 loadTripFromNotification (tripName: tripName)
             }
@@ -93,6 +94,32 @@ extension AppDelegate : UNUserNotificationCenterDelegate
             }
             else if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
                 // The user launched the app
+            }
+            //Handle snooze action ID
+            else if response.actionIdentifier == NotificationManager.customSnoozeActionID
+            {
+                //Parse the user input as a number
+                let textResponse = response as! UNTextInputNotificationResponse
+                
+                var minutesSnooze: Int? = Int(textResponse.userText)
+                
+                if minutesSnooze == nil
+                {
+                    //5 is the default, in case of invalid input
+                    minutesSnooze = 5;
+                }
+                
+                //Format minutesSnooze from now, as a string in format "HH:MM"
+                let date = Date().addingTimeInterval(Double(minutesSnooze! * 60))
+                let calender = Calendar.current
+                let components = calender.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
+
+                let hour = components.hour!
+                let minute = components.minute!
+                
+                //Create the new notification
+                NotificationManager.createTripNotification(tripName: tripName, tripDepartureTime: "\(String(hour)):\(String(minute))")
+                
             }
         }
         completionHandler()

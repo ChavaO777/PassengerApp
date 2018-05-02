@@ -29,6 +29,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	var trip: Trip?
     
     var triggeredBySegue = String()
+    var indexFromTrip = Int()
 	
     @IBOutlet weak var saveButton: UIBarButtonItem!
 

@@ -121,14 +121,14 @@ extension AppDelegate : UNUserNotificationCenterDelegate
                 }
                 
                 //Parse the user input as a number
-                let textResponse = response as! UNTextInputNotificationResponse
+                //let textResponse = response as! UNTextInputNotificationResponse
                 
-                var minutesSnooze: Int? = Int(textResponse.userText)
+                var minutesSnooze: Int? = nil//Int(textResponse.userText) + anticipationMinutes
                 
                 if minutesSnooze == nil
                 {
                     //5 is the default, in case of invalid input
-                    minutesSnooze = 5;
+                    minutesSnooze = 2;
                 }
                 
                 //Format minutesSnooze from now, as a string in format "HH:MM"

@@ -137,6 +137,15 @@ class Trip: NSObject, NSCoding, Codable{
         return nil
     }
     
+    func equals(_ trip: Trip) -> Bool
+    {
+        return  alarmName == trip.alarmName &&
+                getRepetitionDaysAsString() == trip.getRepetitionDaysAsString() &&
+                departureTime == trip.departureTime &&
+                alarmDate == trip.alarmDate &&
+                active == trip.active
+    }
+    
     //MARK: - Instance Methods
     
     //Checks that the array of repetition days, has at least one of them as true

@@ -37,12 +37,16 @@ class NotificationManager
         }
 		
 		// Create the custom actions and the category for a trip notification.
-		let snoozeAction =  UNTextInputNotificationAction(identifier: customSnoozeActionID,
+		/*let snoozeAction =  UNTextInputNotificationAction(identifier: customSnoozeActionID,
 													title: "Posponer",
 													options: [],
 													textInputButtonTitle: "Minutos",
 													textInputPlaceholder: "¿Por cuántos minutos quieres posponer la notificación"
-													)
+*/
+		let snoozeAction =  UNNotificationAction(identifier: customSnoozeActionID,
+														  title: "Posponer",
+														  options: []
+															)
 		let rescheduleAction = UNNotificationAction(identifier: customRescheduleActionID,
 													title: "Reagendar traslado",
 													options: .foreground)
@@ -93,8 +97,12 @@ class NotificationManager
 		//Create new date, with the anticipationMinutes considered
 		let newDate = Calendar.current.date(from: dateComponents)!.addingTimeInterval(Double(-60 * anticipationNotificationMinutes))
 		
+		var finalComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: newDate)
+		
+		finalComponents.second = 0
+		
 		//Create final date components
-		return Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: newDate)
+		return finalComponents
 
 	}
 	
@@ -154,10 +162,6 @@ class NotificationManager
 		let vibration = UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY)
 		let minutes = UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY)
 		
-		print("hey!")
-		print(vibration)
-		print(minutes)
-		
 		bActiveNotifications = notifications as! Bool
 		bCanHaveSound = sound as! Bool
 		bCanHaveVibration = vibration as! Bool
@@ -169,7 +173,7 @@ class NotificationManager
 		
 //			print(error)
 			//hardcoding. TODO: Fix this!
-			anticipationNotificationMinutes = 5
+			anticipationNotificationMinutes = 1
 //		}
 	}
 }

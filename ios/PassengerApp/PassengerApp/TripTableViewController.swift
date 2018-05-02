@@ -221,6 +221,11 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 
                 //Pass trip to the trip detail controller
                 tripDetailViewController.trip = trip
+                
+                let tripIndex = findIndexFromTrip (trip)
+                
+                //Save index
+                tripDetailViewController.indexFromTrip = tripIndex
             
                 /*
                  * indicate that the TripViewController comes from a notification loading,
@@ -233,7 +238,18 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
         }
     }
  
-
+    func findIndexFromTrip (_ trip: Trip) -> Int
+    {
+        for i in 0..<trips.count
+        {
+            if trips[i].equals(trip)
+            {
+                return i
+            }
+        }
+        return -1
+    }
+    
     //MARK: Actions
     
     //Called when a view controller calls back to this controller
@@ -251,6 +267,16 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
             //If the trip view comes from a notification, we are definetely not adding a new trip
             else if sourceViewController.bComesfromNotification
             {
+                //Yet if we clicked save, the trip should be updated, the previous one should cease to exist
+                
+                if (sourceViewController.indexFromTrip >= 0)
+                {
+                    trips.remove (at: sourceViewController.indexFromTrip)
+                }
+                
+                //But add new trip
+                trips.append(trip)
+                
                 //Reset flag
                 sourceViewController.bComesfromNotification = false
             }

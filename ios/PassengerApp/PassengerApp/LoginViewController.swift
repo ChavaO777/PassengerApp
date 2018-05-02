@@ -17,11 +17,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         userPassword.delegate = self
-        //Declare configuration variables if they don´t exist
-        UserConfiguration.initializeUserConfiguration()
-        
-        //Request notification permission
-        NotificationManager.requestNotificationPermission()
     }
     
     /**

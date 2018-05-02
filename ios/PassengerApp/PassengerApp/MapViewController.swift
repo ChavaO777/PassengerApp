@@ -11,6 +11,10 @@ import GoogleMaps
 
 class MapViewController: UIViewController {
     
+    //VWM Fin coords
+    let vwm_lat = 19.1190942
+    let vwm_lng = -98.2535574
+    let zoomLevel = 15.0
     var mapView:GMSMapView?
     
     override func viewDidLoad() {
@@ -123,15 +127,10 @@ class MapViewController: UIViewController {
         
         //This call to bringSubview() was key!
         
-        //VWM Fin coords
-        let lat = 19.1190942
-        let lng = -98.2535574
-        let zoomLevel = 15.0
-        
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         
-        let myCamera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: Float(zoomLevel))
+        let myCamera = GMSCameraPosition.camera(withLatitude: vwm_lat, longitude: vwm_lng, zoom: Float(zoomLevel))
         mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight*0.9), camera: myCamera)
         
         //so the mapView is of width 200, height 200 and its center is same as center of the self.view

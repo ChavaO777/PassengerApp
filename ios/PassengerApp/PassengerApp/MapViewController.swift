@@ -72,13 +72,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         //Draw circuit
         for station in stationsArray
         {
-            path.add(CLLocationCoordinate2D(latitude: station.lat, longitude: station.lng))
-            print("Drawing point at (lat:\(station.lat), \(station.lng))")
+            path.add(CLLocationCoordinate2D(latitude: station.getLat(), longitude: station.getLng()))
+            print("Drawing point at (lat:\(station.getLat()), \(station.getLng()))")
         }
         
         //Close circuit
         let station = stationsArray[0]
-        path.add(CLLocationCoordinate2D(latitude: station.lat, longitude: station.lng))
+        path.add(CLLocationCoordinate2D(latitude: station.getLat(), longitude: station.getLng()))
 
         
         let polyline = GMSPolyline(path: path)
@@ -103,7 +103,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             for crafter in craftersArray {
                 
                 //If the crafter is not active, then skip it, i.e. don't place it on the map
-                if !crafter.isActive {
+                if !crafter.getIsActive() {
                     
                     continue
                 }
@@ -112,10 +112,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 let marker = GMSMarker()
                 
                 //Add the marker's coordinates
-                marker.position = CLLocationCoordinate2DMake(Double(crafter.lat), Double(crafter.lng))
+                marker.position = CLLocationCoordinate2DMake(Double(crafter.getLat()), Double(crafter.getLng()))
                 
-                marker.title = String(crafter.name)
-                marker.snippet = crafter.getMarkerSnippet()
+                marker.title = String(crafter.getName())
+                marker.snippet = crafter.getMarkerSnippet(total_seats: crafter.getTotalSeats(), occupied_seats: crafter.getOccupiedSeats())
                 marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0)
                 
                 //Set the marker's custom image
@@ -150,10 +150,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 let marker = GMSMarker()
                 
                 //Add the marker's coordinates
-                marker.position = CLLocationCoordinate2DMake(Double(station.lat), Double(station.lng))
+                marker.position = CLLocationCoordinate2DMake(Double(station.getLat()), Double(station.getLng()))
                 
-                marker.title = String(station.name)
-                marker.snippet = station.getMarkerSnippet()
+                marker.title = String(station.getName())
+                marker.snippet = station.getMarkerSnippet(waiting_people: station.getWaitingPeople(), next_crafter_arrival_time: station.getNextCrafterArrivalTime())
                 marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0)
                 
                 //Set the marker's custom image

@@ -3,4 +3,5 @@ source 'https://github.com/CocoaPods/Specs.git'
 target 'PassengerApp' do
 pod 'GoogleMaps'
 pod 'GooglePlaces'
+pod 'UXCam'
 end

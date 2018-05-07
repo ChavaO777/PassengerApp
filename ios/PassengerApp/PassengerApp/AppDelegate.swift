@@ -10,6 +10,8 @@ import UIKit
 import GoogleMaps
 import UserNotifications
 
+import UXCam
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UXCam.start(withKey: "4a7bf040e74359e")
         
         //Google Maps API Key
         GMSServices.provideAPIKey("AIzaSyCwQ3-yJz_IvPrO-uGEgmEOckI2RO2tTcw")

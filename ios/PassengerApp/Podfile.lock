@@ -6,20 +6,24 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (2.6.0):
     - GoogleMaps/Base (= 2.6.0)
+  - UXCam (2.5.17)
 
 DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
+  - UXCam
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - GoogleMaps
     - GooglePlaces
+    - UXCam
 
 SPEC CHECKSUMS:
   GoogleMaps: 42f91c68b7fa2f84d5c86597b18ceb99f5414c7f
   GooglePlaces: f6ddf33b75cef69e888907d9947c57198ed845f3
+  UXCam: 447d2dba06987472a651962c8a5f0477dcca9040
 
-PODFILE CHECKSUM: 73a69468135f6547074d9606ad370e2c8ac5b779
+PODFILE CHECKSUM: cff7907060409c5027a6c66229eb858fbc6385bb
 
 COCOAPODS: 1.5.0

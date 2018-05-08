@@ -100,4 +100,49 @@ class StationTest: XCTestCase {
         // after 2 seconds. This is where the test runner will pause.
         waitForExpectations(timeout: 2, handler: nil)
     }
+    
+    func testVerifyAllStationsExistence() {
+        
+        let STATIONS_COUNT = 8
+        let MIN_STATION_ID = 1
+        let MAX_STATION_ID = 8
+        
+        let expectation = self.expectation(description: "Station retrieval from the server")
+        
+        //Call the backend with the required parameters to try to login and handle the response later
+        HTTPHandler.makeHTTPRequest(route: Station.ROUTE, httpMethod: "GET", httpBody: nil, callbackFunction: {data in
+            
+            //Decode the response to the login call. Add the '?' after the 'try' to avoid the following error:
+            //Invalid conversion from throwing function of type '(_) throws -> ()' to non-throwing function type '(Data?) -> Void'
+            if let stationsArray = try? JSONDecoder().decode([Station].self, from: data!) {
+
+                var stationIdsSet = Set<Int>()
+                
+                for station in stationsArray{
+                    
+                    stationIdsSet.insert(station.getId())
+                }
+                
+                for id in stationIdsSet{
+                    
+                    XCTAssertTrue(MIN_STATION_ID <= id && id <= MAX_STATION_ID)
+                }
+                
+                XCTAssertTrue(stationIdsSet.count == STATIONS_COUNT)
+                
+                // Fullfil the expectation to let the test runner
+                // know that it's OK to proceed
+                expectation.fulfill()
+            }
+            else{
+                
+                XCTFail()
+            }
+        }
+        )
+        
+        // Wait for the expectation to be fullfilled, or time out
+        // after 5 seconds. This is where the test runner will pause.
+        waitForExpectations(timeout: 5, handler: nil)
+    }
 }

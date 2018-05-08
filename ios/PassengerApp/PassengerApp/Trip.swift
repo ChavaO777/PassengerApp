@@ -42,7 +42,7 @@ class Trip: NSObject, NSCoding, Codable{
     
     init?(alarmName: String, repetitionDays: [Bool], departureTime: String, alarmDate: Date, active: Bool) {
 		
-        if alarmName.isEmpty || repetitionDays.count < 7 || departureTime.isEmpty
+        if alarmName.isEmpty || repetitionDays.count != 7 || departureTime.isEmpty
         {
             return nil
         }
@@ -64,7 +64,6 @@ class Trip: NSObject, NSCoding, Codable{
 		aCoder.encode(departureTime, forKey: PropertyKey.departureTime)
 		aCoder.encode(alarmDate, forKey: PropertyKey.alarmDate)
 		aCoder.encode(active, forKey: PropertyKey.active)
-
 	}
 	
 	//The required modifier means this initializer must be implemented on every subclass
@@ -146,6 +145,11 @@ class Trip: NSObject, NSCoding, Codable{
                 active == trip.active
     }
     
+    static internal func ==(lhs: Trip, rhs: Trip) -> Bool
+    {
+        return lhs.equals(rhs)
+    }
+    
     //MARK: - Instance Methods
     
     //Checks that the array of repetition days, has at least one of them as true
@@ -188,6 +192,7 @@ class Trip: NSObject, NSCoding, Codable{
         
         return str
     }
+    
     
     //Prints the trip object, to the console for debugging purposes
     func printToConsole()

@@ -34,6 +34,8 @@
 		DED4BA72206B395200834B8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DED4BA70206B395200834B8D /* LaunchScreen.storyboard */; };
 		DED4BA7D206B395200834B8D /* PassengerAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA7C206B395200834B8D /* PassengerAppTests.swift */; };
 		DED4BA88206B395200834B8D /* PassengerAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA87206B395200834B8D /* PassengerAppUITests.swift */; };
+		DEEA1F89209E91B200D287C0 /* TripsTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA1F88209E91B200D287C0 /* TripsTesting.swift */; };
+		DEEA1F8A209E969B00D287C0 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E727682091509F003016D6 /* Trip.swift */; };
 		DEEEE3B92098F819005BBD8A /* ExtensionAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEEE3B82098F819005BBD8A /* ExtensionAppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +93,7 @@
 		DED4BA83206B395200834B8D /* PassengerAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassengerAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED4BA87206B395200834B8D /* PassengerAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassengerAppUITests.swift; sourceTree = "<group>"; };
 		DED4BA89206B395200834B8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEEA1F88209E91B200D287C0 /* TripsTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTesting.swift; sourceTree = "<group>"; };
 		DEEEE3B82098F819005BBD8A /* ExtensionAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,6 +207,7 @@
 		DED4BA7B206B395200834B8D /* PassengerAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				DEEA1F88209E91B200D287C0 /* TripsTesting.swift */,
 				DED4BA7C206B395200834B8D /* PassengerAppTests.swift */,
 				DED4BA7E206B395200834B8D /* Info.plist */,
 			);
@@ -425,7 +429,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEEA1F8A209E969B00D287C0 /* Trip.swift in Sources */,
 				DED4BA7D206B395200834B8D /* PassengerAppTests.swift in Sources */,
+				DEEA1F89209E91B200D287C0 /* TripsTesting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,10 +621,12 @@
 		};
 		DED4BA90206B395200834B8D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 744A1B6D1E84E84410C72B14 /* Pods-PassengerApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BA75AATBD3;
 				INFOPLIST_FILE = PassengerAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Co.PassengerAppTests;
@@ -635,6 +643,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BA75AATBD3;
 				INFOPLIST_FILE = PassengerAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Co.PassengerAppTests;

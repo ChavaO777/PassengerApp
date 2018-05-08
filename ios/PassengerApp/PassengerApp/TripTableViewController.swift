@@ -237,7 +237,7 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
     }
- 
+    //Returns the index of the trip array where the particular trip can be found
     func findIndexFromTrip (_ trip: Trip) -> Int
     {
         for i in 0..<trips.count

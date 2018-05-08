@@ -118,8 +118,6 @@ class NotificationManager
 	//Create a notification conveying a single message to the user (instead of making an alert that requires user input)
 	static func createMessageNotification(message: String)
 	{
-		updateUserConfigValues()
-		
 		let content = UNMutableNotificationContent()
 		
 		//Set content
@@ -127,8 +125,8 @@ class NotificationManager
 		content.categoryIdentifier = messageNotificationID
 		
 		//Create time trigger
-		let targetDateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
-		//targetDateComp.second = targetDateComp.second + 1
+		var targetDateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
+		targetDateComp.second = targetDateComp.second! + 1
 		
 		let trigger = UNCalendarNotificationTrigger(dateMatching: targetDateComp, repeats: false)
 

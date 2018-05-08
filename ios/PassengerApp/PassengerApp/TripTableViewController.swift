@@ -282,6 +282,8 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 
                 //Reset flag
                 sourceViewController.bComesfromNotification = false
+                
+                NotificationManager.createMessageNotification(message: "Trip \"\(trip.alarmName)\" was edited!")
             }
             else
             {
@@ -291,6 +293,9 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 
                 //Draw new cell
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
+                
+                NotificationManager.createMessageNotification(message: "Trip \"\(trip.alarmName)\" was added!")
+
             }
             
             //Save changes

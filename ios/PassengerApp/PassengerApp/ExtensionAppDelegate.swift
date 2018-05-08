@@ -112,13 +112,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate
             //Handle snooze action ID
             else if response.actionIdentifier == NotificationManager.customSnoozeActionID
             {
-                //Only snooze if the user has its token, meaning he left the session open
-                if (!canEnterApp())
-                {
-                    //take the user to the login screen
-                    takeUserToLogin()
-                    return
-                }
                 
                 //Parse the user input as a number
                 //let textResponse = response as! UNTextInputNotificationResponse
@@ -141,6 +134,15 @@ extension AppDelegate : UNUserNotificationCenterDelegate
                 //Create the new notification
                 NotificationManager.createTripNotification(tripName: tripName, tripDepartureTime: "\(String(hour)):\(String(minute))", tripDate: Date())
                 
+                //Notify user of snoozing
+                NotificationManager.createMessageNotification(message: "Your trip has been snoozed")
+                
+                //Only snooze if the user has its token, meaning he left the session open
+                if (!canEnterApp())
+                {
+                    //take the user to the login screen
+                    takeUserToLogin()
+                }
             }
         }
         //Handle message notification
@@ -165,7 +167,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate
     {
         //Go to login
         let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let login = mainStoryboard.instantiateViewController(withIdentifier: "loginView") as!  UIViewController
+        let login = mainStoryboard.instantiateViewController(withIdentifier: "loginView") as! UIViewController
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = login
         self.window?.makeKeyAndVisible()

@@ -67,24 +67,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     {
         print ("Drawing ciruit...")
         
-        let path = GMSMutablePath()
-        
-        //Draw circuit
-        for station in stationsArray
+        if (stationsArray.count > 0)
         {
+            let path = GMSMutablePath()
+            
+            //Draw circuit
+            for station in stationsArray
+            {
+                path.add(CLLocationCoordinate2D(latitude: station.getLat(), longitude: station.getLng()))
+                print("Drawing point at (lat:\(station.getLat()), \(station.getLng()))")
+            }
+            
+            //Close circuit
+            let station = stationsArray[0]
             path.add(CLLocationCoordinate2D(latitude: station.getLat(), longitude: station.getLng()))
-            print("Drawing point at (lat:\(station.getLat()), \(station.getLng()))")
+            
+            
+            let polyline = GMSPolyline(path: path)
+            polyline.strokeColor = .yellow
+            polyline.strokeWidth = 5.0
+            polyline.map = mapView
         }
-        
-        //Close circuit
-        let station = stationsArray[0]
-        path.add(CLLocationCoordinate2D(latitude: station.getLat(), longitude: station.getLng()))
-
-        
-        let polyline = GMSPolyline(path: path)
-        polyline.strokeColor = .yellow
-        polyline.strokeWidth = 5.0
-        polyline.map = mapView
     }
     
     /**

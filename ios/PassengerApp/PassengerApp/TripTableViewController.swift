@@ -263,6 +263,9 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 // if so, update an existing trip.
                 trips[selectedIndexPath.row] = trip
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                
+                
+                NotificationManager.createMessageNotification(message: "Trip \"\(trip.alarmName)\" was edited!")
             }
             //If the trip view comes from a notification, we are definetely not adding a new trip
             else if sourceViewController.bComesfromNotification

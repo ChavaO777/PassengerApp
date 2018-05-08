@@ -70,12 +70,12 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         
     }
     
-    //Called when the user gets the notification and acts upong it
+    //Called when the user gets the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        //Handle only trip notifications
+        //Handle trip notifications
         if response.notification.request.content.categoryIdentifier == NotificationManager.tripNotificationID {
 
             let vibration = (UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY)) as! Bool
@@ -143,6 +143,12 @@ extension AppDelegate : UNUserNotificationCenterDelegate
                 
             }
         }
+        //Handle message notification
+        else if response.notification.request.content.categoryIdentifier == NotificationManager.messageNotificationID
+        {
+            
+        }
+        
         completionHandler()
     }
     

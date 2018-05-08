@@ -14,6 +14,7 @@ import UserNotifications
 class NotificationManager
 {
     public static let tripNotificationID = "TRIP_NOTIFICATION"
+	public static let messageNotificationID = "MESSAGE_NOTIFICATION"
     public static let customRescheduleActionID = "RESCHEDULE_ACTION"
 	public static let customSnoozeActionID = "SNOOZE_ACTION"
 	private static var tripNotificationsInCenter = Int()
@@ -61,8 +62,16 @@ class NotificationManager
 															UNNotificationCategoryOptions.hiddenPreviewsShowTitle
 													])
 		
+		//notification type for doing simple message notifications
+		let messageNotificationCategory = UNNotificationCategory(identifier: messageNotificationID,
+												  actions: [],
+												  intentIdentifiers: [],
+												  options: [.hiddenPreviewsShowSubtitle,
+															.hiddenPreviewsShowTitle,
+															.allowInCarPlay])
+		
 		// Register the notification category for trips
-		center.setNotificationCategories([tripCategory])
+		center.setNotificationCategories([tripCategory, messageNotificationCategory])
         
     }
 	
@@ -104,6 +113,35 @@ class NotificationManager
 		//Create final date components
 		return finalComponents
 
+	}
+	
+	//Create a notification conveying a single message to the user (instead of making an alert that requires user input)
+	static func createMessageNotification(message: String)
+	{
+		updateUserConfigValues()
+		
+		let content = UNMutableNotificationContent()
+		
+		//Set content
+		content.title = NSString.localizedUserNotificationString(forKey: message, arguments: nil)
+		content.categoryIdentifier = messageNotificationID
+		
+		//Create time trigger
+		let targetDateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
+		//targetDateComp.second = targetDateComp.second + 1
+		
+		let trigger = UNCalendarNotificationTrigger(dateMatching: targetDateComp, repeats: false)
+
+		// Create the request object.
+		let request = UNNotificationRequest(identifier: "Msg_\(message)", content: content, trigger: trigger)
+		
+		// Schedule the request.
+		let center = UNUserNotificationCenter.current()
+		center.add(request) { (error : Error?) in
+			if let theError = error {
+				print(theError.localizedDescription)
+			}
+		}
 	}
 	
 	static func createTripNotification(tripName: String, tripDepartureTime: String, tripDate: Date)
@@ -149,7 +187,7 @@ class NotificationManager
     {
 		UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["Trip_\(tripName)"])
     }
-    
+	
     /*
     //Gets all our notifications still in the user´s notification center
     getDeliveredNotificationsWithCompletionHandler:

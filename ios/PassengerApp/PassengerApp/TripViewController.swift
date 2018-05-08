@@ -50,10 +50,8 @@ class TripViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         // Handle the text field’s user input through delegate callbacks.
         alarmNameTextField.delegate = self
-        
         
         //The trip property will only be non-nil when an existing trip is being edited.
         if let trip = trip {
@@ -81,6 +79,14 @@ class TripViewController: UIViewController, UITextFieldDelegate {
                 repetitionDays.append(false)
             }
         }
+        
+        
+        //Prevent date picker from entering past times, considering min anticipation minutes
+        let minutesAnt = UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE
+        var dateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
+        dateComp.minute = dateComp.minute! + minutesAnt + 1
+        datePicker.minimumDate = Calendar.current.date(from: dateComp)!
+        
         
         updateSaveButtonState()
         

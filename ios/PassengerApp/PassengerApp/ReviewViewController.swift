@@ -95,6 +95,8 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		sendReview(review)
         
 		updateDriver(selectedDriverIndex)
+        
+        NotificationManager.createMessageNotification(message: "Your review was sent!")
 		
 		closePopup()
 	}

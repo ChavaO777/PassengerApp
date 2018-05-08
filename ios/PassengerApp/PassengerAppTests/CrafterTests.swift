@@ -11,11 +11,15 @@ import XCTest
 
 class CrafterTests: XCTestCase {
     
+    var mapVC: MapViewController?;
     let TOTAL_EXISTENT_CRAFTERS = 3
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        mapVC =  mainStoryboard.instantiateViewController(withIdentifier: "mapView") as? MapViewController
     }
     
     override func tearDown() {
@@ -86,6 +90,82 @@ class CrafterTests: XCTestCase {
                     XCTFail()
                 }
             }
+        )
+        
+        // Wait for the expectation to be fullfilled, or time out
+        // after 5 seconds. This is where the test runner will pause.
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    func testCraftersAreSeenOnlyAfterASucessfulLogin() {
+        
+        //Mock the login -> Set a fake token
+        UserConfiguration.setConfiguration(key: UserConfiguration.TOKEN_KEY, value: "NON_EMPTY_VALID_MOCK_TOKEN" as Any)
+        
+        let expectation = self.expectation(description: "Painted crafters count")
+        
+        //Call the backend with the required parameters to try to login and handle the response later mapVC!.placeCraftersOnMap)
+        HTTPHandler.makeHTTPRequest(route: Crafter.ROUTE, httpMethod: "GET", httpBody: nil, callbackFunction: {data in
+            
+            self.mapVC!.placeCraftersOnMap(data: data)
+            
+            //Decode the response to the login call. Add the '?' after the 'try' to avoid the following error:
+            //Invalid conversion from throwing function of type '(_) throws -> ()' to non-throwing function type '(Data?) -> Void'
+            if UserConfiguration.isKeyPresentInUserDefaults(key: UserConfiguration.CRAFTER_COUNT_KEY)  {
+                
+                //The crafters should have been painted, thus this key should exist
+                XCTAssertTrue(UserConfiguration.isKeyPresentInUserDefaults(key: UserConfiguration.CRAFTER_COUNT_KEY))
+                let paintedCrafters = UserConfiguration.getConfiguration(key: UserConfiguration.CRAFTER_COUNT_KEY) as! Int
+                //The amount of painted crafters should be more than zero
+                XCTAssertTrue(paintedCrafters > 0)
+                
+                // Fullfil the expectation to let the test runner
+                // know that it's OK to proceed
+                expectation.fulfill()
+            }
+            else{
+                
+                XCTFail()
+            }
+        }
+        )
+        
+        // Wait for the expectation to be fullfilled, or time out
+        // after 5 seconds. This is where the test runner will pause.
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    func testCraftersAreNotSeenAfterAFailedLogin() {
+        
+        //Mock a failed login -> Set an empty token
+        UserConfiguration.setConfiguration(key: UserConfiguration.TOKEN_KEY, value: "" as Any)
+        
+        let expectation = self.expectation(description: "Painted crafters count")
+        
+        //Call the backend with the required parameters to try to login and handle the response later mapVC!.placeCraftersOnMap)
+        HTTPHandler.makeHTTPRequest(route: Crafter.ROUTE, httpMethod: "GET", httpBody: nil, callbackFunction: {data in
+            
+            self.mapVC!.placeCraftersOnMap(data: data)
+            
+            //Decode the response to the login call. Add the '?' after the 'try' to avoid the following error:
+            //Invalid conversion from throwing function of type '(_) throws -> ()' to non-throwing function type '(Data?) -> Void'
+            if UserConfiguration.isKeyPresentInUserDefaults(key: UserConfiguration.CRAFTER_COUNT_KEY)  {
+                
+                //The crafters should not have been painted
+                XCTAssertTrue(UserConfiguration.isKeyPresentInUserDefaults(key: UserConfiguration.CRAFTER_COUNT_KEY))
+                let paintedCrafters = UserConfiguration.getConfiguration(key: UserConfiguration.CRAFTER_COUNT_KEY) as! Int
+                //The amount of painted crafters should be exactly zero
+                XCTAssertTrue(paintedCrafters == 0)
+                
+                // Fullfil the expectation to let the test runner
+                // know that it's OK to proceed
+                expectation.fulfill()
+            }
+            else{
+                
+                XCTFail()
+            }
+        }
         )
         
         // Wait for the expectation to be fullfilled, or time out

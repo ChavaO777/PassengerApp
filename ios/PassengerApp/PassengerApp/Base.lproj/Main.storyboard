@@ -233,13 +233,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repetición" lineBreakMode="tailTruncation" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="1dR-8h-ZfO">
-                                <rect key="frame" x="37.5" y="421.5" width="337.5" height="25"/>
+                                <rect key="frame" x="37.5" y="421.5" width="337.5" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gAN-jg-mpj">
-                                <rect key="frame" x="10" y="180" width="356" height="221"/>
+                                <rect key="frame" x="10" y="180.5" width="356" height="220.5"/>
                                 <date key="date" timeIntervalSinceReferenceDate="546394647.80464005">
                                     <!--2018-04-26 00:17:27 +0000-->
                                 </date>
@@ -248,7 +248,7 @@
                                 </date>
                             </datePicker>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="S21-tQ-65y">
-                                <rect key="frame" x="0.0" y="469.5" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="470" width="375" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AcH-oQ-3Zt">
                                         <rect key="frame" x="0.0" y="0.0" width="53.5" height="30"/>
@@ -302,7 +302,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elige la hora y fecha de partida" lineBreakMode="tailTruncation" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="3qp-de-zkH">
-                                <rect key="frame" x="19" y="147" width="337.5" height="25"/>
+                                <rect key="frame" x="19" y="147" width="337.5" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

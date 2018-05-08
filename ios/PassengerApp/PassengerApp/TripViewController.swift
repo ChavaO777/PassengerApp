@@ -138,7 +138,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 			return false
 		}
 		
-        createTripFromInputData()
+        trip = createTripFromInputData(name: alarmNameTextField.text!, date: datePicker.date, repetitionDays: repetitionDays)
 		
         //Check the date and time is valid
         if (!isValidDateTime(date: datePicker.date))
@@ -146,7 +146,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
             let eh = TripViewController.EARLIEST_OFFICE_HOUR
             let lh = TripViewController.LATEST_OFFICE_HOUR
             
-            presentTripErrorAlert (message: "No se puede agendar un traslado fuera de las horas de trabajo (\(eh):00-\(lh):00)")
+            presentTripErrorAlert (message: )
             //when the user wants to re-edit his trip, prevent the segue from happening
             return false
         }
@@ -213,12 +213,23 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         redrawButtons()
     }
     
-    //Checks that the trip date is not in invalid hours, or in the past
+    //Checks that the trip date is inside office hours, not in the past, and considering anticipation minutes
     func isValidDateTime(date: Date) -> Bool
     {
         if (date < Date())
         {
-            return false
+            return "No se pueden agendar fechas en el pasado"
+        }
+        
+        var currentDateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
+        let anticipation = (UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY)) as Any!
+        let minutes = anticipation as! Int
+        currentDateComp.minute = currentDateComp.minute! + minutes
+        
+        
+        if (date <= Calendar.current.date(from: currentDateComp))
+        {
+            return "Por tu configuración, "
         }
         
         let dateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
@@ -226,14 +237,14 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         //Verify office hours
         if (dateComp.hour! >= TripViewController.LATEST_OFFICE_HOUR)
         {
-            return false
+            return "No se puede agendar un traslado fuera de las horas de trabajo (\(eh):00-\(lh):00)"
         }
         else if dateComp.hour! < TripViewController.EARLIEST_OFFICE_HOUR
         {
-            return false
+            return "No se puede agendar un traslado fuera de las horas de trabajo (\(eh):00-\(lh):00)"
         }
         
-        return true
+        return nil
     }
     
     //MARK: UITextFieldDelegate
@@ -255,15 +266,13 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		alarmNameTextField.resignFirstResponder()
 		return true
 	}
-	
-	//MARK: Private Methods
-	
+		
 	/*Checks whether the current trip saved in the instance is already present in the stored trips
 		Returns a string specifying which criteria a repeated trip infringed
         If there was no repeating trip, it returns nil
 		A trip is considered equal to another if the departure time is the same and (the repetition days are the same or they have the same date). Trips must have a unique name
 	*/
-	private func checkForTripRepetition() -> String?
+    func checkForTripRepetition() -> String?
 	{
         //Load trips
 		let trips = Trip.loadTrips()
@@ -310,17 +319,16 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	}
 	
     //Fills this VC's trip field with the data from the user
-    private func createTripFromInputData() {
+    func createTripFromInputData(name: String, date: Date, repetitionDays: [Bool]) -> Trip? {
         //Retrieve inputed data
-        let alarmName = alarmNameTextField.text ?? ""
         
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "es_mx")
         formatter.dateFormat = "HH:mm"
-        let departureTime = formatter.string(from: datePicker.date)
+        let departureTime = formatter.string(from: date)
         
         // Set the trip to be passed to TripTableViewController after the unwind segue.
-        trip = Trip(alarmName: alarmName, repetitionDays: repetitionDays, departureTime: departureTime, alarmDate: datePicker.date, active: true)
+        return Trip(alarmName: name, repetitionDays: repetitionDays, departureTime: departureTime, alarmDate: date, active: true)
     }
     
     //Allows saving only if the trip name is not empty

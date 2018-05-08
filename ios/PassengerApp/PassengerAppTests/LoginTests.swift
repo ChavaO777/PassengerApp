@@ -106,11 +106,11 @@ class LoginTests: XCTestCase {
         parameters["id"] = username
         parameters["password"] = password
       
-        let expectation = self.expectation(description: "Failed login")
+        let expectation = self.expectation(description: "Sucessful login")
         
         //Call the backend with the required parameters to try to login and handle the response later
       HTTPHandler.makeHTTPPostRequest(route: Passenger.ROUTE, parameters: parameters, callbackFunction: {data in
-         
+        
             //Decode the response to the login call
             if let loginResponseDictionary = try? JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any] {
                

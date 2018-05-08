@@ -95,9 +95,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
      */
     func placeCraftersOnMap(data: Data?) {
         
+        //If the user hasn't logged in, the token is empty. In such a case, don't paint the crafters on the map
+        if(!UserConfiguration.isKeyPresentInUserDefaults(key: UserConfiguration.TOKEN_KEY) || (UserConfiguration.getConfiguration(key: UserConfiguration.TOKEN_KEY) as! String).count == 0) {
+            
+            UserConfiguration.setConfiguration(key: UserConfiguration.CRAFTER_COUNT_KEY, value: 0)
+            return
+        }
+        
         do{
             //Parse the data into an array of Crafter structs
             let craftersArray = try JSONDecoder().decode([Crafter].self, from: data!)
+            UserConfiguration.setConfiguration(key: UserConfiguration.CRAFTER_COUNT_KEY, value: craftersArray.count)
             
             //Iterate on the Crafter struct array
             for crafter in craftersArray {

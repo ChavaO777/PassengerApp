@@ -82,7 +82,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         		//Prepare new review object
 		let driver_id = drivers[selectedDriverIndex].id
 		let passenger_id = (UserConfiguration.getConfiguration(key: UserConfiguration.PASSENGER_KEY)) as! String
-		let crafter_id = crafters[selectedCrafterIndex].id
+		let crafter_id = crafters[selectedCrafterIndex].getId()
         let comment = commentTextField.text == "Deja un comentario (opcional)" ? "" : commentTextField.text
 		let score = rating.rating
 		let kindness_prize = kindnessPrizeButton.isSelected
@@ -273,7 +273,7 @@ class ReviewViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 		}
 		else if (pickerView.tag == 1)
 		{
-			return (crafters[row].name)
+			return (crafters[row].getName())
 		}
 		else {
 			fatalError("Unidentified picker view")

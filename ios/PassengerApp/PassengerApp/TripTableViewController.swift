@@ -11,6 +11,8 @@ import os.log
 
 class TripTableViewController: UITableViewController, InteractiveTableViewCellDelegate {
 
+    static let MAX_ALLOWED_TRIPS = 15
+    
     //MARK: Properties
     
     var trips = [Trip]()
@@ -155,8 +157,31 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
         }
     }
     
+    //Confirms whether the user can still add a new trip without exceding the maximum
+    func canAddMoreTrips(currentTrips: Int) -> Bool{
+            return currentTrips < TripTableViewController.MAX_ALLOWED_TRIPS
+    }
     
     // MARK: - Navigation
+    
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool
+    {
+        //Ensures that a trip can only be added if the maximum has not been exceded
+        if (identifier == "addTripSegue")
+        {
+            let bCanDo = canAddMoreTrips(currentTrips: trips.count)
+            
+            //Indicate user with an alert, that he can add more trips
+            if !bCanDo
+            {
+                NotificationManager.createStandardAlert(delegate: self, withMessage: "No puedes agregar más de \(trips.count) traslados.")
+            }
+            
+            return bCanDo
+        }
+        
+        return true
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

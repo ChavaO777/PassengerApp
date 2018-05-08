@@ -140,8 +140,8 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		
         createTripFromInputData()
 		
-        
-        if (!isValidTime(date: datePicker.date))
+        //Check the date and time is valid
+        if (!isValidDateTime(date: datePicker.date))
         {
             let eh = TripViewController.EARLIEST_OFFICE_HOUR
             let lh = TripViewController.LATEST_OFFICE_HOUR
@@ -170,6 +170,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	}
 	
     //Presents an alert to the user, when a trip cannot be added or edited correctly
+    //The user can chose to go back an edit the trip, or discard and go back to the trip list
     func presentTripErrorAlert (message: String)
     {
         //If it is, ask the user for an action
@@ -213,7 +214,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
     }
     
     //Checks that the trip date is not in invalid hours, or in the past
-    func isValidTime(date: Date) -> Bool
+    func isValidDateTime(date: Date) -> Bool
     {
         if (date < Date())
         {

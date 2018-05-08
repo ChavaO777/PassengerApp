@@ -7,7 +7,7 @@
 //  Copyright © 2018 Comonfort. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import UserNotifications
 
 
@@ -79,6 +79,19 @@ class NotificationManager
 	@objc static func handleTripRepetition (notification: Notification)
 	{
 		
+	}
+	
+	//Creates an alert with the given message. The user has to press the OK option to dismiss it
+	static func createStandardAlert(delegate: UIViewController, withMessage message: String)
+	{
+		let alert = UIAlertController (title: "Alerta",
+									   message: message,
+									   preferredStyle: .alert)
+		let okAction = UIAlertAction (title: "Ok", style: .default, handler: nil)
+		
+		alert.addAction (okAction)
+		
+		delegate.present (alert, animated: true, completion: nil)
 	}
 	
 	static func countDeliveredNotifications() -> NSNumber

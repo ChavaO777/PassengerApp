@@ -48,6 +48,12 @@ class UserConfiguration {
     static func getConfiguration(key: String) -> Any {
         return UserDefaults.standard.object(forKey: key) as Any
     }
+    
+    //Because swift is stupid and keeps throwing an uncatchable exception
+    static func getAnticipationMinutes() -> Int
+    {
+        return UserDefaults.standard.integer(forKey: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY)
+    }
         
     // MARK: - User Defaults
     

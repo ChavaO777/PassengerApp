@@ -84,13 +84,10 @@ class TripViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
-        
         //Prevent date picker from entering past times, considering max anticipation minutes
-        let minutesAnt = UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE
         var dateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
-        dateComp.minute = dateComp.minute! + minutesAnt
+        dateComp.minute = dateComp.minute! + UserConfiguration.getAnticipationMinutes()
         datePicker.minimumDate = Calendar.current.date(from: dateComp)!
-        
         
         updateSaveButtonState()
         
@@ -141,12 +138,9 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         trip = createTripFromInputData(name: alarmNameTextField.text!, date: datePicker.date, repetitionDays: repetitionDays)
 		
         //Check the date and time is valid
-        if (!isValidDateTime(date: datePicker.date))
+        if let validityMsg = isValidDateTime(date: datePicker.date)
         {
-            let eh = TripViewController.EARLIEST_OFFICE_HOUR
-            let lh = TripViewController.LATEST_OFFICE_HOUR
-            
-            presentTripErrorAlert (message: )
+            presentTripErrorAlert (message: validityMsg)
             //when the user wants to re-edit his trip, prevent the segue from happening
             return false
         }
@@ -159,7 +153,6 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 			//if we are adding a new trip, check if there is already a trip with the same values
 			if let message = checkForTripRepetition ()
 			{
-                
                 presentTripErrorAlert (message: message)
 				//when the user wants to re-edit his trip, prevent the segue from happening
 				return false
@@ -214,7 +207,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
     }
     
     //Checks that the trip date is inside office hours, not in the past, and considering anticipation minutes
-    func isValidDateTime(date: Date) -> Bool
+    func isValidDateTime(date: Date) -> String?
     {
         if (date < Date())
         {
@@ -222,19 +215,21 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         }
         
         var currentDateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
-        let anticipation = (UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY)) as Any!
-        let minutes = anticipation as! Int
+
+        let minutes = UserConfiguration.getAnticipationMinutes()
         currentDateComp.minute = currentDateComp.minute! + minutes
         
         
-        if (date <= Calendar.current.date(from: currentDateComp))
+        if (date <= Calendar.current.date(from: currentDateComp)!)
         {
-            return "Por tu configuración, "
+            return "Por tu configuración, debes elegir una hora que considere los minutos de anticipación (\(minutes) min.) para tu traslado."
         }
         
         let dateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         
         //Verify office hours
+        let eh = TripViewController.EARLIEST_OFFICE_HOUR
+        let lh = TripViewController.LATEST_OFFICE_HOUR
         if (dateComp.hour! >= TripViewController.LATEST_OFFICE_HOUR)
         {
             return "No se puede agendar un traslado fuera de las horas de trabajo (\(eh):00-\(lh):00)"

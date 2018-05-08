@@ -97,7 +97,7 @@ class StationTest: XCTestCase {
         )
         
         // Wait for the expectation to be fullfilled, or time out
-        // after 5 seconds. This is where the test runner will pause.
-        waitForExpectations(timeout: 5, handler: nil)
+        // after 2 seconds. This is where the test runner will pause.
+        waitForExpectations(timeout: 2, handler: nil)
     }
 }

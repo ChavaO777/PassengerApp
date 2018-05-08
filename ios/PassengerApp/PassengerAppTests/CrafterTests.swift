@@ -11,6 +11,8 @@ import XCTest
 
 class CrafterTests: XCTestCase {
     
+    let TOTAL_EXISTENT_CRAFTERS = 3
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -73,7 +75,7 @@ class CrafterTests: XCTestCase {
                 if let craftersArray = try? JSONDecoder().decode([Crafter].self, from: data!) {
                     
                     //The array should not be empty
-                    XCTAssertTrue(craftersArray.count > 0)
+                    XCTAssertTrue(craftersArray.count == self.TOTAL_EXISTENT_CRAFTERS)
                     
                     // Fullfil the expectation to let the test runner
                     // know that it's OK to proceed

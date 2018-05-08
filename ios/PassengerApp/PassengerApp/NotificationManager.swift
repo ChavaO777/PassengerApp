@@ -196,20 +196,19 @@ class NotificationManager
 		let notifications = UserConfiguration.getConfiguration (key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY)
 		let sound = UserConfiguration.getConfiguration(key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)
 		let vibration = UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY)
-		let minutes = UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY)
+		let minutes = UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY) as Any!
 		
 		bActiveNotifications = notifications as! Bool
 		bCanHaveSound = sound as! Bool
 		bCanHaveVibration = vibration as! Bool
 		
-//		do{
-//			anticipationNotificationMinutes = minutes as! Int
-//		}
-//		catch let error{
-		
-//			print(error)
+		do{
+			anticipationNotificationMinutes = minutes as! Int
+		}
+		catch let error{
+			print(error)
 			//hardcoding. TODO: Fix this!
-			anticipationNotificationMinutes = 1
-//		}
+			//anticipationNotificationMinutes = 1
+		}
 	}
 }

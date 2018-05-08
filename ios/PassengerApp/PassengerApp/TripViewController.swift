@@ -21,6 +21,10 @@ class TripViewController: UIViewController, UITextFieldDelegate {
     private static let BUTTON_UNSELECTED_BKG_COLOR = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
     private static let BUTTON_UNSELECTED_TINT_COLOR = UIColor(red: 0.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 255.0/255.0)
     
+    //The office hours that the crafters are in service, in 24h format
+    private static let LATEST_OFFICE_HOUR = 20
+    private static let EARLIEST_OFFICE_HOUR = 7
+    
     
 	/*
 	This value is either passed by `TripTableViewController` in `prepare(for:sender:)`
@@ -81,10 +85,10 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         }
         
         
-        //Prevent date picker from entering past times, considering min anticipation minutes
-        let minutesAnt = UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE
+        //Prevent date picker from entering past times, considering max anticipation minutes
+        let minutesAnt = UserConfiguration.DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE
         var dateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
-        dateComp.minute = dateComp.minute! + minutesAnt + 1
+        dateComp.minute = dateComp.minute! + minutesAnt
         datePicker.minimumDate = Calendar.current.date(from: dateComp)!
         
         
@@ -136,36 +140,27 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		
         createTripFromInputData()
 		
-		
+        
+        if (!isValidTime(date: datePicker.date))
+        {
+            let eh = TripViewController.EARLIEST_OFFICE_HOUR
+            let lh = TripViewController.LATEST_OFFICE_HOUR
+            
+            presentTripErrorAlert (message: "No se puede agendar un traslado fuera de las horas de trabajo (\(eh):00-\(lh):00)")
+            //when the user wants to re-edit his trip, prevent the segue from happening
+            return false
+        }
+        
 		//Check if this view was called to add a new trip and not to edit one
         let isPresentingInAddTripMode = triggeredBySegue == "addTripSegue"
     
 		if isPresentingInAddTripMode
 		{
 			//if we are adding a new trip, check if there is already a trip with the same values
-            
 			if let message = checkForTripRepetition ()
 			{
-                //If it is, ask the user for an action
-				let alert = UIAlertController(title: "Alerta",
-											  message: message,
-											  preferredStyle: .alert)
-				
-				// Discard current trip button
-				let discardAction = UIAlertAction(title: "Descartar", style: .default, handler: { (action) -> Void in
-					// Leave the current trip, go back to the trip list screen
-					self.dismiss(animated: true, completion: nil)
-					// neither the prepare(for:sender:) method nor the unwind action method are called, so it won´t save the trip
-				})
-				// Cancel button
-				let cancel = UIAlertAction(title: "Editar", style: .cancel, handler: { (action) -> Void in })
-				
-				
-				// Add action buttons and present the Alert
-				alert.addAction(discardAction)
-				alert.addAction(cancel)
-				present(alert, animated: true, completion: nil)
-				
+                
+                presentTripErrorAlert (message: message)
 				//when the user wants to re-edit his trip, prevent the segue from happening
 				return false
 			}
@@ -174,6 +169,30 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		return true
 	}
 	
+    //Presents an alert to the user, when a trip cannot be added or edited correctly
+    func presentTripErrorAlert (message: String)
+    {
+        //If it is, ask the user for an action
+        let alert = UIAlertController(title: "Alerta",
+                                      message: message,
+                                      preferredStyle: .alert)
+        
+        // Discard current trip button
+        let discardAction = UIAlertAction(title: "Descartar", style: .default, handler: { (action) -> Void in
+            // Leave the current trip, go back to the trip list screen
+            self.dismiss(animated: true, completion: nil)
+            // neither the prepare(for:sender:) method nor the unwind action method are called, so it won´t save the trip
+        })
+        // Cancel button
+        let cancel = UIAlertAction(title: "Editar", style: .cancel, handler: { (action) -> Void in })
+        
+        
+        // Add action buttons and present the Alert
+        alert.addAction(discardAction)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+    
     // This method lets you configure a view controller before it's presented.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -191,6 +210,29 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         repetitionDays[button.tag] = !repetitionDays[button.tag]
         
         redrawButtons()
+    }
+    
+    //Checks that the trip date is not in invalid hours, or in the past
+    func isValidTime(date: Date) -> Bool
+    {
+        if (date < Date())
+        {
+            return false
+        }
+        
+        let dateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        
+        //Verify office hours
+        if (dateComp.hour! >= TripViewController.LATEST_OFFICE_HOUR)
+        {
+            return false
+        }
+        else if dateComp.hour! < TripViewController.EARLIEST_OFFICE_HOUR
+        {
+            return false
+        }
+        
+        return true
     }
     
     //MARK: UITextFieldDelegate

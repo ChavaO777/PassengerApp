@@ -148,7 +148,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         //Handle message notification
         else if response.notification.request.content.categoryIdentifier == NotificationManager.messageNotificationID
         {
-            
+            //Removes the delivered notification, as it shouldn't show on the center
+            let requestID = response.notification.request.identifier
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [requestID])
         }
         
         completionHandler()

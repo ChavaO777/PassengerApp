@@ -60,4 +60,34 @@ class CrafterTests: XCTestCase {
             print(jsonError)
         }
     }
+    
+    func testGetCraftersFromServer() {
+        
+        let expectation = self.expectation(description: "Crafter retrieval from the server")
+        
+        //Call the backend with the required parameters to try to login and handle the response later
+        HTTPHandler.makeHTTPRequest(route: Crafter.ROUTE, httpMethod: "GET", httpBody: nil, callbackFunction: {data in
+            
+                //Decode the response to the login call. Add the '?' after the 'try' to avoid the following error:
+                //Invalid conversion from throwing function of type '(_) throws -> ()' to non-throwing function type '(Data?) -> Void'
+                if let craftersArray = try? JSONDecoder().decode([Crafter].self, from: data!) {
+                    
+                    //The array should not be empty
+                    XCTAssertTrue(craftersArray.count > 0)
+                    
+                    // Fullfil the expectation to let the test runner
+                    // know that it's OK to proceed
+                    expectation.fulfill()
+                }
+                else{
+                    
+                    XCTFail()
+                }
+            }
+        )
+        
+        // Wait for the expectation to be fullfilled, or time out
+        // after 5 seconds. This is where the test runner will pause.
+        waitForExpectations(timeout: 5, handler: nil)
+    }
 }

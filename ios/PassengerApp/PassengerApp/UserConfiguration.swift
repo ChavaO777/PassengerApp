@@ -23,13 +23,14 @@ class UserConfiguration {
     static let PASSENGER_FIRST_NAME = "passenger_first_name"
     static let TOKEN_KEY = "token"
     static let EXPIRATION_TIME_KEY = "expirationTime"
+    static let CRAFTER_COUNT_KEY = "crafter_count"
     
     //Constants for the default values of the UserDefaults keys
     static let DEFAULT_SWITCH_VALUE = true
     static let DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MIN_VALUE = 1
     static let DEFAULT_NOTIFICATION_ANTICIPATION_MINUTES_MAX_VALUE = 5
     
-    /**
+    /*
      *  Function to set a user configuration variable
      *
      *  @param key the key corresponding to that variable
@@ -95,7 +96,7 @@ class UserConfiguration {
      *  is to be checked
      *  @returns True if the key exists in the UserDefaults. Else, false
      */
-    private static func isKeyPresentInUserDefaults(key: String) -> Bool {
+    public static func isKeyPresentInUserDefaults(key: String) -> Bool {
         
         return UserDefaults.standard.object(forKey: key) != nil
     }

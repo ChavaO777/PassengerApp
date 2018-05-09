@@ -7,13 +7,14 @@
 //  Copyright © 2018 Comonfort. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import UserNotifications
 
 
 class NotificationManager
 {
     public static let tripNotificationID = "TRIP_NOTIFICATION"
+	public static let messageNotificationID = "MESSAGE_NOTIFICATION"
     public static let customRescheduleActionID = "RESCHEDULE_ACTION"
 	public static let customSnoozeActionID = "SNOOZE_ACTION"
 	private static var tripNotificationsInCenter = Int()
@@ -61,8 +62,16 @@ class NotificationManager
 															UNNotificationCategoryOptions.hiddenPreviewsShowTitle
 													])
 		
+		//notification type for doing simple message notifications
+		let messageNotificationCategory = UNNotificationCategory(identifier: messageNotificationID,
+												  actions: [],
+												  intentIdentifiers: [],
+												  options: [.hiddenPreviewsShowSubtitle,
+															.hiddenPreviewsShowTitle,
+															.allowInCarPlay])
+		
 		// Register the notification category for trips
-		center.setNotificationCategories([tripCategory])
+		center.setNotificationCategories([tripCategory, messageNotificationCategory])
         
     }
 	
@@ -70,6 +79,19 @@ class NotificationManager
 	@objc static func handleTripRepetition (notification: Notification)
 	{
 		
+	}
+	
+	//Creates an alert with the given message. The user has to press the OK option to dismiss it
+	static func createStandardAlert(delegate: UIViewController, withMessage message: String)
+	{
+		let alert = UIAlertController (title: "Alerta",
+									   message: message,
+									   preferredStyle: .alert)
+		let okAction = UIAlertAction (title: "Ok", style: .default, handler: nil)
+		
+		alert.addAction (okAction)
+		
+		delegate.present (alert, animated: true, completion: nil)
 	}
 	
 	static func countDeliveredNotifications() -> NSNumber
@@ -104,6 +126,33 @@ class NotificationManager
 		//Create final date components
 		return finalComponents
 
+	}
+	
+	//Create a notification conveying a single message to the user (instead of making an alert that requires user input)
+	static func createMessageNotification(message: String)
+	{
+		let content = UNMutableNotificationContent()
+		
+		//Set content
+		content.title = NSString.localizedUserNotificationString(forKey: message, arguments: nil)
+		content.categoryIdentifier = messageNotificationID
+		
+		//Create time trigger
+		var targetDateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
+		targetDateComp.second = targetDateComp.second! + 1
+		
+		let trigger = UNCalendarNotificationTrigger(dateMatching: targetDateComp, repeats: false)
+
+		// Create the request object.
+		let request = UNNotificationRequest(identifier: "Msg_\(message)", content: content, trigger: trigger)
+		
+		// Schedule the request.
+		let center = UNUserNotificationCenter.current()
+		center.add(request) { (error : Error?) in
+			if let theError = error {
+				print(theError.localizedDescription)
+			}
+		}
 	}
 	
 	static func createTripNotification(tripName: String, tripDepartureTime: String, tripDate: Date)
@@ -149,7 +198,7 @@ class NotificationManager
     {
 		UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["Trip_\(tripName)"])
     }
-    
+	
     /*
     //Gets all our notifications still in the user´s notification center
     getDeliveredNotificationsWithCompletionHandler:
@@ -160,20 +209,13 @@ class NotificationManager
 		let notifications = UserConfiguration.getConfiguration (key: UserConfiguration.NOTIFICATIONS_USER_DEFAULTS_KEY)
 		let sound = UserConfiguration.getConfiguration(key: UserConfiguration.SOUND_USER_DEFAULTS_KEY)
 		let vibration = UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY)
-		let minutes = UserConfiguration.getConfiguration(key: UserConfiguration.NOTIFICATION_ANTICIPATION_MINUTES_KEY)
+		let minutes = UserConfiguration.getAnticipationMinutes()
 		
 		bActiveNotifications = notifications as! Bool
 		bCanHaveSound = sound as! Bool
 		bCanHaveVibration = vibration as! Bool
-		
-//		do{
-//			anticipationNotificationMinutes = minutes as! Int
-//		}
-//		catch let error{
-		
-//			print(error)
+		anticipationNotificationMinutes = minutes
 			//hardcoding. TODO: Fix this!
-			anticipationNotificationMinutes = 1
-//		}
+			//anticipationNotificationMinutes = 1
 	}
 }

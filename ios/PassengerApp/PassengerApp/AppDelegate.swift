@@ -10,11 +10,14 @@ import UIKit
 import GoogleMaps
 import UserNotifications
 
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    let APP_LAUNCH_TIME_KEY = "APP_LAUNCH_TIME_KEY"
+    let START_TIME:CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -33,8 +36,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //When application loads, the badge counter should restart
         UIApplication.shared.applicationIconBadgeNumber = 0
+    
+        setAppLaunchTime()
         
         return true
+    }
+    
+    func setAppLaunchTime() {
+        
+        DispatchQueue.main.async() { () -> Void in
+            let appLaunchTime = CFAbsoluteTimeGetCurrent() - self.START_TIME
+            UserDefaults.standard.set(appLaunchTime, forKey: self.APP_LAUNCH_TIME_KEY)
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

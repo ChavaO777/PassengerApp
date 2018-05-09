@@ -52,7 +52,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
      *
      * @returns True, if either credential is empty. Else, false.
      */
-    private func credentialsAreEmpty() -> Bool {
+    public func credentialsAreEmpty() -> Bool {
         
         let userIdText = userId.text
         let userPasswordText = userPassword.text
@@ -64,7 +64,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     /**
      *  Function the handle the login response from the backend
      */
-    private func handleLoginResponse(data: Data?) -> Void {
+    public func handleLoginResponse(data: Data?) -> Void {
         
         //Decode the response to the login call
         let loginResponseDictionary = try? JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
@@ -94,7 +94,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     /**
      *  Function to store the logged-in passenger's data in the UserDefaults
      */
-    private func storePassengerData(loginResponseDictionary: [String: Any]) -> Void {
+    public func storePassengerData(loginResponseDictionary: [String: Any]) -> Void {
         
         let passenger = loginResponseDictionary[UserConfiguration.PASSENGER_KEY]! as! Dictionary<String, AnyObject>
         
@@ -115,7 +115,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
      *
      *  @param message the message that will be displayed in the alert
      */
-    private func alertAboutFailedAuthentication(message: String) {
+    public func alertAboutFailedAuthentication(message: String) {
         
         //Create an alert
         let alert = UIAlertController(title: "Alerta",

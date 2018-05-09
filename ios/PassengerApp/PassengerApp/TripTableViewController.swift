@@ -11,6 +11,8 @@ import os.log
 
 class TripTableViewController: UITableViewController, InteractiveTableViewCellDelegate {
 
+    static let MAX_ALLOWED_TRIPS = 15
+    
     //MARK: Properties
     
     var trips = [Trip]()
@@ -155,8 +157,31 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
         }
     }
     
+    //Confirms whether the user can still add a new trip without exceding the maximum
+    func canAddMoreTrips(currentTrips: Int) -> Bool{
+            return currentTrips < TripTableViewController.MAX_ALLOWED_TRIPS
+    }
     
     // MARK: - Navigation
+    
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool
+    {
+        //Ensures that a trip can only be added if the maximum has not been exceded
+        if (identifier == "addTripSegue")
+        {
+            let bCanDo = canAddMoreTrips(currentTrips: trips.count)
+            
+            //Indicate user with an alert, that he can add more trips
+            if !bCanDo
+            {
+                NotificationManager.createStandardAlert(delegate: self, withMessage: "No puedes agregar más de \(trips.count) traslados.")
+            }
+            
+            return bCanDo
+        }
+        
+        return true
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -237,7 +262,7 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
         }
     }
- 
+    //Returns the index of the trip array where the particular trip can be found
     func findIndexFromTrip (_ trip: Trip) -> Int
     {
         for i in 0..<trips.count
@@ -263,6 +288,9 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 // if so, update an existing trip.
                 trips[selectedIndexPath.row] = trip
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                
+                
+                NotificationManager.createMessageNotification(message: "Trip \"\(trip.alarmName)\" was edited!")
             }
             //If the trip view comes from a notification, we are definetely not adding a new trip
             else if sourceViewController.bComesfromNotification
@@ -279,6 +307,8 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 
                 //Reset flag
                 sourceViewController.bComesfromNotification = false
+                
+                NotificationManager.createMessageNotification(message: "Trip \"\(trip.alarmName)\" was edited!")
             }
             else
             {
@@ -288,6 +318,9 @@ class TripTableViewController: UITableViewController, InteractiveTableViewCellDe
                 
                 //Draw new cell
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
+                
+                NotificationManager.createMessageNotification(message: "Trip \"\(trip.alarmName)\" was added!")
+
             }
             
             //Save changes

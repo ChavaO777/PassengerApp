@@ -70,12 +70,12 @@ extension AppDelegate : UNUserNotificationCenterDelegate
         
     }
     
-    //Called when the user gets the notification and acts upong it
+    //Called when the user gets the notification
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        //Handle only trip notifications
+        //Handle trip notifications
         if response.notification.request.content.categoryIdentifier == NotificationManager.tripNotificationID {
 
             let vibration = (UserConfiguration.getConfiguration(key: UserConfiguration.VIBRATION_USER_DEFAULTS_KEY)) as! Bool
@@ -112,13 +112,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate
             //Handle snooze action ID
             else if response.actionIdentifier == NotificationManager.customSnoozeActionID
             {
-                //Only snooze if the user has its token, meaning he left the session open
-                if (!canEnterApp())
-                {
-                    //take the user to the login screen
-                    takeUserToLogin()
-                    return
-                }
                 
                 //Parse the user input as a number
                 //let textResponse = response as! UNTextInputNotificationResponse
@@ -141,8 +134,25 @@ extension AppDelegate : UNUserNotificationCenterDelegate
                 //Create the new notification
                 NotificationManager.createTripNotification(tripName: tripName, tripDepartureTime: "\(String(hour)):\(String(minute))", tripDate: Date())
                 
+                //Notify user of snoozing
+                NotificationManager.createMessageNotification(message: "Your trip has been snoozed")
+                
+                //Only snooze if the user has its token, meaning he left the session open
+                if (!canEnterApp())
+                {
+                    //take the user to the login screen
+                    takeUserToLogin()
+                }
             }
         }
+        //Handle message notification
+        else if response.notification.request.content.categoryIdentifier == NotificationManager.messageNotificationID
+        {
+            //Removes the delivered notification, as it shouldn't show on the center
+            let requestID = response.notification.request.identifier
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [requestID])
+        }
+        
         completionHandler()
     }
     
@@ -159,7 +169,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate
     {
         //Go to login
         let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let login = mainStoryboard.instantiateViewController(withIdentifier: "loginView") as!  UIViewController
+        let login = mainStoryboard.instantiateViewController(withIdentifier: "loginView") as! UIViewController
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = login
         self.window?.makeKeyAndVisible()

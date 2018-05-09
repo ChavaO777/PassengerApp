@@ -28,12 +28,14 @@
 		DE409B032097854100F371E4 /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE409B022097854100F371E4 /* Driver.swift */; };
 		DE409B05209786ED00F371E4 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE409B04209786ED00F371E4 /* Review.swift */; };
 		DE923A0F2098C31100366F48 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE923A0E2098C31100366F48 /* NotificationManager.swift */; };
+		DED236CD20A23364006DACBC /* TripVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED236CC20A23364006DACBC /* TripVCTests.swift */; };
 		DED4BA68206B395200834B8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA67206B395200834B8D /* AppDelegate.swift */; };
 		DED4BA6D206B395200834B8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DED4BA6B206B395200834B8D /* Main.storyboard */; };
 		DED4BA6F206B395200834B8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DED4BA6E206B395200834B8D /* Assets.xcassets */; };
 		DED4BA72206B395200834B8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DED4BA70206B395200834B8D /* LaunchScreen.storyboard */; };
 		DED4BA7D206B395200834B8D /* PassengerAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA7C206B395200834B8D /* PassengerAppTests.swift */; };
 		DED4BA88206B395200834B8D /* PassengerAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA87206B395200834B8D /* PassengerAppUITests.swift */; };
+		DEEA1F89209E91B200D287C0 /* TripsTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA1F88209E91B200D287C0 /* TripsTesting.swift */; };
 		DEEEE3B92098F819005BBD8A /* ExtensionAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEEE3B82098F819005BBD8A /* ExtensionAppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +81,7 @@
 		DE409B04209786ED00F371E4 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		DE5ACFD02097C68300C985AC /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		DE923A0E2098C31100366F48 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; usesTabs = 1; };
+		DED236CC20A23364006DACBC /* TripVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripVCTests.swift; sourceTree = "<group>"; };
 		DED4BA64206B395200834B8D /* PassengerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassengerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED4BA67206B395200834B8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DED4BA6C206B395200834B8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,6 +94,7 @@
 		DED4BA83206B395200834B8D /* PassengerAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassengerAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED4BA87206B395200834B8D /* PassengerAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassengerAppUITests.swift; sourceTree = "<group>"; };
 		DED4BA89206B395200834B8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEEA1F88209E91B200D287C0 /* TripsTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTesting.swift; sourceTree = "<group>"; };
 		DEEEE3B82098F819005BBD8A /* ExtensionAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,6 +208,8 @@
 		DED4BA7B206B395200834B8D /* PassengerAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				DED236CC20A23364006DACBC /* TripVCTests.swift */,
+				DEEA1F88209E91B200D287C0 /* TripsTesting.swift */,
 				DED4BA7C206B395200834B8D /* PassengerAppTests.swift */,
 				DED4BA7E206B395200834B8D /* Info.plist */,
 			);
@@ -426,6 +432,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DED4BA7D206B395200834B8D /* PassengerAppTests.swift in Sources */,
+				DEEA1F89209E91B200D287C0 /* TripsTesting.swift in Sources */,
+				DED236CD20A23364006DACBC /* TripVCTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,10 +623,12 @@
 		};
 		DED4BA90206B395200834B8D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 744A1B6D1E84E84410C72B14 /* Pods-PassengerApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BA75AATBD3;
 				INFOPLIST_FILE = PassengerAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Co.PassengerAppTests;
@@ -635,6 +645,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BA75AATBD3;
 				INFOPLIST_FILE = PassengerAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Co.PassengerAppTests;

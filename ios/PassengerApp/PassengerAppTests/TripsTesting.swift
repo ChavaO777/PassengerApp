@@ -8,7 +8,7 @@
 
 import XCTest
 import UIKit
-//@testable import Trip
+@testable import PassengerApp
 
 class TripsTests: XCTestCase {
     

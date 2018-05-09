@@ -86,7 +86,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         
         //Prevent date picker from entering past times, considering max anticipation minutes
         var dateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
-        dateComp.minute = dateComp.minute! + UserConfiguration.getAnticipationMinutes()
+        dateComp.minute = dateComp.minute! + UserConfiguration.getAnticipationMinutes() + 1
         datePicker.minimumDate = Calendar.current.date(from: dateComp)!
         
         updateSaveButtonState()
@@ -135,10 +135,11 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 			return false
 		}
 		
-        trip = createTripFromInputData(name: alarmNameTextField.text!, date: datePicker.date, repetitionDays: repetitionDays)
-		
+        let depTime = getHourMinute(fromDate: datePicker.date)
+        trip = Trip(alarmName: alarmNameTextField.text!, repetitionDays: repetitionDays, departureTime: depTime, alarmDate: datePicker.date, active: true)!
+        
         //Check the date and time is valid
-        if let validityMsg = isValidDateTime(date: datePicker.date)
+        if let validityMsg = checkValidDateTime(date: datePicker.date)
         {
             presentTripErrorAlert (message: validityMsg)
             //when the user wants to re-edit his trip, prevent the segue from happening
@@ -151,7 +152,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		if isPresentingInAddTripMode
 		{
 			//if we are adding a new trip, check if there is already a trip with the same values
-			if let message = checkForTripRepetition ()
+            if let message = checkTripRepetition (trip: trip!)
 			{
                 presentTripErrorAlert (message: message)
 				//when the user wants to re-edit his trip, prevent the segue from happening
@@ -206,8 +207,31 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         redrawButtons()
     }
     
+    //MARK: UITextFieldDelegate
+	
+	//Disable saving while in mid-edit
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		// Disable the Save button while editing.
+		saveButton.isEnabled = false
+	}
+	
+	//Check if should be reenabled when something has being introduced
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		updateSaveButtonState()
+		navigationItem.title = textField.text
+	}
+	
+    //To allow the user to stop focusing on the text field
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		alarmNameTextField.resignFirstResponder()
+		return true
+	}
+		
+    //MARK: - Testable methods for input validation
+    
     //Checks that the trip date is inside office hours, not in the past, and considering anticipation minutes
-    func isValidDateTime(date: Date) -> String?
+    //Returns a string indicating the issue it breaks, ready to be sent to the user. Returns nil if the date is valid
+    func checkValidDateTime(date: Date) -> String?
     {
         if (date < Date())
         {
@@ -215,7 +239,7 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         }
         
         var currentDateComp = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
-
+        
         let minutes = UserConfiguration.getAnticipationMinutes()
         currentDateComp.minute = currentDateComp.minute! + minutes
         
@@ -242,32 +266,12 @@ class TripViewController: UIViewController, UITextFieldDelegate {
         return nil
     }
     
-    //MARK: UITextFieldDelegate
-	
-	//Disable saving while in mid-edit
-	func textFieldDidBeginEditing(_ textField: UITextField) {
-		// Disable the Save button while editing.
-		saveButton.isEnabled = false
-	}
-	
-	//Check if should be reenabled when something has being introduced
-	func textFieldDidEndEditing(_ textField: UITextField) {
-		updateSaveButtonState()
-		navigationItem.title = textField.text
-	}
-	
-    //To allow the user to stop focusing on the text field
-	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		alarmNameTextField.resignFirstResponder()
-		return true
-	}
-		
 	/*Checks whether the current trip saved in the instance is already present in the stored trips
 		Returns a string specifying which criteria a repeated trip infringed
         If there was no repeating trip, it returns nil
 		A trip is considered equal to another if the departure time is the same and (the repetition days are the same or they have the same date). Trips must have a unique name
 	*/
-    func checkForTripRepetition() -> String?
+    func checkTripRepetition(trip: Trip) -> String?
 	{
         //Load trips
 		let trips = Trip.loadTrips()
@@ -282,30 +286,30 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 		for t in trips!
 		{
             //If a trip already has that name
-            if t.alarmName == trip!.alarmName
+            if t.alarmName == trip.alarmName
             {
                 return "Ya existe un traslado con el mismo nombre."
             }
             
 			//if the departure time is the same
-			if t.departureTime == trip!.departureTime
+			if t.departureTime == trip.departureTime
 			{
 				//If they both have at least 1 day of repetition
-				if t.hasRepetionDay() && trip!.hasRepetionDay()
+				if t.hasRepetionDay() && trip.hasRepetionDay()
 				{
 					//Check if they are the same
-					if t.getRepetitionDaysAsString() == trip!.getRepetitionDaysAsString()
+					if t.getRepetitionDaysAsString() == trip.getRepetitionDaysAsString()
 					{
 						return "Ya existe un traslado a la misma hora y con los mismos días repetidos."
 					}
 				}
 				//If only one has a repeated day, they cannot be equal, keep checking
-				else if (t.hasRepetionDay() && !(trip!.hasRepetionDay())) || (!t.hasRepetionDay() && trip!.hasRepetionDay())
+				else if (t.hasRepetionDay() && !(trip.hasRepetionDay())) || (!t.hasRepetionDay() && trip.hasRepetionDay())
 				{
 					continue
 				}
 				//Otherwise, check for the same departure date
-                else if Calendar.current.isDate(t.alarmDate, equalTo: trip!.alarmDate, toGranularity: .minute){
+                else if Calendar.current.isDate(t.alarmDate, equalTo: trip.alarmDate, toGranularity: .day){
 					return "Ya existe un traslado a la misma hora y con la misma fecha."
 				}
 			}
@@ -314,17 +318,18 @@ class TripViewController: UIViewController, UITextFieldDelegate {
 	}
 	
     //Fills this VC's trip field with the data from the user
-    func createTripFromInputData(name: String, date: Date, repetitionDays: [Bool]) -> Trip? {
+    func getHourMinute(fromDate date: Date) -> String {
         //Retrieve inputed data
         
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "es_mx")
         formatter.dateFormat = "HH:mm"
-        let departureTime = formatter.string(from: date)
+        return formatter.string(from: date)
         
-        // Set the trip to be passed to TripTableViewController after the unwind segue.
-        return Trip(alarmName: name, repetitionDays: repetitionDays, departureTime: departureTime, alarmDate: date, active: true)
     }
+    
+    
+    //MARK: - IBOutlets appearence methods
     
     //Allows saving only if the trip name is not empty
 	private func updateSaveButtonState() {

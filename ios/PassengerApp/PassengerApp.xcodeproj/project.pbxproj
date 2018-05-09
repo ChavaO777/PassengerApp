@@ -36,7 +36,6 @@
 		DED4BA7D206B395200834B8D /* PassengerAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA7C206B395200834B8D /* PassengerAppTests.swift */; };
 		DED4BA88206B395200834B8D /* PassengerAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4BA87206B395200834B8D /* PassengerAppUITests.swift */; };
 		DEEA1F89209E91B200D287C0 /* TripsTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEA1F88209E91B200D287C0 /* TripsTesting.swift */; };
-		DEEA1F8A209E969B00D287C0 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E727682091509F003016D6 /* Trip.swift */; };
 		DEEEE3B92098F819005BBD8A /* ExtensionAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEEE3B82098F819005BBD8A /* ExtensionAppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -432,7 +431,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEEA1F8A209E969B00D287C0 /* Trip.swift in Sources */,
 				DED4BA7D206B395200834B8D /* PassengerAppTests.swift in Sources */,
 				DEEA1F89209E91B200D287C0 /* TripsTesting.swift in Sources */,
 				DED236CD20A23364006DACBC /* TripVCTests.swift in Sources */,

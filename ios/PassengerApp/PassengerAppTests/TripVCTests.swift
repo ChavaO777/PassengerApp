@@ -31,7 +31,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.1
      * Tests that a day in the past is invalid
      */
     func testPastDate() {
@@ -40,7 +40,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.2
      * Tests that a time that is at the beginning of office hours, is invalid
      */
     func testBeginOfficeHour() {
@@ -49,7 +49,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.3
      * Tests that a time that is just before the beginning of office hours, is invalid
      */
     func testBeforeBeginOfficeHour() {
@@ -58,7 +58,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.4
      * Tests that a time that is at the end of office hours, is invalid
      */
     func testEndOfficeHour() {
@@ -67,7 +67,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.5
      * Tests that a time that is jsut after the end of office hours, is invalid
      */
     func testAfterEndOfficeHour() {
@@ -76,7 +76,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.6
      * Tests that a time between office hours, is valid
      */
     func testBetweenOfficeHour() {
@@ -85,7 +85,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.7
      * Tests that adding a trip within X anticipation minutes from now, is invalid
      */
     func testAnticipationMinutesInvalid() {
@@ -102,7 +102,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.8
      * Tests that adding a trip at exactly X minutes from now, is invalid. X should be the maximum allowed
      */
     func testAnticipationMinutesUpperBound() {
@@ -122,7 +122,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.9
      * Tests that adding a trip at exactly X minutes from now, is invalid. X should be the minimum allowed
      */
     func testAnticipationMinutesLowerBound() {
@@ -142,7 +142,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.10
      * Tests that a trip is not found to be repeated, because there are no saved trips
      */
     func testRepeatedTripOnEmptyArray() {
@@ -156,7 +156,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.11
      * Tests that a trip is found to be repeated in an array of only itself
      */
     func testRepeatedTripFound() {
@@ -170,7 +170,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.12
      * Tests that a trip is not found in an array of 3 other trips
      */
     func testTripNotRepeated() {
@@ -194,7 +194,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.13
      * Tests that a trip name is found to be repeated even when the rest of the trip is different
      */
     func testTripNameRepeated() {
@@ -218,7 +218,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.14
      * Tests that a trip is repeating days and departure time
      */
     func testTripRepeatedDaysAndDepartureTime() {
@@ -241,7 +241,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.15
      * Tests that a trip is repeating departure time but has no repeated days
      */
     func testTripRepeatedDepartureTimeUnrepeatedDays() {
@@ -263,7 +263,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.16
      * Tests that a trip has same departure date but different time
      */
     func testTripRepeatedDateDiffTime() {
@@ -285,7 +285,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.17
      * Tests that a trip has same departure date and time
      */
     func testTripRepeatedDateAndDepartureTime() {
@@ -307,7 +307,7 @@ class TripVCTests: XCTestCase {
     }
     
     /*
-     * Test ID:
+     * Test ID: 2.18
      * Tests that the hour and minute is retrieved correctly from a date
      */
     func testHourMinuteFormat() {

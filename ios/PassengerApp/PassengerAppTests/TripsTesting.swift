@@ -26,7 +26,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.1
      * Tests that a trip is not created if there is no name for it. The trip constructor should return nil
      */
     func testNoTripName(){
@@ -36,7 +36,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.2
      * Tests that a trip is not created if the array of repetition days is less than 7. The trip constructor should return nil
      */
     func testNotEnoughRepetitionDays(){
@@ -46,7 +46,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.3
      * Tests that a trip is not created if the array of repetition days is greater than 7. The trip constructor should return nil
      */
     func testMoreRepetitionDays(){
@@ -56,7 +56,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.4
      * Tests that a trip is not created if the departure time string is empty. The trip constructor should return nil
      */
     func testNoDepartureTime(){
@@ -66,7 +66,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.5
      * Tests that a trip is equal to another
      */
     func testTripEquals(){
@@ -83,7 +83,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.6
      * Tests that a trip is equal to another but using the overriden "==" operator
      */
     func testTripEqualsOverride(){
@@ -99,7 +99,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.7
      * Tests that an array of trips is saved and loaded correctly
      */
     func testCorrectLoadSave(){
@@ -124,7 +124,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.8
      * Tests that an empty array of trips is saved and loaded correctly
      */
     func testEmptyLoadSave(){
@@ -138,7 +138,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.9
      * Tests that a trip with a particular name is present in an array of trips
      */
     func testFindTrip(){
@@ -159,7 +159,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.10
      * Tests that a trip with a particular name is not present in an array of trips
      */
     func testNotFindTrip(){
@@ -180,7 +180,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.11
      * Tests that a trip with a particular name is not present in an empty array of trips
      */
     func testEmptyFindTrip(){
@@ -189,7 +189,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.12
      * Tests that the first day as repetition is recognized correctly
      */
     func testHasRepDayFirst(){
@@ -201,7 +201,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.13
      * Tests that the last day as repetition is recognized correctly
      */
     func testHasRepDayLast(){
@@ -213,8 +213,8 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
-     * Tests that the last day as repetition is recognized correctly
+     * TEST ID: 1.14
+     * Tests that a day of repetition in the middle is recognized correctly
      */
     func testHasRepDayMiddle(){
         
@@ -225,7 +225,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.15
      * Tests that all days are repetition, it should have same response as with only 1
      */
     func testHasAllRepDays(){
@@ -237,7 +237,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.16
      * Tests that the no repetition day is recognized correctly
      */
     func testHasNoRepDay(){
@@ -249,7 +249,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.17
      * Tests that the repetition days is gotten correctly as string
      */
     func testRepDaysString(){
@@ -261,7 +261,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.18
      * Tests that a trip with all the repetition days is gotten correctly as string
      */
     func testAllRepDaysString(){
@@ -273,7 +273,7 @@ class TripsTests: XCTestCase {
     }
     
     /*
-     * TEST ID:
+     * TEST ID: 1.19
      * Tests that a trip with no repetition days is gotten correctly as string
      */
     func testNoneRepDaysString(){
